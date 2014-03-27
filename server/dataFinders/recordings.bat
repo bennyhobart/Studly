@@ -1,0 +1,2 @@
+node recordings.js
+pause

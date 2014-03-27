@@ -1,0 +1,2 @@
+node maps.js
+pause

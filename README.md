@@ -12,23 +12,23 @@ All of the above are available as NPM modules
 
 After installing the required libraries above browse to pheets and run bower install and npm install to get all dependencies
 
-	  pheets> bower install && npm install.
+	  bower install && npm install.
 
 After installation run grunt to view development version of the website
 
-	pheets> grunt serve
+	grunt serve
 
 
 To start production ready website
 
-  pheets> grunt serve:dist
+  grunt serve:dist
 
 ## Adding libraries
 
 Bower should be used for adding new libraries when possible, always remember to run bower with the --save-dev tag to update the bower.json file
 
 
-	 pheets> bower install libraryname#verion_number --save-dev
+	 bower install libraryname#verion_number --save-dev
 
 
 

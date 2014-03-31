@@ -37,7 +37,7 @@ Bower should be used for adding new libraries when possible, always remember to 
  - This will look at the `package.json` file, which will tell npm what it needs to download
 
 ###About###
-UniOrg (short for Uni Organiser) is an app that allows students to keep track of which lectures and tutorials that have attended, as well as allowing them easy access to lecture recordings, directions to classes and more.
+Studly is an app that allows students to keep track of which lectures and tutorials that have attended, as well as allowing them easy access to lecture recordings, directions to classes and more.
 
 ###Features###
  - Nothing, this app hasn't been made yet >_>

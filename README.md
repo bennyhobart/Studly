@@ -30,7 +30,11 @@ Bower should be used for adding new libraries when possible, always remember to 
 
 	 bower install libraryname#verion_number --save-dev
 
-
+## Getting node.js dependencies
+ - There should be a `package.json` in each of the node.js directories (at this stage, only dataFinders)
+ - CD to the directory (etc: dataFinders)
+ - type `npm install`
+ - This will look at the `package.json` file, which will tell npm what it needs to download
 
 ###About###
 UniOrg (short for Uni Organiser) is an app that allows students to keep track of which lectures and tutorials that have attended, as well as allowing them easy access to lecture recordings, directions to classes and more.

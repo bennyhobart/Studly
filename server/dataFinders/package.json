@@ -1,0 +1,10 @@
+{
+  "name": "DataGenerators",
+  "description": "Generates data for our system",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "cheerio": "*",
+    "xml2js": "*"
+  }
+}

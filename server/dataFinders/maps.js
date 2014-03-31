@@ -20,11 +20,12 @@ Class to cache buildings
 function buildingCacher(name, href) {
     this.name = name;
     this.href = href;
-    this.cache();
 }
 
 // Caches a building
-buildingCacher.prototype.cache() {
+buildingCacher.prototype.cache = function(callback) {
+    console.log('Caching: '+this.name);
+
     var content = '';
 
     // Request the page (this will have a link to rooms)
@@ -35,6 +36,8 @@ buildingCacher.prototype.cache() {
             // Load the page into cheerio
             var $ = cheerio.load(content);
 
+            console.log('Got a link back:');
+
             $('.within ul li a').each(function() {
                 // Grab useful stuff
                 var link = $(this);
@@ -42,8 +45,14 @@ buildingCacher.prototype.cache() {
                 var href = link.attr('href');
 
                 // Tell the user
-                console.log(name+' - '+href);
+                console.log('DATA: '+name+' - '+href);
             });
+
+            // Check if there is a callback
+            if(callback) {
+                // Run the callback
+                callback();
+            }
         });
     });
 }
@@ -54,7 +63,16 @@ function buildMaps() {
     console.log('Updating maps...');
 
     // List of buildings left to check
-    var toBuild = [];
+    this.toBuild = [];
+}
+
+// Start caching
+buildMaps.prototype.startCaching = function() {
+    console.log('\n\nHERE\n\n');
+    console.log(this.toBuild);
+
+    // Alias of this
+    var thisMap = this;
 
     // Request the page
     var content = '';
@@ -70,13 +88,35 @@ function buildMaps() {
                 var link = $(this);
                 var name = link.html();
                 var href = link.attr('href');
-                console.log(name+' - '+href);
+                //console.log(name+' - '+href);
+
+                // Store that this building needs caching
+                thisMap.toBuild.push(new buildingCacher(name, href));
             });
+
+            // Continue Caching
+            thisMap.cacheNext();
         });
     }).on('error', function(err) {
         throw err;
     });
 }
 
+// Cache the next building
+buildMaps.prototype.cacheNext = function() {
+    var thisMap = this;
+
+    if(this.toBuild.length > 0) {
+        // Grab the first thing that needs caching
+        var toCache = this.toBuild.pop();
+
+        // Cache it
+        toCache.cache(function() {
+            thisMap.cacheNext();
+        });
+    }
+}
+
 // Build the maps
-buildMaps();
+var cacher = new buildMaps();
+cacher.startCaching();

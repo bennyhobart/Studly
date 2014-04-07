@@ -12,6 +12,10 @@ angular.module('uniOrgApp', [
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+      .when('/timetable', {
+        templateUrl: 'views/timetable.html',
+        controller: 'TimetableCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

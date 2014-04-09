@@ -1,7 +1,10 @@
 {
-  "name": "uniorg",
+  "name": "studly",
   "version": "0.0.0",
   "dependencies": {},
+  "author": "",
+  "readmeFilename": "README.md",
+  "description": "a university organiser targeted toward melbourne university students",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",

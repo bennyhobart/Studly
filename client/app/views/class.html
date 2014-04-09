@@ -1,0 +1,51 @@
+<div id="class-page">
+	<div class="col-xs-12 col-md-7">
+		<div id="video-wrapper">
+			<div id="video-container">
+				<iframe src="//www.youtube.com/embed/EPUdSow-cUs" frameborder="0" allowfullscreen></iframe>
+			</div>
+		</div>
+		<div id="video-extras">
+				<a href="">Share<span class="glyphicon glyphicon-share-alt"></span></a>
+				<a href="">Slides</a>
+				<a href="">Download <span class="glyphicon glyphicon-download"></span></a>
+		</div>
+		<div id="video-slides">
+			<div class="col-xs-1">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</div>
+			<div class="carousel col-xs-10">
+				<span ng-repeat="slide in video.slides track by $index">
+					<a href="">{{$index}}</a>
+				</span>
+			</div>
+			<div class="col-xs-1">
+				<span class="col-xs-1 glyphicon glyphicon-chevron-right"></span>	
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-md-5 threads">
+		<div class="col-xs-12 thread" ng-repeat="thread in threads track by $index">
+			<div class="col-xs-2 votes">
+				<a href=""><span class="glyphicon glyphicon-arrow-up"></span></a>
+				<div>{{thread.count.up-thread.count.against}}</div>
+				<a href=""><span class="glyphicon glyphicon-arrow-down"></span></a>
+			</div>
+			<div class="col-xs-10">
+				<div class="title">
+					{{thread.title}}
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="body">
+					{{thread.body}}
+				</div>
+				<div class="bottom">
+					<a href="">{{thread.user}}</a>
+					<a href=""><span class="glyphicon glyphicon-comment"></span></a>
+				</div>
+			</div>
+			
+		</div>
+	</div>		
+</div>

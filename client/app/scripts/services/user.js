@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('uniOrgApp')
+angular.module('studlyApp')
   .factory('user', function () {
     // Service logic
     // ...

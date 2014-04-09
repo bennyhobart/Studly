@@ -146,6 +146,7 @@ new buildingCacher('Redmond Barry Building', 'http://maps.unimelb.edu.au/parkvil
     });
 });*/
 
+
 // Root Test
 new buildingCacher('root', 'http://maps.unimelb.edu.au/parkville/building/', function(data) {
     console.log('Done caching, saving...');
@@ -163,5 +164,60 @@ new buildingCacher('ERC', 'http://maps.unimelb.edu.au/parkville/building/171/ERC
         if (err) throw err;
         console.log('maps.json saved!');
     });
+});
+*/
+
+/*
+Copied from http://stackoverflow.com/questions/130404/javascript-data-formatting-pretty-printer
+modified to be more readable in html format
+*/
+/*function strRep(str, count) {
+    var output = '';
+    for(var i=0; i<count; i++) {
+        output += str;
+    }
+
+    return output;
+}
+
+function DumpObject(obj, padding) {
+    padding = padding || 0;
+
+    var result = "";
+    var len = 0;
+
+    var p = strRep('&nbsp;', padding);
+
+    var first = true
+
+    for (var property in obj) {
+        if(first) {
+            first = false;
+        } else {
+            result = result + ',<br>';
+        }
+
+        var value = obj[property];
+        if (typeof value == 'string') {
+            value = "'" + value + "'";
+        } else if (typeof value == 'object') {
+            if (value instanceof Array) {
+                value = p+'[<br>'+p+value + '<br>'+p+']';
+            } else {
+                value = '{<br>' + DumpObject(value, padding+4) + '<br>'+p+'}';
+            }
+        }
+        result += p+"'" + property + "' : " + value;
+        len++;
+    }
+
+    return result.replace(/, $/, '');
+}
+
+var od = DumpObject(require('./maps.json'));
+
+fs.writeFile('maps.htm', od, function (err) {
+    if (err) throw err;
+    console.log('Saved maps.htm');
 });
 */

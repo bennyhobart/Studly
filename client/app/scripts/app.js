@@ -8,10 +8,10 @@ angular.module('studlyApp', [
 ])
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
+      // .when('/', {
+      //   templateUrl: 'views/login.html',
+      //   controller: 'LoginCtrl'
+      // })
       .when('/timetable', {
         templateUrl: 'views/timetable.html',
         controller: 'TimetableCtrl'
@@ -20,7 +20,11 @@ angular.module('studlyApp', [
         templateUrl: 'views/class.html',
         controller: 'ClassCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/login'
       });
   });

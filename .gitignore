@@ -3,3 +3,9 @@ dist
 .tmp
 .sass-cache
 app/bower_components
+app/node_modules
+app/assets/bower_components
+client/app/bower_components
+client/node_modules
+Studly.sublime-project
+Studly.sublime-workspace

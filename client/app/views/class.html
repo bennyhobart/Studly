@@ -1,5 +1,5 @@
 <div id="class-page">
-	<div class="col-xs-12 col-md-7">
+	<div id="video" class="col-xs-12 col-md-7">
 		<div id="video-wrapper">
 			<div id="video-container">
 				<iframe src="//www.youtube.com/embed/QH2-TGUlwu4" frameborder="0" allowfullscreen></iframe>
@@ -44,9 +44,34 @@
 				</div>
 				<div class="bottom">
 					<a href="">{{thread.user}}</a>
-					<a href=""><span class="glyphicon glyphicon-comment"></span></a>
+					<a href="" ng-click="expression"><span class="glyphicon glyphicon-comment"></span></a>
 				</div>
 			</div>
+
+			<!-- Button trigger modal -->
+			<button class="btn btn-primary btn-lg" >
+			  Launch demo modal
+			</button>
+
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			      </div>
+			      <div class="modal-body">
+			        ...
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+
 			
 		</div>
 	</div>		

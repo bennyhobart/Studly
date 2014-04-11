@@ -6,6 +6,9 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 	div {
 		padding: 0 0;
 	}
+	#video {
+		// margin-top: 0 !important;
+	}
 	#video-wrapper {
 		display: inline-block;
     	position: relative;
@@ -101,6 +104,9 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 @media all and (min-width: $screen-md-min) {
 	#class-page {
+		#video {
+			margin-top: 0;
+		}
 		#video-wrapper {
 			margin: 0 0;
 		}

@@ -24,12 +24,12 @@ angular.module('studlyApp')
         },
         comments: [],
         body: 'So I was watching this video yeah, and He said this stuff about things I didn\'t understand...',
-      };
+    };
     var comment = {
         user: 'xXDeAtHkIlLeRXx69',
         count: 20,
         body: 'you know what I don\'t even aswell, Don\'t even'
-      };
+    };
     
     for(var i=0; i<10; ++i) {
         var a = angular.copy(slide);
@@ -44,19 +44,26 @@ angular.module('studlyApp')
     
     //Actual code
     //scroll video withpage
-    var videoContainer = $('#class-page > div:first-child');
-    var offset = videoContainer.offset();
+    var video = $('#video');
+    var offset = video.offset();
     $(window).scroll(function() {
+        var width = video.width();
+        var parentWidth = video.parent().width();
+        console.log(width/parentWidth);
+        if(width/parentWidth===1){
+            return;
+        }
+
         if ($(window).scrollTop() > offset.top-20) {
-            videoContainer.stop().animate({
+            video.stop().animate({
                 marginTop: ($(window).scrollTop()+20-offset.top)
             }, 0);
         } else {
-            videoContainer.stop().animate({
+            video.stop().animate({
                 marginTop: 0
             }, 0);
         }
-    });    
+    });
 
 
 
@@ -73,7 +80,7 @@ angular.module('studlyApp')
         return;
     };
     $scope.prevSlide = function() {
-        if(currentSlide!=0) {
+        if(currentSlide!==0) {
             currentSlide -= 1;
             updateSlides();
         }

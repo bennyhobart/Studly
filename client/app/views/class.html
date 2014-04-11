@@ -12,24 +12,26 @@
 		</div>
 		<div id="video-slides">
 			<div class="col-xs-1">
-				<span class="glyphicon glyphicon-chevron-left"></span>
+				<a ng-click="prevSlide()"><span class="glyphicon glyphicon-chevron-left"></span></a>
 			</div>
-			<div class="carousel col-xs-10">
-				<span ng-repeat="slide in video.slides track by $index">
-					<a href="">{{$index}}</a>
-				</span>
+			<div class="col-xs-10">
+				<div class="col-xs-3" ng-repeat="slide in slides">
+					<a href="">
+						{{video.slides[slide].id}}
+					</a>
+				</div>
 			</div>
 			<div class="col-xs-1">
-				<span class="col-xs-1 glyphicon glyphicon-chevron-right"></span>	
+				<a ng-click="nextSlide()"><span class="col-xs-1 glyphicon glyphicon-chevron-right"></span></a>
 			</div>
 		</div>
 	</div>
 	<div class="col-xs-12 col-md-5 threads">
 		<div class="col-xs-12 thread" ng-repeat="thread in threads track by $index">
 			<div class="col-xs-2 votes">
-				<a href=""><span class="glyphicon glyphicon-arrow-up"></span></a>
-				<div>{{thread.count.up-thread.count.against}}</div>
-				<a href=""><span class="glyphicon glyphicon-arrow-down"></span></a>
+				<a href="" ng-click="upvote(thread.id)"><span class="glyphicon glyphicon-arrow-up"></span></a>
+				<div>{{thread.count.up-thread.count.down}}</div>
+				<a href="" ng-click="downvote(thread.id)"><span class="glyphicon glyphicon-arrow-down"></span></a>
 			</div>
 			<div class="col-xs-10">
 				<div class="title">

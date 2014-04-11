@@ -7,10 +7,10 @@ angular.module('studlyApp')
     $scope.video = {
         slides: [],
         id: 1,
-        download_url: 'video!!!!',
+        downloadUrl: 'video!!!!',
     };
     var slide = {
-        image_url: 'placeholder_slide.png',
+        imageUrl: 'images/placeholder_slide.png',
         id: 1,
         timestamp: 12000
     };
@@ -20,7 +20,7 @@ angular.module('studlyApp')
         title: 'What is.. I don\'t even?',
         count: {
             up: 50,
-            against: 20
+            down: 20
         },
         comments: [],
         body: 'So I was watching this video yeah, and He said this stuff about things I didn\'t understand...',
@@ -31,12 +31,63 @@ angular.module('studlyApp')
         body: 'you know what I don\'t even aswell, Don\'t even'
       };
     
-    thread.comments.push(comment);
-    $scope.threads.push(thread);
-    $scope.threads.push(thread);
-    $scope.video.slides.push(slide);
-    $scope.video.slides.push(slide);
-    $scope.video.slides.push(slide);
-    $scope.video.slides.push(slide);
+    for(var i=0; i<10; ++i) {
+        var a = angular.copy(slide);
+        a.id=i;
+        $scope.video.slides.push(a);
+    }
+    for(i=0;i<10;++i) {
+        var a = angular.copy(thread);
+        a.id=i;
+        $scope.threads.push(a);
+    }
+    
+    //Actual code
+    //scroll video withpage
+    var videoContainer = $('#class-page > div:first-child');
+    var offset = videoContainer.offset();
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > offset.top-20) {
+            videoContainer.stop().animate({
+                marginTop: ($(window).scrollTop()+20-offset.top)
+            }, 0);
+        } else {
+            videoContainer.stop().animate({
+                marginTop: 0
+            }, 0);
+        }
+    });    
+
+
+
+    var currentSlide = 0;
+    var updateSlides = function() {
+        $scope.slides=_.range(currentSlide, currentSlide+4);
+    };
+    updateSlides();
+    $scope.nextSlide = function() {
+        if(currentSlide+4<$scope.video.slides.length) {
+            currentSlide += 1;
+            updateSlides();
+        }
+        return;
+    };
+    $scope.prevSlide = function() {
+        if(currentSlide!=0) {
+            currentSlide -= 1;
+            updateSlides();
+        }
+        return;
+    };
+
+    $scope.upvote = function(threadID) {
+        $scope.threads[threadID].count.up+=1;
+    };
+    $scope.downvote = function(threadID) {
+        $scope.threads[threadID].count.down+=1;
+    };
+
+
+
 
 });

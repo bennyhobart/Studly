@@ -29,9 +29,9 @@
 	<div class="col-xs-12 col-md-5 threads">
 		<div class="col-xs-12 thread" ng-repeat="thread in threads track by $index">
 			<div class="col-xs-2 votes">
-				<a href="" ng-click="upvote(thread.id)"><span class="glyphicon glyphicon-arrow-up"></span></a>
+				<a href="" ng-click="upvote(thread)"><span class="glyphicon glyphicon-arrow-up"></span></a>
 				<div>{{thread.count.up-thread.count.down}}</div>
-				<a href="" ng-click="downvote(thread.id)"><span class="glyphicon glyphicon-arrow-down"></span></a>
+				<a href="" ng-click="downvote(thread)"><span class="glyphicon glyphicon-arrow-down"></span></a>
 			</div>
 			<div class="col-xs-10">
 				<div class="title">
@@ -44,35 +44,42 @@
 				</div>
 				<div class="bottom">
 					<a href="">{{thread.user}}</a>
-					<a href="" ng-click="expression"><span class="glyphicon glyphicon-comment"></span></a>
+					<a href="" ng-click="openComments(thread)"><span class="glyphicon glyphicon-comment"></span></a>
 				</div>
 			</div>
-
-			<!-- Button trigger modal -->
-			<button class="btn btn-primary btn-lg" >
-			  Launch demo modal
-			</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-			      </div>
-			      <div class="modal-body">
-			        ...
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-
 			
 		</div>
-	</div>		
+	</div>
+	<div id="modal" class="fade modal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">{{thread.title}}</h4>
+				</div>
+				<div class="modal-body">
+					{{thread.body}}
+				</div>
+				<div class="modal-body col-xs-12" ng-repeat="comment in thread.comments">
+					<div class="col-xs-2 votes">
+						<a href="" ng-click="upvote(comment)"><span class="glyphicon glyphicon-arrow-up"></span></a>
+						<div>{{comment.count.up-comment.count.down}}</div>
+						<a href="" ng-click="downvote(comment)"><span class="glyphicon glyphicon-arrow-down"></span></a>
+					</div>
+					<div class="col-xs-10">
+						<div class="username">
+							{{comment.user}}
+						</div>
+						<div class="body">
+							{{comment.body}}
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<textarea class="form-control" rows="5" name="comment"></textarea>
+					<button type="button" class="col-xs-3 btn btn-primary">Comment</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

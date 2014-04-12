@@ -24,13 +24,22 @@ angular.module('studlyApp')
         },
         comments: [],
         body: 'So I was watching this video yeah, and He said this stuff about things I didn\'t understand...',
+        id: 0
     };
     var comment = {
         user: 'xXDeAtHkIlLeRXx69',
-        count: 20,
-        body: 'you know what I don\'t even aswell, Don\'t even'
+        count: {
+            up: 30,
+            down: 10
+        },
+        body: 'you know what I don\'t even aswell, Don\'t even',
+        id: 0
     };
-    
+    for(var i=0; i<10; ++i) {
+        var a = angular.copy(comment);
+        a.id=i;
+        thread.comments.push(a);
+    }
     for(var i=0; i<10; ++i) {
         var a = angular.copy(slide);
         a.id=i;
@@ -49,7 +58,6 @@ angular.module('studlyApp')
     $(window).scroll(function() {
         var width = video.width();
         var parentWidth = video.parent().width();
-        console.log(width/parentWidth);
         if(width/parentWidth===1){
             return;
         }
@@ -87,11 +95,17 @@ angular.module('studlyApp')
         return;
     };
 
-    $scope.upvote = function(threadID) {
-        $scope.threads[threadID].count.up+=1;
+    $scope.upvote = function(obj) {
+        obj.count.up+=1;
     };
-    $scope.downvote = function(threadID) {
-        $scope.threads[threadID].count.down+=1;
+    $scope.downvote = function(obj) {
+        obj.count.down+=1;
+    };
+
+    $scope.openComments = function(thread) {
+        $scope.thread = thread;
+        $('#modal').modal('show');
+
     };
 
 

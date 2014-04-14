@@ -1,13 +1,12 @@
 'use strict';
 
 angular.module('studlyApp')
-.controller('ClassCtrl', function ($scope) {
-
+.controller('ClassCtrl', ['$scope','$sce', function ($scope, $sce) {
     //Dummy Data
     $scope.video = {
         slides: [],
         id: 1,
-        downloadUrl: 'video!!!!',
+        url: $sce.trustAsResourceUrl('http://tinyurl.com/2014-04-14'),
     };
     var slide = {
         imageUrl: 'images/placeholder_slide.png',
@@ -111,4 +110,4 @@ angular.module('studlyApp')
 
 
 
-});
+}]);

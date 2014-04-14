@@ -24,6 +24,10 @@ angular.module('studlyApp', [
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/subjects', {
+        templateUrl: 'views/subjects.html',
+        controller: 'SubjectsCtrl'
+      })
       .otherwise({
         redirectTo: '/login'
       });

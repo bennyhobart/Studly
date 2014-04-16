@@ -1,96 +1,68 @@
-<div id="calendar">
-    <div class="contents" id="today">
-    	<div class="contentLabel">Mon</div>
-    	<div class="contentNumber">13</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Tue</div>
-    	<div class="contentNumber">14</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Wed</div>
-    	<div class="contentNumber">15</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Thu</div>
-    	<div class="contentNumber">16</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Fri</div>
-    	<div class="contentNumber">17</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Sat</div>
-    	<div class="contentNumber">18</div>
-    </div>
-    <div class="contents" id="weekend">
-    	<div class="contentLabel">Sun</div>
-    	<div class="contentNumber">19</div>
-    </div>
-       <div class="contents" id="day">
-    	<div class="contentLabel">Mon</div>
-    	<div class="contentNumber">13</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Tue</div>
-    	<div class="contentNumber">14</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Wed</div>
-    	<div class="contentNumber">15</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Thu</div>
-    	<div class="contentNumber">16</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Fri</div>
-    	<div class="contentNumber">17</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Sat</div>
-    	<div class="contentNumber">18</div>
-    </div>
-    <div class="contents" id="weekend">
-    	<div class="contentLabel">Sun</div>
-    	<div class="contentNumber">19</div>
-    </div>
-</div>
+<!-- Start timetable page -->
+<div id="timetable-page">
 
-<div id="timeBar">
-    <span>10:00 AM</span>
-</div>
+	<!-- Start calendar -->
+	<div class="row">
+		<div class="col-xs-1">
+			<div id="monthLabel">
+				APR
+			</div>
+		</div>
+		<div class="col-xs-11">
+	  			<div id="calendar">
+					<div class="contents" id="{{checkDayType(date)}}" ng-repeat="date in dates track by $index">
+					    <div class="contentLabel">{{date | date:'EEE'}}</div>
+					    <div class="contentNumber">{{date.getDate()}}</div>    
+					</div>
+				</div>
+		</div>
+	</div>
+	<!-- End calendar -->
 
-<div class="list-group">
-  <a class="list-group-item active" onclick="$('.option').toggle();">
-    COMP30050 Artificial Inteligence<br/>
-    <font size="1">Doug McDonell Building - Steve Howard Theatre</font>
-  </a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-ok"></span><span style="padding-left:15px;">Mark as attended</span></a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-pushpin"></span><span style="padding-left:15px;">Get Directions</span></a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-pencil"></span><span style="padding-left:15px;">Notes</span></a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-facetime-video"></span><span style="padding-left:15px;">Lecture Recordings</span></a>
-</div>
+	<!-- Start day coloumn -->
+	<div ng-repeat="subject in subjects | orderBy:'class[0].time'">
+		<!-- Time formatting needed -->
+		<div id="timeBar">
+		    <span>{{formatTime(subject.class[0].time)}}</span>
+		</div>
 
-<div id="timeBar">
-    <span>11:00 AM</span>
-</div>
+		<div class="list-group">
+			<!-- Needs a unique id for each subject to toggle options individualy -->
+			<a class="list-group-item active" ng-click="toggleCustom()">
+			    {{subject.code}} - {{subject.name}}<br/>
+			    <font size="1px">{{subject.class[0].building}} - {{subject.class[0].theatre}}</font>
+			</a>
+			<div ng-hide="custom">
+				<a href="#" class="list-group-item">
+					<span class="glyphicon glyphicon-ok"></span>
+					<span style="padding-left:15px;">Mark as attended</span>
+				</a>
+				<a href="#" class="list-group-item">
+					<span class="glyphicon glyphicon-pushpin"></span>
+					<span style="padding-left:15px;">Get Directions</span>
+				</a>
+				<a href="#" class="list-group-item">
+					<span class="glyphicon glyphicon-pencil"></span>
+					<span style="padding-left:15px;">Notes</span>
+				</a>
+				<a href="#/class" class="list-group-item">
+					<span class="glyphicon glyphicon-facetime-video"></span>
+					<span style="padding-left:15px;">Lecture Recordings</span>
+				</a>
+			</div>
+		</div>
 
-</br><p><center><h5>3 hours of free time.</h5></center></p></br>
+		<div id="timeBar">
+		    <span>{{formatTime(subject.class[0].end)}}</span>
+		</div>
 
-<div id="timeBar">
-    <span>02:00 PM</span>
-</div>
+		<!-- Needs some way to calculate free time -->
+		<div class="freeTime">
+			Yaaay some free time!
+		</div>
 
-<div class="list-group">
-  <a class="list-group-item active" onclick="$('.option2').toggle();">
-    COMP40004 Usability Engineering<br/>
-    <font size="1">Doug McDonell Building - Denis Discroll Theatre</font>
-  </a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-ok"></span><span style="padding-left:15px;">Mark as attended</span></a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-pushpin"></span><span style="padding-left:15px;">Get Directions</span></a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-pencil"></span><span style="padding-left:15px;">Notes</span></a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-facetime-video"></span><span style="padding-left:15px;">Lecture Recordings</span></a>
+	</div>
+	<!-- End day coloumn -->
+	
 </div>
-
-</div>
+<!-- End timetable page -->

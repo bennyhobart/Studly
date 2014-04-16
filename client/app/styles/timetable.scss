@@ -2,70 +2,87 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 @import 'sass-bootstrap/lib/bootstrap';
 
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
+#timetable-page {
+	#calendar {
+	    width: 100%;
+	    overflow: auto;
+	    height: 55px;
+	    white-space: nowrap;
+	    text-align: center;
 
-@import 'sass-bootstrap/lib/bootstrap';
+	}
 
-#calendar {
-    width: 100%;
-    background-color: #FFF;
-    overflow: auto;
-    height: 65px;
-    white-space: nowrap;
-}
+	#monthLabel {
+		width: 100%;
+		color: #AAA;
+		text-align: center;
+		font-weight: bold;
+		padding-top: 10px;
+		margin: 10px;
+		font-size: 12px;
+	}
 
-.contents {
-    border-color: #ccc;
-    border: 1px;
-    border-top: 2px;
-    padding-top: 2px;
-    width: 38px;
-    height: 45px;
-    display: inline-block;
-}
+	.contents {
+	    width: 38px;
+	    height: 45px;
+	    display: inline-block;
+	}
 
-.contentLabel {
-    width: 100%;
-    padding-top: 3px;
-    text-align: center;
-    position: relative;
-    font-weight: normal;
-    font-size: 9px;
-}
+	.contentLabel {
+	    width: 100%;
+	    padding-top: 3px;
+	    position: relative;
+	    font-weight: normal;
+	    font-size: 9px;
+	}
 
-.contentNumber {
-    width: 35px;
-    padding-top: 2px;
-    font-weight: bold;
-    text-align: center;
-    position: relative;
-    font-size: 18px;
-}
+	.contentNumber {
+	    width: 35px;
+	    padding-top: 2px;
+	    font-weight: bold;
+	    position: relative;
+	    font-size: 18px;
+	}
 
-#day {
-    background-color:#FFF;
-    color: black;
-}
+	#day {
+	    background-color:#FFF;
+	    color: black;
+	}
 
-#today {
-    background-color:#468CC8;
-    color: white;
-}
+	#today {
+	    background-color:#468CC8;
+	    color: white;
+	}
 
-#weekend {
-    background-color:#ccc;
-}
+	#weekend {
+	    background-color:#ccc;
+	}
 
-#timeBar{
-    border-bottom: 1px grey dotted;
-    overflow:visible;
-    height:12px;        
-    margin: 5px 0 10px 0;
-}
-#timeBar span{
-    color: grey;
-    font-weight: bold;
-    font-size: 10px;
-    background-color: white;        
-    padding: 0 5px;
+	#day:hover, #today:hover, #weekend:hover {
+		background-color:#EEE;
+		color: #000;
+	}
+
+
+	#timeBar {
+	    border-bottom: 1px grey dotted;
+	    overflow:visible;
+	    height:12px;        
+	    margin: 5px 0 10px 0;
+	}
+
+	#timeBar span {
+	    color: grey;
+	    font-weight: bold;
+	    font-size: 10px;
+	    background-color: white;        
+	    padding: 0 5px;
+	}
+
+	.freeTime {
+		width: 100%;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		text-align: center;
+	}
 }

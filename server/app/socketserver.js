@@ -1,4 +1,4 @@
-var passportsocketio = require('passport.socketio');
+var passportSocketIo = require('passport.socketio');
 
 module.exports = function(io, cookieParser, key, secret, sessionStore) {
     io.set('authorization', passportSocketIo.authorize({
@@ -26,5 +26,5 @@ module.exports = function(io, cookieParser, key, secret, sessionStore) {
         socket.on("hi", function(data, fn) {
             fn('hi back!');
         })
-    }
+    });
 }

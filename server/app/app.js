@@ -55,10 +55,13 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static('./' + __dirname + '/client'));
 }
 
+/* App Configurations */
+var env = process.env.NODE_ENV || 'development';
+var config = require('./config')[env];
+var sessionStore = null; //TODO: Ash Database
+
 // Set Handlebars
 app.set('view engine', 'handlebars');
-
-
 
 /*
  * Routes
@@ -72,7 +75,7 @@ app.get('/', function(request, response, next) {
  * API Handling
  */
 
-require('api') 
+require('./api') 
     (app, 
         passport);
 
@@ -85,7 +88,7 @@ server.listen(app.get('port'), function() {
  * Socket Handling
  */
 var io = socketio.listen(server);
-require('socketserver')
+require('./socketserver')
     (io,
         express.cookieParser,
         config.sessionkey,

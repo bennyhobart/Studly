@@ -3,8 +3,13 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 @import 'theme/theme';
 
 #class-page {
-	div {
+
+	#video {
+		// margin-top: 0 !important;
 		padding: 0 0;
+		div {
+			padding: 0 0;
+		}
 	}
 	#video-wrapper {
 		display: inline-block;
@@ -12,7 +17,7 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
     	width: 100%;
 	}
 	#video-wrapper:after {
-		padding-top: 56.25%; /*16:9 ratio*/
+		padding-top: 75%;
 		display: block;
 		content: '';
 	}
@@ -20,11 +25,10 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 		position: absolute;
 		top: 0; bottom: 0; right: 0; left: 0; /*fill parent*/
 		background-color: $brand-primary;
-		iframe {
+		video {
 			height: 100%;
 			width: 100%;
 		}
-		
 	}
 	#video-extras{
 		text-align: center;
@@ -45,29 +49,28 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 
 	}
 	#video-slides {
-		.carousel {
-			text-align: center;
-			transform-style: preserve-3d;
+		
+
+
+	}
+	.votes {
+		text-align: center;
+		a {
+			font-size: $font-size-large;
+			color: $gray;
 		}
-
-
+		a:first-child:active span {
+			color: $brand-warning;
+		}
+		a:last-child:active span {
+			color: $brand-primary;
+		}
+		
 	}
 	.thread {
 		background-color: $gray-lighter;
 		padding: $padding-base-vertical $padding-base-horizontal;
-		.votes {
-			text-align: center;
-			a {
-				font-size: $font-size-large;
-			}
-			a:first-child span {
-				color: $brand-primary;
-			}
-			a:last-child span {
-				color: $brand-warning;
-			}
-			
-		}
+		
 		.title {
 			text-align: justify;
 			font-size: $font-size-large;
@@ -99,11 +102,24 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 			border-bottom: thin solid $gray;
 		}
 	}
+
+	#modal {
+		.username {
+			font-size: $font-size-large;
+		}
+		.body {
+			text-align: justify;
+		}
+
+	}
 }
 
 
 @media all and (min-width: $screen-md-min) {
 	#class-page {
+		#video {
+			margin-top: 0;
+		}
 		#video-wrapper {
 			margin: 0 0;
 		}
@@ -111,6 +127,7 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 	}
 
 	.threads {
+		padding: 0 0;
 	}
 
 }

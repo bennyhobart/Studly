@@ -3,7 +3,7 @@
 describe('Service: user', function () {
 
   // load the service's module
-  beforeEach(module('uniOrgApp'));
+  beforeEach(module('studlyApp'));
 
   // instantiate service
   var user;

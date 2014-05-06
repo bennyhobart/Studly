@@ -57,6 +57,8 @@ Studly is an app that allows students to keep track of which lectures and tutori
   - CSS preprocessor that adds functions and variables
  - [Node.js](http://nodejs.org/)
   - Server backend powered by google's V8 engine (what chrome uses for javascript)
+ - [Express.js]
+  - A Server-Side MVC Framework. Works very nicely with Node.js
  - [Herohu](https://www.heroku.com/)
   - A place to deploy our server for free
  - [Karma Runner](http://karma-runner.github.io/0.12/index.html)

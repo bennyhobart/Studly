@@ -8,7 +8,11 @@
 		border-right: thin solid $gray-lighter;
 
 	}
-
+	form {
+		:last-child {
+			float: right;
+		}
+	}
 	#video {
 		margin-top: $padding-base-vertical !important;
 	}
@@ -60,10 +64,10 @@
 			font-size: $font-size-large;
 			color: $gray;
 		}
-		a:first-child:active span {
+		a:first-child:hover span {
 			color: $brand-warning;
 		}
-		a:last-child:active span {
+		a:last-child:hover span {
 			color: $brand-primary;
 		}
 

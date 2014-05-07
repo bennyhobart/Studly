@@ -84,7 +84,7 @@
 /api/classes/:WeeklyClassId/:ThreadId
     -POST, add a comment
         String
-    -DELETE :commentId, Remove a Comment
+    -DELETE commentId, Remove a Comment
     -GET, Get all comments for a thread
 
 
@@ -93,9 +93,9 @@
 /api/timetable/
     -GET, get array of weekly classes in timetable for current week
         WeeklyClass[]: WeeklyClass
-    -POST :ClassTimeId, add a class time to timetable
-    -DELETE :ClassTimeId, delete a class time from timetable
-    -PUT :ClassTimeId :ClassTimeId, Change from one classTime to another
+    -POST classId, add a class time to timetable
+    -DELETE classId, delete a class time from timetable
+    -PUT originalClass newClass, Change from one classTime to another
 
 //SUBJECTS PAGE
 

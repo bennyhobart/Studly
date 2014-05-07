@@ -1,15 +1,34 @@
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-
 @import 'theme/theme';
+
 
 #class-page {
 
+	.heading, #name {
+		padding-left: $padding-base-horizontal;
+		border-bottom: thin solid $gray-lighter;
+	}
+	#name {
+		background-color: $blue;
+		font-size: $font-size-large;
+		color: white;
+
+	}
+
+	#subject-information {
+
+	}
+	#extra-info {
+		background-color: $gray-lighter;
+		min-height: 100%;
+		border-right: thin solid $gray-lighter;
+
+	}
+	.heading {
+		background-color: $orange;;
+		color: white;
+	}
 	#video {
-		// margin-top: 0 !important;
-		padding: 0 0;
-		div {
-			padding: 0 0;
-		}
+		margin-top: $padding-base-vertical !important;
 	}
 	#video-wrapper {
 		display: inline-block;
@@ -45,11 +64,11 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 		}
 		a:last-child {
 			float: right;
-		}	
+		}
 
 	}
 	#video-slides {
-		
+
 
 
 	}
@@ -65,12 +84,13 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 		a:last-child:active span {
 			color: $brand-primary;
 		}
-		
+
+	}
+	#threads-heading {
+		background-color: $blue;
 	}
 	.thread {
-		background-color: $gray-lighter;
-		padding: $padding-base-vertical $padding-base-horizontal;
-		
+
 		.title {
 			text-align: justify;
 			font-size: $font-size-large;
@@ -87,20 +107,18 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 			text-align: justify;
 		}
 		.bottom {
+			margin-bottom: $padding-base-vertical;
 			a {
 				color: $gray-dark;
 			}
 			a:hover {
 				text-decoration: underline;
 			}
-			span {
-				float: right;
-			}
-
 		}
-		> div:last-child {
-			border-bottom: thin solid $gray;
-		}
+	}
+	.timestamp {
+		color: $gray-light;
+		font-size: $font-size-small;
 	}
 
 	#modal {

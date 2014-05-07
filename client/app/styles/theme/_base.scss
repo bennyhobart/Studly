@@ -1,0 +1,25 @@
+
+#get-the-app {
+    a {
+        color: white;
+    }
+    a:hover {
+        color: $orange;
+    }
+    background-color: $blue;
+    border-radius: 5px 5px;
+}
+
+#footer {
+    background-color: $blue;
+    a {
+        color: white;
+    }
+    div {
+        margin: 0 auto;
+    }
+    a:hover {
+        color: $orange;
+        background-color: $blue;
+    }
+}

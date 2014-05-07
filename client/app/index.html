@@ -29,13 +29,12 @@
     <!-- Add your site or application content here -->
     <div class="container">
 
-      <!-- NAVABAR -->
-      <div class="row">
-        <navbar></navbar>
+    <!-- NAVABAR -->
+    <div class="row">
+      <navbar></navbar>
       <!-- MAIN VIEW THIS IS WHERE PAGES ARE RENDERED, DO NOT DELETE -->
-      <div class="main-view" ng-view="">
-      </div>
-
+      <div class="main-view" ng-view=""></div>
+      <footer></footer>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -76,6 +75,7 @@
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/subjects.js"></script>
         <script src="scripts/directives/navbar.js"></script>
+        <script src="scripts/directives/footer.js"></script>
         <!-- endbuild -->
 </body>
 </html>

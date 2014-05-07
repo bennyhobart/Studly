@@ -1,10 +1,4 @@
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-
-@import 'sass-bootstrap/lib/bootstrap';
-
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-
-@import 'sass-bootstrap/lib/bootstrap';
+@import 'theme/theme';
 
 #calendar {
     width: 100%;
@@ -59,13 +53,13 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 #timeBar{
     border-bottom: 1px grey dotted;
     overflow:visible;
-    height:12px;        
+    height:12px;
     margin: 5px 0 10px 0;
 }
 #timeBar span{
     color: grey;
     font-weight: bold;
     font-size: 10px;
-    background-color: white;        
+    background-color: white;
     padding: 0 5px;
 }

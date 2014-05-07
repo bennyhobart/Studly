@@ -2,31 +2,13 @@
 
 
 #class-page {
-
-	.heading, #name {
-		padding-left: $padding-base-horizontal;
-		border-bottom: thin solid $gray-lighter;
-	}
-	#name {
-		background-color: $blue;
-		font-size: $font-size-large;
-		color: white;
-
-	}
-
-	#subject-information {
-
-	}
 	#extra-info {
+		display: table-cell;
 		background-color: $gray-lighter;
-		min-height: 100%;
 		border-right: thin solid $gray-lighter;
 
 	}
-	.heading {
-		background-color: $orange;;
-		color: white;
-	}
+
 	#video {
 		margin-top: $padding-base-vertical !important;
 	}
@@ -86,25 +68,11 @@
 		}
 
 	}
-	#threads-heading {
-		background-color: $blue;
-	}
-	.thread {
 
+	.thread {
 		.title {
 			text-align: justify;
 			font-size: $font-size-large;
-			a:last-child {
-				float: right;
-			}
-		}
-		.comment {
-			font-size: $font-size-large;
-			color: $brand-info;
-			text-align: right;
-		}
-		.body {
-			text-align: justify;
 		}
 		.bottom {
 			margin-bottom: $padding-base-vertical;

@@ -1,26 +1,27 @@
 <div id="class-page">
-	<div id="name">{{classInfo.name}}</div>
+	<div class="heading blue" >{{classInfo.name}}</div>
+
 	<div id="extra-info" class="col-xs-4">
 		<div id="subject-information">
-			<div class="heading row">
+			<div class="subheading orange row">
 				Subject Information
 			</div>
 		</div>
 		<div id="directions">
-			<div class="heading row">
+			<div class="subheading orange row">
 				Directions
 			</div>
 		</div>
 		<div id="pre-requisites">
-			<div class="heading row">
+			<div class="subheading orange row">
 				Pre-requisites
 			</div>
 		</div>
 	</div>
+
+
 	<div class="col-xs-8">
-		<div class="heading row">
-			Echo Recording ({{video.date}})
-		</div>
+		<div class="subheading orange row">Echo Recording ({{video.date}})</div>
 		<div id="video">
 			<div id="video-wrapper">
 				<div id="video-container">
@@ -49,7 +50,7 @@
 			</div> -->
 		</div>
 
-		<div id="threads-heading" class="heading row">
+		<div  class="subheading blue row">
 			Threads
 		</div>
 		<div>
@@ -96,6 +97,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">{{thread.title}}</h4>
+					<span>{{thread.user}} <span class="timestamp">{{thread.timestamp}}</span></span>
 				</div>
 				<div class="modal-body">
 					{{thread.body}}

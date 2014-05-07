@@ -1,53 +1,94 @@
 <div id="class-page">
-	<div id="video" class="col-xs-12 col-md-7">
-		<div id="video-wrapper">
-			<div id="video-container">
-				<video src="{{video.url}}" type="video/mp4" width="100%" height="100%" controller="true" controls="true" autostart="false"/>
+	<div class="heading blue" >{{classInfo.name}}</div>
+
+	<div id="extra-info" class="col-sm-4 col-xs-12">
+		<div id="subject-information">
+			<div class="subheading orange row">
+				Subject Information <i class="fa fa-angle-right fa-lg"></i>
 			</div>
 		</div>
-		<div id="video-extras">
-				<a href="">Share<span class="glyphicon glyphicon-share-alt"></span></a>
-				<a href="">Slides</a>
-				<a href="">Download <span class="glyphicon glyphicon-download"></span></a>
+		<div id="directions">
+			<div class="subheading orange row">
+				Directions <i class="fa fa-angle-right fa-lg"></i>
+			</div>
 		</div>
-		<div id="video-slides">
-			<div class="col-xs-1">
-				<a ng-click="prevSlide()"><span class="glyphicon glyphicon-chevron-left"></span></a>
-			</div>
-			<div class="col-xs-10">
-				<div class="col-xs-3" ng-repeat="slide in slides">
-					<a href="">
-						{{video.slides[slide].id}}
-					</a>
-				</div>
-			</div>
-			<div class="col-xs-1">
-				<a ng-click="nextSlide()"><span class="col-xs-1 glyphicon glyphicon-chevron-right"></span></a>
+		<div id="pre-requisites">
+			<div class="subheading orange row">
+				Pre-requisites <i class="fa fa-angle-right fa-lg"></i>
 			</div>
 		</div>
 	</div>
-	<div class="col-xs-12 col-md-5 threads">
-		<div class="col-xs-12 thread" ng-repeat="thread in threads track by $index">
-			<div class="col-xs-2 votes">
-				<a href="" ng-click="upvote(thread)"><span class="glyphicon glyphicon-arrow-up"></span></a>
-				<div>{{thread.count.up-thread.count.down}}</div>
-				<a href="" ng-click="downvote(thread)"><span class="glyphicon glyphicon-arrow-down"></span></a>
-			</div>
-			<div class="col-xs-10">
-				<div class="title">
-					{{thread.title}}
+
+
+	<div class="col-sm-8 col-xs-12">
+		<div class="subheading orange row">Echo Recording ({{video.date}})</div>
+		<div id="video">
+			<div id="video-wrapper">
+				<div id="video-container">
+					<video src="{{video.url}}" type="video/mp4" width="100%" height="100%" controller="true" controls="true" autostart="false"/>
 				</div>
 			</div>
-			<div class="col-xs-12">
-				<div class="body">
-					{{thread.body}}
-				</div>
-				<div class="bottom">
-					<a href="">{{thread.user}}</a>
-					<a href="" ng-click="openComments(thread)"><span class="glyphicon glyphicon-comment"></span></a>
-				</div>
+			<!-- <div id="video-extras">
+					<a href="">Share<span class="glyphicon glyphicon-share-alt"></span></a>
+					<a href="">Slides</a>
+					<a href="">Download <span class="glyphicon glyphicon-download"></span></a>
 			</div>
-			
+			<div id="video-slides">
+				<div class="col-xs-1">
+					<a ng-click="prevSlide()"><span class="glyphicon glyphicon-chevron-left"></span></a>
+				</div>
+				<div class="col-xs-10">
+					<div class="col-xs-3" ng-repeat="slide in slides">
+						<a href="">
+							{{video.slides[slide].id}}
+						</a>
+					</div>
+				</div>
+				<div class="col-xs-1">
+					<a ng-click="nextSlide()"><span class="col-xs-1 glyphicon glyphicon-chevron-right"></span></a>
+				</div>
+			</div> -->
+		</div>
+
+		<div  class="subheading blue row">
+			Threads
+		</div>
+		<div>
+			<form ng-submit="addThread()">
+				<div>
+					<input placeholder="title" class="form-control" type="text" ng-model="title">
+					<textarea placeholder="body" type="textarea" rows="4" class="form-control" ng-model="body"></textarea>
+				</div>
+				<div class="col-xs-4">
+					<button class="form-control row" type="submit">Send</button>
+				</div>
+			</form>
+		</div>
+		<div class="threads row">
+			<div class="col-xs-12 thread" ng-repeat="thread in threads track by $index">
+				<div class="col-xs-2 votes">
+					<a href="" ng-click="upvote(thread)"><span class="glyphicon glyphicon-arrow-up"></span></a>
+					<div>{{thread.count.up-thread.count.down}}</div>
+					<a href="" ng-click="downvote(thread)"><span class="glyphicon glyphicon-arrow-down"></span></a>
+				</div>
+				<div class="col-xs-10">
+					<div ng-click="openComments(thread)" class="title">
+						{{thread.title}}
+					</div>
+					<div class="bottom">
+						<span><a href="">{{thread.user}}</a> <span class="timestamp">{{thread.timestamp}}</span></span>
+					</div>
+				</div>
+				<!-- <div class="col-xs-12">
+					<div class="body">
+						{{thread.body}}
+					</div>
+					<div class="bottom">
+						<a href="" ng-click="openComments(thread)"><span class="glyphicon glyphicon-comment"></span></a>
+					</div>
+				</div> -->
+
+			</div>
 		</div>
 	</div>
 	<div id="modal" class="fade modal" role="dialog">
@@ -56,23 +97,18 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">{{thread.title}}</h4>
+					<span>{{thread.user}} <span class="timestamp">{{thread.timestamp}}</span></span>
 				</div>
 				<div class="modal-body">
 					{{thread.body}}
 				</div>
 				<div class="modal-body col-xs-12" ng-repeat="comment in thread.comments">
-					<div class="col-xs-2 votes">
-						<a href="" ng-click="upvote(comment)"><span class="glyphicon glyphicon-arrow-up"></span></a>
-						<div>{{comment.count.up-comment.count.down}}</div>
-						<a href="" ng-click="downvote(comment)"><span class="glyphicon glyphicon-arrow-down"></span></a>
+					<div class="username">
+						{{comment.user}}
+						<span class="timestamp">{{comment.timestamp}}</span>
 					</div>
-					<div class="col-xs-10">
-						<div class="username">
-							{{comment.user}}
-						</div>
-						<div class="body">
-							{{comment.body}}
-						</div>
+					<div class="body">
+						{{comment.body}}
 					</div>
 				</div>
 				<div class="modal-footer">

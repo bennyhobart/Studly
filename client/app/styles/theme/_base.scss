@@ -1,0 +1,47 @@
+
+#get-the-app {
+    a {
+        color: white;
+    }
+    a:hover {
+        color: $orange;
+    }
+    background-color: $blue;
+    border-radius: 5px 5px;
+}
+#footer {
+    height: $heading-height;
+    background-color: $blue;
+    a {
+        color: white;
+    }
+    div {
+        margin: 0 auto;
+    }
+    a:hover {
+        color: $orange;
+        background-color: $blue;
+    }
+}
+
+
+.heading, .subheading {
+    padding-left: $padding-base-horizontal;
+}
+.heading {
+    height: $heading-height;
+    color: white;
+    font-size: $font-size-large;
+
+}
+.subheading {
+    height: $subheading-height;
+    color: white;
+    border-bottom: thin solid $gray-lighter;
+}
+.blue {
+    background-color: $blue;
+}
+.orange {
+    background-color: $orange;
+}

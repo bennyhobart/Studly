@@ -1,15 +1,20 @@
-$icon-font-path: "/bower_components/sass-bootstrap/fonts/";
-
 @import 'theme/theme';
 
-#class-page {
 
-	#video {
-		// margin-top: 0 !important;
-		padding: 0 0;
-		div {
-			padding: 0 0;
+#class-page {
+	#extra-info {
+		display: table-cell;
+		background-color: $gray-lighter;
+		border-right: thin solid $gray-lighter;
+
+	}
+	form {
+		:last-child {
+			float: right;
 		}
+	}
+	#video {
+		margin-top: $padding-base-vertical !important;
 	}
 	#video-wrapper {
 		display: inline-block;
@@ -45,11 +50,11 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 		}
 		a:last-child {
 			float: right;
-		}	
+		}
 
 	}
 	#video-slides {
-		
+
 
 
 	}
@@ -59,48 +64,33 @@ $icon-font-path: "/bower_components/sass-bootstrap/fonts/";
 			font-size: $font-size-large;
 			color: $gray;
 		}
-		a:first-child:active span {
+		a:first-child:hover span {
 			color: $brand-warning;
 		}
-		a:last-child:active span {
+		a:last-child:hover span {
 			color: $brand-primary;
 		}
-		
+
 	}
+
 	.thread {
-		background-color: $gray-lighter;
-		padding: $padding-base-vertical $padding-base-horizontal;
-		
 		.title {
 			text-align: justify;
 			font-size: $font-size-large;
-			a:last-child {
-				float: right;
-			}
-		}
-		.comment {
-			font-size: $font-size-large;
-			color: $brand-info;
-			text-align: right;
-		}
-		.body {
-			text-align: justify;
 		}
 		.bottom {
+			margin-bottom: $padding-base-vertical;
 			a {
 				color: $gray-dark;
 			}
 			a:hover {
 				text-decoration: underline;
 			}
-			span {
-				float: right;
-			}
-
 		}
-		> div:last-child {
-			border-bottom: thin solid $gray;
-		}
+	}
+	.timestamp {
+		color: $gray-light;
+		font-size: $font-size-small;
 	}
 
 	#modal {

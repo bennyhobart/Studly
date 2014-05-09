@@ -8,13 +8,6 @@
             threads[]?: {},
             posts[]?: {}
         }
-    -PUT, Update User Password (Updates User Object)
-        {
-            oldPassword: String,
-            newPassword: String,
-            newPasswordRepeated, String
-
-        }
     -POST, Login
         {
             username: String,
@@ -34,6 +27,13 @@
             passwordRepeated: String
         }
     -DELETE, deregisters logged in user
+    -PUT, Update User Password (Updates User Object)
+        {
+            oldPassword: String,
+            newPassword: String,
+            newPasswordRepeated, String
+
+        }
     -GET :userId, Gets public profile of userId
         {
             username: String,
@@ -43,7 +43,7 @@
 
 //CLASS PAGE!
 
-/api/classes/:WeeklyClassID
+/api/class/:WeeklyClassID
     -GET :weeklyClassId, Get a weekly class
         {
             video : {
@@ -78,7 +78,7 @@
             Title: String,
             Body: String
         }
-    -PUT :attendedFlag, attend a weekly class
+    -PUT ?attendedFlag, attend a weekly class
     -DELETE :ThreadId, delete a thread
 
 /api/classes/:WeeklyClassId/:ThreadId
@@ -99,8 +99,8 @@
 
 //SUBJECTS PAGE
 
-/api/subject
-    -GET, return list of subjects
+/api/subject/
+    -GET, ?query return list of like subjects
         SubjectCode[]:
             {
                 SubjectCode:

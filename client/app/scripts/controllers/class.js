@@ -2,7 +2,6 @@
 
 angular.module('studlyApp')
 .controller('ClassCtrl', ['$scope','$sce', function ($scope, $sce) {
-
     //Class Information
     $scope.classInfo = {
         name: 'Web Information Technologies',

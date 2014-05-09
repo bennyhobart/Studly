@@ -1,8 +1,8 @@
 module.exports = function(app, passport) {
-  session = require('controllers/session');
-  _class = require('controllers/class');
-  user = require('controllers/user');
-  subject = require('controllers/subject');
+  session = require('./controllers/session');
+  _class = require('./controllers/class');
+  user = require('./controllers/user');
+  subject = require('./controllers/subject');
 
 
   /* STANDARD ROUTING */
@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
   });
 
   app.route('/api/session')
-    .get(session.me)
+    .get(user.me)
     .post(session.login)
     .delete(session.logout);
 

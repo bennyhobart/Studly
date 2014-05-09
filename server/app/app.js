@@ -6,6 +6,8 @@
 var express = require('express'),
     passport = require('passport'),
     socketio = require('socket.io'),
+    compress = require('compression'),
+    cookieParser = require('cookie-parser'),
     http = require('http');
 
 
@@ -19,7 +21,7 @@ var exphbs = require('express3-handlebars');
 var hbs;
 
 // For gzip compression
-app.use(express.compress());
+app.use(compress());
 
 /*
  * Config for Production and Development
@@ -34,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
 
     // Locate the views
     app.set('views', __dirname + '/dist/views');
-    
+
     // Locate the assets
     app.use(express.static(__dirname + '/dist/assets'));
 
@@ -48,7 +50,7 @@ if (process.env.NODE_ENV === 'production') {
 
     // Locate the views
     app.set('views', __dirname + '/views');
-    
+
     // Locate the assets
     app.use(express.static(__dirname + '/assets'));
     // Points to the Client-Side App
@@ -75,8 +77,8 @@ app.get('/', function(request, response, next) {
  * API Handling
  */
 
-require('./api') 
-    (app, 
+require('./api')
+    (app,
         passport);
 
 var server = http.createServer(app);
@@ -90,7 +92,7 @@ server.listen(app.get('port'), function() {
 var io = socketio.listen(server);
 require('./socketserver')
     (io,
-        express.cookieParser,
+        cookieParser,
         config.sessionkey,
         config.sessionsecret,
         sessionStore);

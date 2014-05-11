@@ -6,6 +6,7 @@ USE studly;
 #SET foreign_key_checks = 0;
 
 # Drop old tables
+DROP TABLE IF EXISTS PostHistory;
 DROP TABLE IF EXISTS Post;
 DROP TABLE IF EXISTS TopicVotes;
 DROP TABLE IF EXISTS Topic;
@@ -102,7 +103,6 @@ CREATE TABLE IF NOT EXISTS Topic (
 	userID INT UNSIGNED NOT NULL,
 	weeklyClassID INT UNSIGNED NOT NULL,
 	title VARCHAR(64),
-	content TEXT NOT NULL,
 	upVotes SMALLINT UNSIGNED DEFAULT 0,
 	downVotes SMALLINT UNSIGNED DEFAULT 0,
 	psotTime DATETIME NOT NULL,
@@ -126,9 +126,19 @@ CREATE TABLE IF NOT EXISTS Post (
 	userID INT UNSIGNED NOT NULL,
 	content TEXT NOT NULL,
 	postTime DATETIME NOT NULL,
+	editTime DATETIME,
 	PRIMARY KEY(postID),
 	FOREIGN KEY(topicID) REFERENCES Topic(topicID),
 	FOREIGN KEY(userID) REFERENCES User(userID)
+);
+
+CREATE TABLE IF NOT EXISTS PostHistory (
+	postHistoryID INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	postID INT UNSIGNED NOT NULL,
+	content TEXT NOT NULL,
+	editTime DATETIME,
+	PRIMARY KEY(postHistoryID),
+	FOREIGN KEY(postID) REFERENCES Post(postID)
 );
 
 # Enable foreign key checking again

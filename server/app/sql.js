@@ -1,9 +1,16 @@
 var mysql = require('mysql');
 
-var pool = mysql.createPool({
+/*var pool = mysql.createPool({
     host     : '127.0.0.1',
     user     : 'studly',
     password : 'studly',
+    database : 'studly'
+});*/
+
+var pool = mysql.createPool({
+    host     : 'ash47.net',
+    user     : 'studly',
+    password : '38)!ou_X[2481UTgs@483f0pfk24nL',
     database : 'studly'
 });
 
@@ -28,7 +35,7 @@ function validateUser(username, password, callback) {
             return callback(err);
         }
 
-        connection.query('SELECT `userID`, `username` FROM `user` WHERE `username` = "?" AND `password` = "?" LIMIT 1', [username, password], function(err, rows) {
+        connection.query('SELECT `userID`, `username` FROM `User` WHERE `username` = "?" AND `password` = "?" LIMIT 1', [username, password], function(err, rows) {
             if(err) {
                 connection.release();
                 return callback(err);
@@ -59,7 +66,7 @@ function userExists(username, callback) {
             return callback(err);
         }
 
-        connection.query('SELECT * FROM `user` WHERE `username` = "?" LIMIT 1', [username], function(err, rows) {
+        connection.query('SELECT * FROM `User` WHERE `username` = "?" LIMIT 1', [username], function(err, rows) {
             if(err) {
                 connection.release();
                 return callback(err);
@@ -82,7 +89,7 @@ function createUser(username, password, callback) {
             return callback(err);
         }
 
-        connection.query('INSERT INTO `user` (`username`, `password`) VALUES ("?", "?")', [username, password], function(err, result) {
+        connection.query('INSERT INTO `User` (`username`, `password`) VALUES ("?", "?")', [username, password], function(err, result) {
             if(err) {
                 connection.release();
                 return callback(err);

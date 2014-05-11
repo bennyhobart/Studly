@@ -9,3 +9,4 @@ client/app/bower_components
 client/node_modules
 Studly.sublime-project
 Studly.sublime-workspace
+server/dataFinders/node_modules

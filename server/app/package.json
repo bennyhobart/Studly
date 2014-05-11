@@ -6,7 +6,8 @@
     "express": "~4.1.2",
     "express3-handlebars": "0.4.x",
     "compression": "^1.0.2",
-    "cookie-parser": "^1.0.1"
+    "cookie-parser": "^1.0.1",
+    "mysql": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

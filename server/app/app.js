@@ -10,6 +10,10 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     http = require('http');
 
+/*
+ * SQL
+ */
+var sql = require('./sql.js');
 
 var app = express();
 var port = 3000;

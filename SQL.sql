@@ -1,5 +1,6 @@
 # Ensure the database exists, use it
 CREATE DATABASE IF NOT EXISTS studly;
+CREATE DATABASE IF NOT EXISTS studly_session;
 USE studly;
 
 # Disable foreign key checking
@@ -25,6 +26,7 @@ CREATE TABLE IF NOT EXISTS User (
     userID INT UNSIGNED NOT NULL AUTO_INCREMENT,
     username VARCHAR(20) NOT NULL,
     password CHAR(32) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     PRIMARY KEY(userID),
     UNIQUE(username)
 );

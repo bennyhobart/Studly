@@ -1,16 +1,29 @@
 var mysql = require('mysql');
+var crypto = require('crypto');
 
-/*var pool = mysql.createPool({
+// Salt used to hash passwords
+var secretSalt = 't&\'6H:wLdH{^(7MZ(h6/3TrD>gfR:/qU';
+
+/*var databaseInfo = {
     host     : '127.0.0.1',
     user     : 'studly',
-    password : 'studly',
-    database : 'studly'
-});*/
+    password : 'studly'
+}*/
 
-var pool = mysql.createPool({
+// Info needed to connect to database
+var databaseInfo = {
     host     : 'ash47.net',
+    port     : 3306,
     user     : 'studly',
-    password : '38)!ou_X[2481UTgs@483f0pfk24nL',
+    password : '38)!ou_X[2481UTgs@483f0pfk24nL'
+}
+
+// Create a connection pool
+var pool = mysql.createPool({
+    host     : databaseInfo.host,
+    port     : databaseInfo.port,
+    user     : databaseInfo.user,
+    password : databaseInfo.password,
     database : 'studly'
 });
 
@@ -27,6 +40,24 @@ pool.getConnection(function(err, connection) {
     connection.release();
 });
 
+// Returns an object with options needed for session
+function getSessionOptions() {
+    return {
+        host     : databaseInfo.host,
+        port     : databaseInfo.port,
+        user     : databaseInfo.user,
+        password : databaseInfo.password,
+        database : 'studly_session'
+    }
+}
+
+// Encryptes a password (change this = all passwords in db are invalid)
+function encryptePassword(password) {
+    var md5 = crypto.createHash('md5');
+    md5.update(secretSalt+password);
+    return md5.digest('hex');
+}
+
 // Checks if a username + password combo is valid
 function validateUser(username, password, callback) {
     pool.getConnection(function(err, connection) {
@@ -35,7 +66,7 @@ function validateUser(username, password, callback) {
             return callback(err);
         }
 
-        connection.query('SELECT `userID`, `username` FROM `User` WHERE `username` = "?" AND `password` = "?" LIMIT 1', [username, password], function(err, rows) {
+        var sql = connection.query('SELECT `userID`, `username`, `email` FROM `User` WHERE `username` = ? AND `password` = ? LIMIT 1', [username, encryptePassword(password)], function(err, rows) {
             if(err) {
                 connection.release();
                 return callback(err);
@@ -44,16 +75,19 @@ function validateUser(username, password, callback) {
             // Release the connection
             connection.release();
 
+            var data = {
+                userID: -1
+            }
+
             // Grab userID
-            var userID = -1;
-            var username = null;
             if(rows.length>0) {
-                userID = rows[0].userID;
-                username = rows[0].username;
+                data.userID = rows[0].userID;
+                data.username = rows[0].username;
+                data.email = rows[0].email;
             }
 
             // Run callback
-            callback(null, userID, username);
+            callback(null, data);
         });
     });
 }
@@ -66,7 +100,7 @@ function userExists(username, callback) {
             return callback(err);
         }
 
-        connection.query('SELECT * FROM `User` WHERE `username` = "?" LIMIT 1', [username], function(err, rows) {
+        connection.query('SELECT * FROM `User` WHERE `username` = ? LIMIT 1', [username], function(err, rows) {
             if(err) {
                 connection.release();
                 return callback(err);
@@ -82,14 +116,14 @@ function userExists(username, callback) {
 }
 
 // Creates an account for the given user
-function createUser(username, password, callback) {
+function createUser(username, password, email, callback) {
     pool.getConnection(function(err, connection) {
         if(err) {
             connection.release();
             return callback(err);
         }
 
-        connection.query('INSERT INTO `User` (`username`, `password`) VALUES ("?", "?")', [username, password], function(err, result) {
+        connection.query('INSERT INTO `User` (`username`, `password`, `email`) VALUES (?, ?, ?)', [username, encryptePassword(password), email], function(err, result) {
             if(err) {
                 connection.release();
                 return callback(err);
@@ -108,9 +142,11 @@ function createUser(username, password, callback) {
 }
 
 // Define exports
+exports.getSessionOptions = getSessionOptions;
 exports.validateUser = validateUser;
 exports.userExists = userExists;
 exports.createUser = createUser;
+exports.encryptePassword = encryptePassword;
 
 /*
  * TESTING STUFF
@@ -126,13 +162,13 @@ userExists('ash47', function(err, exists) {
         // User exists, lets try and login
         console.log('User account exists!');
 
-        validateUser('ash47', 'password', function(err, userID, username) {
+        validateUser('ash47', 'password', function(err, data) {
             if(err) throw err;
 
-            if(userID == -1) {
+            if(data.userID == -1) {
                 console.log('Failed to login!');
             } else {
-                console.log('Logged in, got userID '+userID+', username = '+username);
+                console.log('Logged in, got userID '+data.userID+', username = '+data.username);
             }
         });
     } else {

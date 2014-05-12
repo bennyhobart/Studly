@@ -113,6 +113,8 @@ SQL SESSION TEST CODE
 */
 
 app.get('/login', function(req, res, next) {
+    // Should possibly test if they are already logged in?
+
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err); }
         if (!user) {
@@ -132,6 +134,12 @@ app.get('/login', function(req, res, next) {
     })(req, res, next);
 });
 
+app.get('/logout', function(req, res, next) {
+    // Log out
+    req.logout();
+    res.redirect('/');
+});
+
 /*
 END SQL SESSION TEST CODE
 */
@@ -145,7 +153,7 @@ app.set('view engine', 'handlebars');
 // Index Page
 app.get('/', function(req, res, next) {
     if(req.isAuthenticated()) {
-        res.send('You are logged in as ' + req.user.username);
+        res.send('You are logged in as ' + req.user.username+' <a href="/logout">Logout</a>');
     } else {
         res.sendfile("index.html")
     }

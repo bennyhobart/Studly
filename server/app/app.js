@@ -101,14 +101,10 @@ passport.use(new localStrategy(
 Should probably change these two
 */
 passport.serializeUser(function(user, done) {
-    console.log('Serialise: ');
-    console.log(user);
     done(null, JSON.stringify(user));
 });
 
 passport.deserializeUser(function(userJson, done) {
-    console.log('Deserialize!');
-    console.log(userJson);
     done(null, JSON.parse(userJson));
 });
 

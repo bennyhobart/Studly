@@ -7,7 +7,12 @@
     "express3-handlebars": "0.4.x",
     "compression": "^1.0.2",
     "cookie-parser": "^1.0.1",
-    "mysql": "*"
+    "mysql": "*",
+    "express-mysql-session": "*",
+    "express-session": "*",
+    "passport-local": "*",
+    "crypto": "*"
+
   },
   "devDependencies": {
     "grunt": "~0.4.1",

@@ -5,7 +5,7 @@
 
 // Global values
 // --------------------------------------------------
-$blue:                   #428bca;
+$blue:                   darken(#428bca, 13.5%);
 $orange:                 #f0ad4e;
 $heading-height:         40px;
 $subheading-height:      25px;
@@ -22,7 +22,8 @@ $gray-lighter:           lighten(#000, 93.5%) !default; // #eee
 // Brand colors
 // -------------------------
 
-$brand-primary:         #428bca !default;
+// $brand-primary:         #428bca !default;
+$brand-primary:         $blue;
 $brand-success:         #5cb85c !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
@@ -264,16 +265,16 @@ $navbar-border-radius:             $border-radius-base !default;
 $navbar-padding-horizontal:        floor($grid-gutter-width / 2) !default;
 $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2) !default;
 
-$navbar-default-color:             #fff;
-$navbar-default-bg:                #fff;
-$navbar-default-border:            #fff;
+$navbar-default-color:             #777 !default;
+$navbar-default-bg:                #f8f8f8 !default;
+$navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
 // Navbar links
-$navbar-default-link-color:                #000;
-$navbar-default-link-hover-color:          $blue;
+$navbar-default-link-color:                #777 !default;
+$navbar-default-link-hover-color:          #333 !default;
 $navbar-default-link-hover-bg:             transparent !default;
-$navbar-default-link-active-color:         #555 !default;
-$navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
+$navbar-default-link-active-color:         #fff;
+$navbar-default-link-active-bg:            $brand-primary;
 $navbar-default-link-disabled-color:       #ccc !default;
 $navbar-default-link-disabled-bg:          transparent !default;
 

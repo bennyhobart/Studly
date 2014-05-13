@@ -115,6 +115,39 @@ function userExists(username, callback) {
     });
 }
 
+// Gets a user by ID
+function userByID(userID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `username`, `email` FROM `User` WHERE `userID` = ? LIMIT 1', [userID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Check if that userID was found
+            if(rows.length>0) {
+                // Give user their data
+                callback(null, {
+                    username: rows[0].username,
+                    email: rows[0].email
+                });
+                return;
+            }
+
+            // Send an error back
+            callback(null, null);
+        });
+    });
+}
+
 // Creates an account for the given user
 function createUser(username, password, email, callback) {
     pool.getConnection(function(err, connection) {
@@ -141,12 +174,41 @@ function createUser(username, password, email, callback) {
     });
 }
 
+// Updates a user's password
+function updateUserPassword(username, oldPassword, newPassword, callback) {
+    // Encypte passwords
+    oldPassword = encryptePassword(oldPassword);
+    newPassword = encryptePassword(newPassword);
+
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('UPDATE `User` SET `password` = ? WHERE `username`=? AND `password`=?', [newPassword, username, oldPassword], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
 // Define exports
 exports.getSessionOptions = getSessionOptions;
 exports.validateUser = validateUser;
 exports.userExists = userExists;
 exports.createUser = createUser;
 exports.encryptePassword = encryptePassword;
+exports.userByID = userByID;
+exports.updateUserPassword = updateUserPassword;
 
 /*
  * TESTING STUFF

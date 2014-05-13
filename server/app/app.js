@@ -11,7 +11,8 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     http = require('http'),
     session = require('express-session'),
-    sessionStore = require('express-mysql-session');
+    sessionStore = require('express-mysql-session'),
+    bodyParser = require('body-parser');
 
 /*
  * SQL
@@ -97,6 +98,10 @@ passport.use(new localStrategy(
     }
 ));
 
+// Needed for POST requests
+app.use(bodyParser());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
+
 /*
 Should probably change these two
 */
@@ -133,6 +138,10 @@ app.get('/login', function(req, res, next) {
         });
     })(req, res, next);
 });
+
+app.post('/test', function(req, res, next) {
+    res.send('Hello world!');
+})
 
 app.get('/logout', function(req, res, next) {
     // Log out

@@ -1,25 +1,27 @@
 //LOGIN AND PROFILE
 
+There is a plus (+) next to stuff that is implemented
+
 /api/session
-    -GET, Get User Information
++   -GET, Get User Information
         {
             username: STRING,
             email: STRING,
             threads[]?: {},
             posts[]?: {}
         }
-    -POST, Login
++   -POST, Login
         {
             username: String,
             password: String
         }
-    -DELETE
++   -DELETE
         -Logout
         -Error, 404 Session Not Found
         -Success, 200 Logged Out
 
 /api/user
-    -POST, Register
++   -POST, Register
         {
             username: String,
             email: String,
@@ -27,14 +29,14 @@
             passwordRepeated: String
         }
     -DELETE, deregisters logged in user
-    -PUT, Update User Password (Updates User Object)
++   -PUT, Update User Password (Updates User Object)
         {
             oldPassword: String,
             newPassword: String,
             newPasswordRepeated, String
 
         }
-    -GET :userId, Gets public profile of userId
++   -GET :userId, Gets public profile of userId
         {
             username: String,
             threads[]: {},

@@ -11,8 +11,8 @@
     "express-mysql-session": "*",
     "express-session": "*",
     "passport-local": "*",
-    "crypto": "*"
-
+    "crypto": "*",
+    "body-parser": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

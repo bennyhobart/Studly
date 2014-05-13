@@ -1,0 +1,28 @@
+<navbar></navbar>
+<div id="login-page" class="col-sm-offset-3 col-sm-6">
+  <div id="top-group row">
+    <div id="login-header">
+      <div class="col-xs-12">Login</div>
+    </div>
+    <span class="bold">New User? <a ng-href="registration">Sign Up</a></span>
+    <form ng-submit="submitForm()">
+      <fieldset>
+        <div class="col-xs-12">
+          <input type="text" class="form-control" ng-model="email" placeholder="Email">
+        </div>
+        <div class="col-xs-12">
+          <input type="password" class="form-control" ng-model="password" placeholder="Password">
+        </div>
+        <div class="col-xs-4 col-xs-offset-8">
+          <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </div>
+      </fieldset>
+    </form>
+    <div class="col-sm-12" id="what-is-studly">
+      <span class="fa fa-lg">What is studly?</span>
+      <div>
+        <i class="fa fa-lg fa-arrow-down"></i>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,7 +17,7 @@ exports.me = function (req, res) {
 };
 
 exports.getPublicProfile = function (req, res) {
-    var userID = req.query['userID'];
+    var userID = req.params['userID'];
     sql.userByID(userID, function(err, data) {
         if(err || !data) {
             res.json(400, { error: 'User with that ID not found.' });
@@ -104,3 +104,147 @@ exports.updatePassword = function (req, res) {
     });
 };
 
+exports.registerIntoSubject = function(req, res) {
+    // Check if they are logged in
+    if(!req.isAuthenticated()) {
+        // Logged in people shouldn't need to register
+        res.json(403, { error: 'You are not logged in.' });
+        return;
+    }
+
+    // Grab subjectID
+    var subjectID = req.body['subjectID'];
+
+    // Validate subjectID?
+
+    sql.registerUserIntoSubject(req.user.userID, subjectID, function(err, success) {
+        if(err || !success) {
+            res.json(400, { error: 'Failed to register into subject.' });
+            return;
+        }
+
+        // It worked, send success message
+        res.json({ success: 1 });
+    });
+};
+
+exports.removeFromSubject = function(req, res) {
+    // Check if they are logged in
+    if(!req.isAuthenticated()) {
+        // Logged in people shouldn't need to register
+        res.json(403, { error: 'You are not logged in.' });
+        return;
+    }
+
+    // Grab subjectID
+    var subjectID = req.body['subjectID'];
+
+    // Validate subjectID?
+
+    sql.removeUserFromSubject(req.user.userID, subjectID, function(err, success) {
+        if(err || !success) {
+            res.json(400, { error: 'Failed to remove subject.' });
+            return;
+        }
+
+        // It worked, send success message
+        res.json({ success: 1 });
+    });
+};
+
+exports.registerIntoClassTime = function(req, res) {
+    // Check if they are logged in
+    if(!req.isAuthenticated()) {
+        // Logged in people shouldn't need to register
+        res.json(403, { error: 'You are not logged in.' });
+        return;
+    }
+
+    // Grab subjectID
+    var classTimeID = req.body['classTimeID'];
+
+    // Validate subjectID?
+
+    sql.registerUserIntoClassTime(req.user.userID, classTimeID, function(err, success) {
+        if(err || !success) {
+            res.json(400, { error: 'Failed to register into class time.' });
+            return;
+        }
+
+        // It worked, send success message
+        res.json({ success: 1 });
+    });
+};
+
+exports.removeClassTime = function(req, res) {
+    // Check if they are logged in
+    if(!req.isAuthenticated()) {
+        // Logged in people shouldn't need to register
+        res.json(403, { error: 'You are not logged in.' });
+        return;
+    }
+
+    // Grab subjectID
+    var classTimeID = req.body['classTimeID'];
+
+    // Validate subjectID?
+
+    sql.removeUserFromClassTime(req.user.userID, classTimeID, function(err, success) {
+        if(err || !success) {
+            res.json(400, { error: 'Failed to remove class time.' });
+            return;
+        }
+
+        // It worked, send success message
+        res.json({ success: 1 });
+    });
+};
+
+// Gets a user's timetable
+exports.getTimetable = function(req, res) {
+    var semesterID = req.params['semesterID'];
+
+    sql.getUserTimetable(req.user.userID, semesterID, function(err, rows) {
+        if(err) {
+            res.json(400, { error: 'An error occurred.' });
+            return;
+        }
+
+        res.json({
+            times: rows
+        });
+    });
+};
+
+// Marks a class as attended
+exports.markClassAttended = function(req, res) {
+    var weeklyClassID = req.body['weeklyClassID'];
+    var state = req.body['state'];
+
+    sql.markUserClassAttended(req.user.userID, weeklyClassID, state, function(err, success) {
+        if(err || !success) {
+            res.json(400, { error: 'Failed to mark class attended.' });
+            return;
+        }
+
+        // It worked, send success message
+        res.json({ success: 1 });
+    })
+};
+
+// Gets the user's attended states
+exports.getAttended = function(req, res) {
+    var semesterID = req.params['semesterID'];
+    var weekNumber = req.params['weekNumber'];
+
+    sql.getUserAttended(req.user.userID, semesterID, weekNumber, function(err, rows) {
+        if(err) {
+            res.json(400, { error: 'An error occurred.' });
+            return;
+        }
+
+        res.json({
+            states: rows
+        });
+    });
+};

@@ -201,6 +201,372 @@ function updateUserPassword(username, oldPassword, newPassword, callback) {
     });
 }
 
+// Gets a list of semesters for the given year
+function getSemesters(year, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `semesterID`, `startDate` FROM `Semester` WHERE YEAR(startDate) = ?;', [year], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+// Gets a list of weeks for the given semester
+function getWeeks(semesterID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `weekID`, `startDate` FROM `SemesterWeek` WHERE `semesterID` = ?;', [semesterID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+function getClasses(subjectID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `classID`, `sort`, `duration` FROM `Class` WHERE `subjectID` = ?;', [subjectID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+// Gets the classes for a given class
+function getTimes(classID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `classTimeID`, `day`, `time`, `buildingNumber`, `roomNumber` FROM `ClassTime` WHERE `classID` = ?;', [classID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+// Gets the weekly class for the given classID
+function getWeeklyClasses(classID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `weeklyClassID`, `weekNumber` FROM `WeeklyClass` WHERE `classID` = ?;', [classID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+// Finds threads for the given weeklyClassID
+function findTopics(weeklyClassID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `topicID`, `userID`, `title`, `upVotes`, `downVotes`, `postTime` FROM `Topic` WHERE `weeklyClassID` = ?;', [weeklyClassID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+// Finds all posts for the given topicID
+function findPosts(topicID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `postID`, `userID`, `content`, `postTime`, `editTime` FROM `Post` WHERE `topicID` = ?;', [topicID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+// Register a user into a subject
+function registerUserIntoSubject(userID, subjectID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('INSERT IGNORE INTO `UserSubject` (`userID`, `subjectID`) VALUES (?, ?);', [userID, subjectID], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
+// Remove a user from a subject
+function removeUserFromSubject(userID, subjectID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('DELETE FROM `UserSubject` WHERE `userID` = ? AND subjectID = ? LIMIT 1;', [userID, subjectID], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
+// Registers a user into a given class time
+function registerUserIntoClassTime(userID, classTimeID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('INSERT IGNORE INTO `UserClassTime` (`userID`, `classTimeID`) VALUES (?, ?);', [userID, classTimeID], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
+// Removes a user from the given class time ID
+function removeUserFromClassTime(userID, classTimeID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('DELETE FROM `UserClassTime` WHERE `userID` = ? AND `classTimeID` = ? LIMIT 1;', [userID, classTimeID], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
+// Gets a user's timetable
+function getUserTimetable(userID, semesterID, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `classTimeID`, `classID`, `day`, `time`, `buildingNumber`, `roomNumber`, `sort`, `subjectID`, `duration` FROM `UserClassTime` NATURAL JOIN `ClassTime` NATURAL JOIN `Class` NATURAL JOIN `Subject` WHERE `userID` = ? AND `semesterID` = ?;', [userID, semesterID], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+function getUserAttended(userID, semesterID, weekNumber, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('SELECT `classID`, `state` FROM `UserSubject` NATURAL JOIN `Subject` NATURAL JOIN `Class` NATURAL JOIN `WeeklyClass` LEFT OUTER JOIN Attended ON WeeklyClass.weeklyClassID = Attended.weeklyClassID WHERE `UserSubject`.`userID` = ? AND `SemesterID` = ? AND `weekNumber` = ?;', [userID, semesterID, weekNumber], function(err, rows) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, rows);
+        });
+    });
+}
+
+// Marks a class as attended
+function markUserClassAttended(userID, weeklyClassID, state, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('REPLACE INTO `Attended` (`userID`, `weeklyClassID`, `state`) VALUES (?, ?, ?);', [userID, weeklyClassID, state], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
+// Creates a new topic
+function createTopic(userID, weeklyClassID, title, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('INSERT INTO `Topic` (`userID`, `weeklyClassID`, `title`, `upVotes`, `downVotes`, `postTime`) VALUES (?, ?, ?, 0, 0, NOW());', [userID, weeklyClassID, title], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
+// Creates a new post
+function createPost(userID, topicID, content, callback) {
+    pool.getConnection(function(err, connection) {
+        if(err) {
+            connection.release();
+            return callback(err);
+        }
+
+        connection.query('INSERT INTO `Post` (`userID`, `topicID`, `content`, `postTime`) VALUES (?, ?, ?, NOW());', [userID, topicID, content], function(err, result) {
+            if(err) {
+                connection.release();
+                return callback(err);
+            }
+
+            // Release the connection
+            connection.release();
+
+            // Run callback
+            callback(null, (result.affectedRows>0));
+        });
+    });
+}
+
 // Define exports
 exports.getSessionOptions = getSessionOptions;
 exports.validateUser = validateUser;
@@ -209,41 +575,18 @@ exports.createUser = createUser;
 exports.encryptePassword = encryptePassword;
 exports.userByID = userByID;
 exports.updateUserPassword = updateUserPassword;
-
-/*
- * TESTING STUFF
- */
-
-return;
-
-// Check if a user exists
-userExists('ash47', function(err, exists) {
-    if(err) throw err;
-
-    if(exists) {
-        // User exists, lets try and login
-        console.log('User account exists!');
-
-        validateUser('ash47', 'password', function(err, data) {
-            if(err) throw err;
-
-            if(data.userID == -1) {
-                console.log('Failed to login!');
-            } else {
-                console.log('Logged in, got userID '+data.userID+', username = '+data.username);
-            }
-        });
-    } else {
-        // User doesn't exist, create it
-        console.log('Creating account...');
-
-        createUser('Ash47', 'password', function(err, userID) {
-            if(err) {
-                console.log('Failed to create user!');
-                return;
-            }
-
-            console.log('Created new user, gave him ID: '+userID);
-        });
-    }
-})
+exports.getSemesters = getSemesters;
+exports.getWeeks = getWeeks;
+exports.getClasses = getClasses;
+exports.getTimes = getTimes;
+exports.findTopics = findTopics;
+exports.findPosts = findPosts;
+exports.registerUserIntoSubject = registerUserIntoSubject;
+exports.removeUserFromSubject = removeUserFromSubject;
+exports.registerUserIntoClassTime = registerUserIntoClassTime;
+exports.removeUserFromClassTime = removeUserFromClassTime;
+exports.getUserTimetable = getUserTimetable;
+exports.markUserClassAttended = markUserClassAttended;
+exports.getUserAttended = getUserAttended;
+exports.createTopic = createTopic;
+exports.createPost = createPost;

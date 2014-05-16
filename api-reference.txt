@@ -1,51 +1,56 @@
 //LOGIN AND PROFILE
 
 /api/session
-    -GET, Get User Information
-        {
+    -GET, Get User Information for currently logged in user!
+        return: {
             username: STRING,
             email: STRING,
-            threads[]?: {},
-            posts[]?: {}
         }
-    -POST, Login
-        {
+    -POST, Login with a user
+
+        args: {
             username: String,
             password: String
         }
-    -DELETE
+    -DELETE logout
         -Logout
         -Error, 404 Session Not Found
         -Success, 200 Logged Out
 
+
 /api/user
     -POST, Register
-        {
+        args: {
             username: String,
             email: String,
             password: String,
             passwordRepeated: String
         }
     -DELETE, deregisters logged in user
+        args: {
+            password: 'String'
+        }
+
     -PUT, Update User Password (Updates User Object)
-        {
+        args: {
             oldPassword: String,
             newPassword: String,
             newPasswordRepeated, String
 
         }
-    -GET :userId, Gets public profile of userId
-        {
+/api/user/:userId
+    -GET, Gets public profile of userId
+        return: {
             username: String,
-            threads[]: {},
-            posts[]: {}
         }
+        //threads[]: {},
+        //posts[]: {}
 
 //CLASS PAGE!
 
-/api/class/:WeeklyClassID
-    -GET :weeklyClassId, Get a weekly class
-        {
+/api/class/:SpecifClassId
+    -GET, Get a weekly class
+        return: {
             video : {
                 slides[]:  String
                 url: String
@@ -62,54 +67,60 @@
                     },
                     threadId: Unsigned INT,
                     title: String,
-                    body: String,
-                    comments[]:
-                    {
-                        User {
-                            UserID: Unsigned INT,
-                            Username: String
-                        },
-                        Body: String
-                    }
                 }
         }
     -POST, add a thread
-        {
+        args: {
             Title: String,
             Body: String
         }
     -PUT ?attendedFlag, attend a weekly class
     -DELETE :ThreadId, delete a thread
+        ADD A DELETED FLAG?
 
-/api/classes/:WeeklyClassId/:ThreadId
+/api/classes/:SpecificClassId/:ThreadId
     -POST, add a comment
         String
     -DELETE commentId, Remove a Comment
+        ADD A DELETED FLAG?
     -GET, Get all comments for a thread
 
 
 //TIMETABLE PAGE
 
 /api/timetable/
+
     -GET, get array of weekly classes in timetable for current week
-        WeeklyClass[]: WeeklyClass
-    -POST classId, add a class time to timetable
-    -DELETE classId, delete a class time from timetable
-    -PUT originalClass newClass, Change from one classTime to another
+        return : WeeklyClass[]: WeeklyClass
+
+    -POST, add a class time to timetable
+        args: classId
+
+    -DELETE classId,
+        return : delete a class time from timetable
+
+    -PUT, Change from one classTime to another
+        args: newClass: classId
+
+        //// CONFUSING -- two different API calls to register into a time slot YES!
+
+/api/timetable?date="String"
+    -GET, get array of weekly classes for correspond week containing date
 
 //SUBJECTS PAGE
 
-/api/subject/
-    -GET, ?query return list of like subjects
-        SubjectCode[]:
-            {
-                SubjectCode:
+/api/subject?query="String"
+    -GET,  return array of like subjects
+        return: {
+            SubjectCode[]: {
+                SubjectId:
                 Names:
             }
+        }
 
-/api/subject/:ID
+/api/subject/:SubjectId
     -GET, return all classes for a subject
-        {
+        return: {
             Class[]:
                 ClassTimes[]:
                     {

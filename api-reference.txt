@@ -1,6 +1,6 @@
-There is a plus (+) next to stuff that is implemented
-There is a negative (-) next to stuff that isn't implemented yet
+//LOGIN AND PROFILE
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /*
     User Related
@@ -34,7 +34,6 @@ There is a negative (-) next to stuff that isn't implemented yet
 /api/user/login
     Log a user in
     +POST (
-=======
 /api/session
     +GET, Get User Information for currently logged in user!
         return: {
@@ -43,18 +42,10 @@ There is a negative (-) next to stuff that isn't implemented yet
         }
     +POST, Login with a user
 
->>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
         args: {
             username: String,
             password: String
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
         }
-<<<<<<< HEAD
     )
 
 /api/user/logout
@@ -73,6 +64,8 @@ There is a negative (-) next to stuff that isn't implemented yet
     Register a new user
     +POST (
 =======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
     +DELETE logout
         -Logout
         -Error, 404 Session Not Found
@@ -81,13 +74,17 @@ There is a negative (-) next to stuff that isn't implemented yet
 
 /api/user
     +POST, Register
+<<<<<<< HEAD
 >>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
         args: {
             username: String,
             email: String,
             password: String,
             passwordRepeated: String
         },
+<<<<<<< HEAD
 <<<<<<< HEAD
         success: {
             success: 1
@@ -102,6 +99,8 @@ There is a negative (-) next to stuff that isn't implemented yet
     +POST (
         args: {
 =======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
         return: {
             userID: <new userID>
         }
@@ -113,23 +112,15 @@ There is a negative (-) next to stuff that isn't implemented yet
     -PUT, Update User Password (Updates User Object)
         args: {
             username: String,
+<<<<<<< HEAD
 >>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
             oldPassword: String,
             newPassword: String,
             newPasswordRepeated, String
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
 
-/*
-    Semesters
-*/
-
+<<<<<<< HEAD
 /api/semester/find/:year
     Get a list of all the semesters
     +GET (
@@ -236,10 +227,9 @@ There is a negative (-) next to stuff that isn't implemented yet
         },
         error: {
             error: String
-        }
-    )
-
 =======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+        }
 /api/user/:userId
     -GET, Gets public profile of userId
         return: {
@@ -247,6 +237,7 @@ There is a negative (-) next to stuff that isn't implemented yet
         }
         //threads[]: {},
         //posts[]: {}
+<<<<<<< HEAD
 >>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
 
 
@@ -336,94 +327,10 @@ There is a negative (-) next to stuff that isn't implemented yet
 /*
     Forum Related
 */
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
 
-/api/topics/find/:weeklyClassID
-    Finds all the topics for a given weekly class
-    +GET (
-        success: {
-            topics[]: {
-                topicID: Number,
-                userID: Number,
-                title: String,
-                upVotes: Number,
-                downVotes: Number,
-                postTime: String
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/topics/create
-    Create a new topic
-    +POST (
-        requiresAuth: true,
-        args: {
-            weeklyClassID: Number,
-            title: String
-        },
-        success: {
-            topicID: Number
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/posts/find/:topicID
-    Finds all the posts for a given topic
-    +GET (
-        success: {
-            posts[]: {
-                postID: Number,
-                userID: Number,
-                content: String,
-                postTime: String,
-                editTime: String
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/posts/create
-    Creates a new post in the given topic
-    +POST (
-        requiresAuth: true,
-        args: {
-            topicID: Number,
-            content: String
-        },
-        success: {
-            postID: Number
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/topic/vote
-    Vote on a given topic
-    -POST (
-        requiresAuth: true,
-        args: {
-            topicID: Number,
-            vote: Number (1 = up, -1 = down)
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
-
-
-/*
-    REMOVED SHIT / NOT IMPLEMENTED / NOT PLANNED
-*/
+//CLASS PAGE!
 
 /api/class/:SpecifClassId
     -GET, Get a weekly class
@@ -463,12 +370,15 @@ There is a negative (-) next to stuff that isn't implemented yet
     -GET, Get all comments for a thread
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /api/subject/
     -GET, ?query return list of like subjects
         SubjectCode[]:
             {
                 SubjectCode:
 =======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
 
 //TIMETABLE PAGE
 
@@ -498,11 +408,15 @@ There is a negative (-) next to stuff that isn't implemented yet
         return: {
             SubjectCode[]: {
                 SubjectId:
+<<<<<<< HEAD
 >>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
                 Names:
             }
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /api/timetable/
     -GET, get array of weekly classes in timetable for current week
@@ -511,6 +425,8 @@ There is a negative (-) next to stuff that isn't implemented yet
     -DELETE classId, delete a class time from timetable
     -PUT originalClass newClass, Change from one classTime to another
 =======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
 /api/subject/:SubjectId
     -GET, return all classes for a subject
         return: {
@@ -523,5 +439,8 @@ There is a negative (-) next to stuff that isn't implemented yet
 
 
 
+<<<<<<< HEAD
 >>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
 

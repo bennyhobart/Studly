@@ -1,6 +1,7 @@
 There is a plus (+) next to stuff that is implemented
 There is a negative (-) next to stuff that isn't implemented yet
 
+<<<<<<< HEAD
 /*
     User Related
 */
@@ -33,6 +34,16 @@ There is a negative (-) next to stuff that isn't implemented yet
 /api/user/login
     Log a user in
     +POST (
+=======
+/api/session
+    +GET, Get User Information for currently logged in user!
+        return: {
+            username: STRING,
+            email: STRING,
+        }
+    +POST, Login with a user
+
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
         args: {
             username: String,
             password: String
@@ -43,6 +54,7 @@ There is a negative (-) next to stuff that isn't implemented yet
         error: {
             error: String
         }
+<<<<<<< HEAD
     )
 
 /api/user/logout
@@ -60,12 +72,23 @@ There is a negative (-) next to stuff that isn't implemented yet
 /api/user/register
     Register a new user
     +POST (
+=======
+    +DELETE logout
+        -Logout
+        -Error, 404 Session Not Found
+        -Success, 200 Logged Out
+
+
+/api/user
+    +POST, Register
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
         args: {
             username: String,
             email: String,
             password: String,
             passwordRepeated: String
         },
+<<<<<<< HEAD
         success: {
             success: 1
         },
@@ -78,6 +101,19 @@ There is a negative (-) next to stuff that isn't implemented yet
     Update a user's password
     +POST (
         args: {
+=======
+        return: {
+            userID: <new userID>
+        }
+    -DELETE, deregisters logged in user
+        args: {
+            password: 'String'
+        }
+
+    -PUT, Update User Password (Updates User Object)
+        args: {
+            username: String,
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
             oldPassword: String,
             newPassword: String,
             newPasswordRepeated, String
@@ -106,6 +142,7 @@ There is a negative (-) next to stuff that isn't implemented yet
         error: {
             error: String
         }
+<<<<<<< HEAD
     )
 
 /api/semester/weeks/find/:semesterID
@@ -202,6 +239,15 @@ There is a negative (-) next to stuff that isn't implemented yet
         }
     )
 
+=======
+/api/user/:userId
+    -GET, Gets public profile of userId
+        return: {
+            username: String,
+        }
+        //threads[]: {},
+        //posts[]: {}
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
 
 
 /api/user/class/markAttended
@@ -379,9 +425,9 @@ There is a negative (-) next to stuff that isn't implemented yet
     REMOVED SHIT / NOT IMPLEMENTED / NOT PLANNED
 */
 
-/api/class/:WeeklyClassID
-    -GET :weeklyClassId, Get a weekly class
-        {
+/api/class/:SpecifClassId
+    -GET, Get a weekly class
+        return: {
             video : {
                 slides[]:  String
                 url: String
@@ -398,43 +444,84 @@ There is a negative (-) next to stuff that isn't implemented yet
                     },
                     threadId: Unsigned INT,
                     title: String,
-                    body: String,
-                    comments[]:
-                    {
-                        User {
-                            UserID: Unsigned INT,
-                            Username: String
-                        },
-                        Body: String
-                    }
                 }
         }
     -POST, add a thread
-        {
+        args: {
             Title: String,
             Body: String
         }
     -PUT ?attendedFlag, attend a weekly class
     -DELETE :ThreadId, delete a thread
+        ADD A DELETED FLAG?
 
-/api/classes/:WeeklyClassId/:ThreadId
+/api/classes/:SpecificClassId/:ThreadId
     -POST, add a comment
         String
     -DELETE commentId, Remove a Comment
+        ADD A DELETED FLAG?
     -GET, Get all comments for a thread
 
+<<<<<<< HEAD
 /api/subject/
     -GET, ?query return list of like subjects
         SubjectCode[]:
             {
                 SubjectCode:
+=======
+
+//TIMETABLE PAGE
+
+/api/timetable/
+
+    -GET, get array of weekly classes in timetable for current week
+        return : WeeklyClass[]: WeeklyClass
+
+    -POST, add a class time to timetable
+        args: classId
+
+    -DELETE classId,
+        return : delete a class time from timetable
+
+    -PUT, Change from one classTime to another
+        args: newClass: classId
+
+        //// CONFUSING -- two different API calls to register into a time slot YES!
+
+/api/timetable?date="String"
+    -GET, get array of weekly classes for correspond week containing date
+
+//SUBJECTS PAGE
+
+/api/subject?query="String"
+    -GET,  return array of like subjects
+        return: {
+            SubjectCode[]: {
+                SubjectId:
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
                 Names:
             }
+        }
 
+<<<<<<< HEAD
 /api/timetable/
     -GET, get array of weekly classes in timetable for current week
         WeeklyClass[]: WeeklyClass
     -POST classId, add a class time to timetable
     -DELETE classId, delete a class time from timetable
     -PUT originalClass newClass, Change from one classTime to another
+=======
+/api/subject/:SubjectId
+    -GET, return all classes for a subject
+        return: {
+            Class[]:
+                ClassTimes[]:
+                    {
+
+                    }
+        }
+
+
+
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
 

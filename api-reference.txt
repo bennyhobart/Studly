@@ -1,30 +1,33 @@
 //LOGIN AND PROFILE
 
 /api/session
-    -GET, Get User Information for currently logged in user!
+    +GET, Get User Information for currently logged in user!
         return: {
             username: STRING,
             email: STRING,
         }
-    -POST, Login with a user
+    +POST, Login with a user
 
         args: {
             username: String,
             password: String
         }
-    -DELETE logout
+    +DELETE logout
         -Logout
         -Error, 404 Session Not Found
         -Success, 200 Logged Out
 
 
 /api/user
-    -POST, Register
+    +POST, Register
         args: {
             username: String,
             email: String,
             password: String,
             passwordRepeated: String
+        },
+        return: {
+            userID: <new userID>
         }
     -DELETE, deregisters logged in user
         args: {
@@ -33,6 +36,7 @@
 
     -PUT, Update User Password (Updates User Object)
         args: {
+            username: String,
             oldPassword: String,
             newPassword: String,
             newPasswordRepeated, String

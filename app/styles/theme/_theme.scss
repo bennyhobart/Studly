@@ -1,0 +1,12 @@
+@import "compass/css3";
+$icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
+//change font path
+
+//add variable overrides
+@import 'variables';
+@import 'sass-bootstrap/lib/bootstrap';
+@import 'base';
+@import 'login';
+@import 'class';
+@import 'subjects';
+@import 'timetable';

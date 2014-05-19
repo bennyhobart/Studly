@@ -1,0 +1,29 @@
+#login-page {
+    #top-group {
+        border: thick solid lighten(#000, 90%);
+    }
+    #login-header {
+        color: white;
+        background-color: $blue;
+        font-size: 1.6em;
+        height: 50px;
+        padding: 10px 0;
+    }
+    form {
+        div {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+    #what-is-studly {
+        color: $blue;
+        span {
+            font-weight: bold;
+        }
+        height: 80px;
+        padding: 20px 0;
+        text-align: center;
+        background-color: $gray-lighter;
+        border: thick solid lighten(#000, 90%);
+    }
+}

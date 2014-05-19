@@ -1,51 +1,340 @@
 //LOGIN AND PROFILE
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+/*
+    User Related
+*/
+
+/api/user/session
+    Get currently logged in user's Info
+    +GET (
+        success: {
+            username: String,
+            email: String
+        },
+        error: {
+            error: String
+        }
+
+    )
+
+/api/user/get/:userID
+    Get username by userID
+    +GET (
+        success: {
+            username: String
+        },
+        error: {
+            error: String
+        }
+    )
+
+
+/api/user/login
+    Log a user in
+    +POST (
 /api/session
-    -GET, Get User Information
-        {
+    +GET, Get User Information for currently logged in user!
+        return: {
             username: STRING,
             email: STRING,
-            threads[]?: {},
-            posts[]?: {}
         }
-    -PUT, Update User Password (Updates User Object)
-        {
-            oldPassword: String,
-            newPassword: String,
-            newPasswordRepeated, String
+    +POST, Login with a user
 
-        }
-    -POST, Login
-        {
+        args: {
             username: String,
             password: String
         }
-    -DELETE
+    )
+
+/api/user/logout
+    Log out
+    +GET (
+        requiresAuth: true,
+        success: {
+            success: 1
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/user/register
+    Register a new user
+    +POST (
+=======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+    +DELETE logout
         -Logout
         -Error, 404 Session Not Found
         -Success, 200 Logged Out
 
+
 /api/user
-    -POST, Register
-        {
+    +POST, Register
+<<<<<<< HEAD
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+        args: {
             username: String,
             email: String,
             password: String,
             passwordRepeated: String
+        },
+<<<<<<< HEAD
+<<<<<<< HEAD
+        success: {
+            success: 1
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/user/updatePassword
+    Update a user's password
+    +POST (
+        args: {
+=======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+        return: {
+            userID: <new userID>
         }
     -DELETE, deregisters logged in user
-    -GET :userId, Gets public profile of userId
-        {
-            username: String,
-            threads[]: {},
-            posts[]: {}
+        args: {
+            password: 'String'
         }
+
+    -PUT, Update User Password (Updates User Object)
+        args: {
+            username: String,
+<<<<<<< HEAD
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+            oldPassword: String,
+            newPassword: String,
+            newPasswordRepeated, String
+
+<<<<<<< HEAD
+/api/semester/find/:year
+    Get a list of all the semesters
+    +GET (
+        success: {
+            semesters[]: {
+                semesterID: Number,
+                startDate: String
+            }
+        },
+        error: {
+            error: String
+        }
+<<<<<<< HEAD
+    )
+
+/api/semester/weeks/find/:semesterID
+    Get a list of weeks for the given semester
+    +GET (
+        success: {
+            weeks[]: {
+                weekID: Number,
+                startDate: String
+            }
+        },
+        error: {
+            error: String
+        }
+    )
+
+/*
+    Subjects and Classes
+*/
+
+/api/classes/times/:classID
+    Get all the class times for a given classID
+    +GET (
+        success: {
+            times[]: {
+                classTimeID: Number,
+                day: Unsigned Number,
+                time: String,
+                buildingNumber: Number,
+                roomNumber: number
+            }
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/classes/weekly/:classID
+    Get all the weekly classes for a given classID
+    +GET (
+        success: {
+            classes[]: {
+                weeklyClassID: Number,
+                weekNumber: Number
+            }
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/subject/findClasses/:subjectID
+    Return all classes for a subject
+    +GET (
+        success: {
+            classes[] : {
+                classID: Number,
+                sort: Number,
+                duration Number
+            }
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/user/classTime/register
+    Register into the given class time
+    +POST (
+        requiresAuth: true,
+        args: {
+            classTimeID: Number
+        },
+        success: {
+            success: 1
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/user/classTime/remove
+    Removes a user from a given class time
+    +POST (
+        requiresAuth: true,
+        args: {
+            classTimeID: Number
+        },
+        success: {
+            success: 1
+        },
+        error: {
+            error: String
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+        }
+/api/user/:userId
+    -GET, Gets public profile of userId
+        return: {
+            username: String,
+        }
+        //threads[]: {},
+        //posts[]: {}
+<<<<<<< HEAD
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+
+
+/api/user/class/markAttended
+    Marks the given class as attended (or not)
+    +POST (
+        requiresAuth: true,
+        args: {
+            weeklyClassID: Number,
+            state: Number
+        },
+        success: {
+            success: 1
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/user/subject/register
+    Registers into a given subject
+    +POST (
+        requiresAuth: true,
+        args: {
+            subjectID: Number
+        },
+        success: {
+            success: 1
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/user/subject/remove
+    Removes a subject from the given user
+    +POST (
+        requiresAuth: true,
+        args: {
+            subjectID: Number
+        },
+        success: {
+            success: 1
+        },
+        error {
+            error: String
+        }
+    )
+
+/api/user/timetable/get/:semesterID
+    Gets the timetable for the currently logged in user
+    +GET (
+        requiresAuth: true,
+        success: {
+            times[]: {
+                classTimeID: Number,
+                classID: Number,
+                day: Number,
+                time: String,
+                buildingNumber: Number,
+                roomNumber: Number,
+                sort: Number,
+                subjectID: Number,
+                duration: Number
+            }
+        },
+        error: {
+            error: String
+        }
+    )
+
+/api/user/attended/get/:semesterID/:weekNumber
+    Gets all the attended states for the given semesterID and weekNumber
+    +GET (
+        requiresAuth: true,
+        success: {
+            states[]: {
+                classID: Number,
+                state: Number
+            }
+        },
+        error: {
+            error: String
+        }
+    )
+
+/*
+    Forum Related
+*/
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
 
 //CLASS PAGE!
 
-/api/classes/:WeeklyClassID
-    -GET :weeklyClassId, Get a weekly class
-        {
+/api/class/:SpecifClassId
+    -GET, Get a weekly class
+        return: {
             video : {
                 slides[]:  String
                 url: String
@@ -62,54 +351,85 @@
                     },
                     threadId: Unsigned INT,
                     title: String,
-                    body: String,
-                    comments[]:
-                    {
-                        User {
-                            UserID: Unsigned INT,
-                            Username: String
-                        },
-                        Body: String
-                    }
                 }
         }
     -POST, add a thread
-        {
+        args: {
             Title: String,
             Body: String
         }
-    -PUT :attendedFlag, attend a weekly class
+    -PUT ?attendedFlag, attend a weekly class
     -DELETE :ThreadId, delete a thread
+        ADD A DELETED FLAG?
 
-/api/classes/:WeeklyClassId/:ThreadId
+/api/classes/:SpecificClassId/:ThreadId
     -POST, add a comment
         String
     -DELETE commentId, Remove a Comment
+        ADD A DELETED FLAG?
     -GET, Get all comments for a thread
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+/api/subject/
+    -GET, ?query return list of like subjects
+        SubjectCode[]:
+            {
+                SubjectCode:
+=======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
 
 //TIMETABLE PAGE
 
+/api/timetable/
+
+    -GET, get array of weekly classes in timetable for current week
+        return : WeeklyClass[]: WeeklyClass
+
+    -POST, add a class time to timetable
+        args: classId
+
+    -DELETE classId,
+        return : delete a class time from timetable
+
+    -PUT, Change from one classTime to another
+        args: newClass: classId
+
+        //// CONFUSING -- two different API calls to register into a time slot YES!
+
+/api/timetable?date="String"
+    -GET, get array of weekly classes for correspond week containing date
+
+//SUBJECTS PAGE
+
+/api/subject?query="String"
+    -GET,  return array of like subjects
+        return: {
+            SubjectCode[]: {
+                SubjectId:
+<<<<<<< HEAD
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+                Names:
+            }
+        }
+
+<<<<<<< HEAD
+<<<<<<< HEAD
 /api/timetable/
     -GET, get array of weekly classes in timetable for current week
         WeeklyClass[]: WeeklyClass
     -POST classId, add a class time to timetable
     -DELETE classId, delete a class time from timetable
     -PUT originalClass newClass, Change from one classTime to another
-
-//SUBJECTS PAGE
-
-/api/subject
-    -GET, return list of subjects
-        SubjectCode[]:
-            {
-                SubjectCode:
-                Names:
-            }
-
-/api/subject/:ID
+=======
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
+/api/subject/:SubjectId
     -GET, return all classes for a subject
-        {
+        return: {
             Class[]:
                 ClassTimes[]:
                     {
@@ -119,4 +439,8 @@
 
 
 
+<<<<<<< HEAD
+>>>>>>> 8ecfbfeb8c29a1d2dd950f8bb84a73ece3d4575c
+=======
+>>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034
 

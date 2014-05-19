@@ -30,8 +30,13 @@
 }
 .heading {
     height: $heading-height;
+    line-height: $heading-height;
     color: white;
-    font-size: $font-size-large;
+    padding-left: 10px;
+    font-weight: bold;
+    vertical-align: middle;
+    border-top: 3px solid $blue-light;
+    font-size: $font-size-h3;
 
 }
 .subheading {

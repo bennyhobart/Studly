@@ -53,48 +53,80 @@ angular.module('studlyApp')
  			amPM = " AM";
  		}
  		
- 		return hour + ":" + time.toString().slice(-2) + amPM;
+ 		return hour + ":" + time.toString().slice(-2);
     };
 
- 	var class1 = {
- 		time: 915,
- 		end: 1100,
- 		building: "Doug McDonell",
- 		theatre: "Steve Howard"
- 	};
+    var class1 = {
+    time: 915,
+    end: 1100,
+    day: 1,
+    type: "Lecture",
+    building: "Doug McDonell",
+    theatre: "Steve Howard"
+  };
 
- 	var class2 = {
- 		time: 1400,
- 		end: 1600,
- 		building: "Doug McDonell",
- 		theatre: "Denis Discroll"
- 	};
+  $scope.formatDay = function(day) {
+    if (day == 1) {
+      return "Mon";
+    } else if (day == 2) {
+      return "Tue";
+    } else if (day == 3) {
+      return "Wed";
+    } else if (day == 4) {
+      return "Thu";
+    } else if (day == 5) {
+      return "Fri";
+    }
+  }
 
- 	var class3 = {
- 		time: 1800,
- 		end: 1900,
- 		building: "Alice Roy",
- 		theatre: "Room 227"
- 	};
+  var class2 = {
+    time: 1400,
+    end: 1600,
+    day: 2,
+    type: "Lecture",
+    building: "Doug McDonell",
+    theatre: "Denis Discroll"
+  };
+
+  var class3 = {
+    time: 1800,
+    end: 1900,
+    day: 1,
+    type: "Lecture",
+    building: "Alice Roy",
+    theatre: "Room 227"
+  };
+
+  var class4 = {
+    time: 1800,
+    end: 1900,
+    day: 3,
+    type: "Tutorial",
+    building: "Alice Roy",
+    theatre: "Room 227"
+  };
 
  	var AI = {
  		name: "Artificial Inteligence",
  		code: "COMP30050",
- 		class: [class1]
+    color: "blue-light",
+    classes: [class1, class4]
  	};
 
  	var COMPLEX = {
  		name: "Modelling Complex Software Systems",
  		code: "COMP40001",
- 		class: [class2]
+    color: "orange",
+    classes: [class2]
  	};
 
  	var WEB = {
  		name: "Web Information Technologies",
  		code: "INFO30005",
- 		class: [class3]
+    color: "blue-light",
+    classes: [class3]
  	};
 
- 	$scope.subjects = [AI, COMPLEX, WEB];
+  $scope.subjects = [AI, COMPLEX, WEB];
 
   });

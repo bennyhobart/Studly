@@ -1,88 +1,114 @@
 @import 'theme/theme';
 
-@import 'sass-bootstrap/lib/bootstrap';
-
 #timetable-page {
-	#calendar {
-	    width: 100%;
-	    overflow: auto;
-	    height: 55px;
-	    white-space: nowrap;
-	    text-align: center;
-
+	#extra-info {
+		display: table-cell;
+		background-color: $gray-lighter;
+		border-right: thin solid $gray-lighter;
 	}
 
-	#monthLabel {
-		width: 100%;
-		color: #AAA;
-		text-align: center;
-		font-weight: bold;
-		padding-top: 10px;
-		margin: 10px;
-		font-size: 12px;
-	}
-
-	.contents {
-	    width: 38px;
-	    height: 45px;
-	    display: inline-block;
-	}
-
-	.contentLabel {
-	    width: 100%;
-	    padding-top: 3px;
-	    position: relative;
-	    font-weight: normal;
-	    font-size: 9px;
-	}
-
-	.contentNumber {
-	    width: 35px;
-	    padding-top: 2px;
-	    font-weight: bold;
-	    position: relative;
-	    font-size: 18px;
-	}
-
-	#day {
-	    background-color:#FFF;
-	    color: black;
-	}
-
-	#today {
-	    background-color:#468CC8;
+	.subjectHeading {
+	    height: $subheading-height;
+	    line-height: $subheading-height;
+	    vertical-align: middle;
 	    color: white;
-	}
-
-	#weekend {
-	    background-color:#ccc;
-	}
-
-	#day:hover, #today:hover, #weekend:hover {
-		background-color:#EEE;
-		color: #000;
-	}
-
-
-	#timeBar {
-	    border-bottom: 1px grey dotted;
-	    overflow:visible;
-	    height:12px;        
-	    margin: 5px 0 10px 0;
-	}
-
-	#timeBar span {
-	    color: grey;
 	    font-weight: bold;
-	    font-size: 10px;
-	    background-color: white;        
-	    padding: 0 5px;
+	    padding-left: 10px;
+	    border-bottom: thin solid $gray-lighter;
 	}
 
-	.freeTime {
-		width: 100%;
-		padding-top: 10px;
-		padding-bottom: 10px;
+	.subjectSubHeading {
+	    height: $subheading-height;
+	    line-height: $subheading-height;
+	    vertical-align: middle;
+	    color: $gray;
+	    font-weight: bold;
+	    padding-left: 10px;
+	    border-bottom: thin solid $gray-lighter;
+	}
+
+	.timetable {
+		padding-left: 10px;
+	}
+
+	.timetable.row {
+		border-right: thin solid $gray-lighter;
+		border-bottom: thin solid $gray-lighter;
+	}
+
+	.time {
+		color: $gray-light;
+		font-size: $font-size-small;
+	}
+
+	.class {
+		font-size: $font-size-small;
+	}
+
+	.blueLabel {
+		border-left: 3px solid $blue-light;
+	}
+
+	.blueLabel:hover {
+		background-color: $blue-lighter;
+	}
+
+	.orangeLabel {
+		border-left: 3px solid $orange;
+	}
+
+	.orangeLabel:hover {
+		background-color: $blue-lighter;
+	}
+
+	.day {
 		text-align: center;
+	}
+
+	.day:hover {
+		background-color: $blue-dark;
+	}
+
+	.arrow {
+		text-align: center;
+	}
+
+	.arrow:hover {
+		color: $blue-dark;
+	}
+
+	.timeLabel {
+		color: $gray-light;
+		font-size: $font-size-small;
+		padding-left: 4px;
+		padding-right: 10px;
+	}
+
+	.weekLabel {
+		font-size: $font-size-base;
+	}
+
+	.white {
+		background-color: #FFFFFF;
+	}
+
+	.orangeDot {
+		color: $orange;
+	}
+
+	.blue-light {
+    	background-color: $blue-light;
+	}
+
+	.blue-lighter {
+    	background-color: $blue-lighter;
+	}
+
+	.blue-dark {
+		background-color: $blue-dark;
+	}
+
+	.blue-lightDot {
+		color: $blue-light;
 	}
 }

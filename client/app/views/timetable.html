@@ -1,68 +1,104 @@
-<!-- Start timetable page -->
 <div id="timetable-page">
 
-	<!-- Start calendar -->
-	<div class="row">
-		<div class="col-xs-1">
-			<div id="monthLabel">
-				APR
-			</div>
-		</div>
-		<div class="col-xs-11">
-	  			<div id="calendar">
-					<div class="contents" id="{{checkDayType(date)}}" ng-repeat="date in dates track by $index">
-					    <div class="contentLabel">{{date | date:'EEE'}}</div>
-					    <div class="contentNumber">{{date.getDate()}}</div>    
+	<div id="extra-info" class="col-sm-4 col-xs-12">
+		<div class="heading blue-dark row">To Do</div>
+
+		<!-- Start subjects list -->
+		<div ng-repeat="subject in subjects | orderBy:'subject.name'">
+			<div class="subjectHeading {{subject.color}} row">{{subject.name}}</div>
+
+			<div ng-repeat="class in subject.classes">
+				<div class="subjectSubHeading white row">
+					<div class="col-md-10">
+						<i class="fa fa-circle {{subject.color}}Dot"></i> <span class="timeLabel">{{formatDay(class.day)}}</span> {{class.type}}
+					</div>
+					<div class="col-md-2">
+						<span class="timeLabel">{{formatTime(class.time)}}</span>
 					</div>
 				</div>
+			</div>
 		</div>
+		<!-- End subjects list -->
 	</div>
-	<!-- End calendar -->
 
-	<!-- Start day coloumn -->
-	<div ng-repeat="subject in subjects | orderBy:'class[0].time'">
-		<!-- Time formatting needed -->
-		<div id="timeBar">
-		    <span>{{formatTime(subject.class[0].time)}}</span>
+	<div class="col-sm-8 col-xs-12">
+		<div class="heading blue-dark row">
+			<i class="fa fa-angle-left"></i>
+			 Week 8 <span class="weekLabel">(8 Mar - 15 Mar)</span> 
+			<i class="fa fa-angle-right"></i>
 		</div>
-
-		<div class="list-group">
-			<!-- Needs a unique id for each subject to toggle options individualy -->
-			<a class="list-group-item active" ng-click="toggleCustom()">
-			    {{subject.code}} - {{subject.name}}<br/>
-			    <font size="1px">{{subject.class[0].building}} - {{subject.class[0].theatre}}</font>
-			</a>
-			<div ng-hide="custom">
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-ok"></span>
-					<span style="padding-left:15px;">Mark as attended</span>
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-pushpin"></span>
-					<span style="padding-left:15px;">Get Directions</span>
-				</a>
-				<a href="#" class="list-group-item">
-					<span class="glyphicon glyphicon-pencil"></span>
-					<span style="padding-left:15px;">Notes</span>
-				</a>
-				<a href="#/class" class="list-group-item">
-					<span class="glyphicon glyphicon-facetime-video"></span>
-					<span style="padding-left:15px;">Lecture Recordings</span>
-				</a>
+		<div class="subjectHeading blue-lighter row">
+			<div class="arrow col-md-1">
+				<i class="fa fa-chevron-left span1"></i>
+			</div>
+			<div class="day col-md-2 blue-dark">
+				Monday
+			</div>
+			<div class="day col-md-2">
+				Tuesday
+			</div>
+			<div class="day col-md-2">
+				Wednesday
+			</div>
+			<div class="day col-md-2">
+				Thursday
+			</div>
+			<div class="day col-md-2">
+				Friday
+			</div>
+			<div class="arrow col-md-1">
+				<i class="fa fa-chevron-right span1"></i>
 			</div>
 		</div>
 
-		<div id="timeBar">
-		    <span>{{formatTime(subject.class[0].end)}}</span>
+		<div class="timetable row">
+			<div class="col-md-1">
+				<span class="time">8:00</span>
+			</div>
+			<div class="class orangeLabel col-md-2">
+				Web Info Technologies
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-1">
+				
+			</div>
 		</div>
 
-		<!-- Needs some way to calculate free time -->
-		<div class="freeTime">
-			Yaaay some free time!
+		<div class="timetable row">
+			<div class="col-md-1">
+				<span class="time">9:00</span>
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="class blueLabel col-md-2">
+				Advanced Signal Processing
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-1">
+				
+			</div>
 		</div>
 
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	</div>
-	<!-- End day coloumn -->
-	
 </div>
-<!-- End timetable page -->

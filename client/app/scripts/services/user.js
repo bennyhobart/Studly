@@ -1,16 +1,6 @@
 'use strict';
 
 angular.module('studlyApp')
-  .factory('user', function () {
-    // Service logic
-    // ...
-
-    var meaningOfLife = 42;
-
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
-    };
+  .factory('user', ['$resource' , function ($resource)) {
+    return $resource('/api/user');
   });

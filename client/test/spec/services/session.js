@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: user', function () {
+describe('Service: session', function () {
 
   // load the service's module
   beforeEach(module('studlyApp'));
 
   // instantiate service
-  var user;
-  beforeEach(inject(function (_user_) {
-    user = _user_;
+  var session;
+  beforeEach(inject(function (_session_) {
+    session = _session_;
   }));
 
   it('should do something', function () {
-    expect(!!user).toBe(true);
+    expect(!!session).toBe(true);
   });
 
 });

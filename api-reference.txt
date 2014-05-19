@@ -1,0 +1,122 @@
+//LOGIN AND PROFILE
+
+/api/session
+    -GET, Get User Information
+        {
+            username: STRING,
+            email: STRING,
+            threads[]?: {},
+            posts[]?: {}
+        }
+    -PUT, Update User Password (Updates User Object)
+        {
+            oldPassword: String,
+            newPassword: String,
+            newPasswordRepeated, String
+
+        }
+    -POST, Login
+        {
+            username: String,
+            password: String
+        }
+    -DELETE
+        -Logout
+        -Error, 404 Session Not Found
+        -Success, 200 Logged Out
+
+/api/user
+    -POST, Register
+        {
+            username: String,
+            email: String,
+            password: String,
+            passwordRepeated: String
+        }
+    -DELETE, deregisters logged in user
+    -GET :userId, Gets public profile of userId
+        {
+            username: String,
+            threads[]: {},
+            posts[]: {}
+        }
+
+//CLASS PAGE!
+
+/api/classes/:WeeklyClassID
+    -GET :weeklyClassId, Get a weekly class
+        {
+            video : {
+                slides[]:  String
+                url: String
+                },
+            Threads[] :
+                {
+                    creator: {
+                        UserID: Unsigned INT
+                        Username: String
+                        },
+                    count: {
+                        up: Unsigned INT,
+                        down: Unsigned INT
+                    },
+                    threadId: Unsigned INT,
+                    title: String,
+                    body: String,
+                    comments[]:
+                    {
+                        User {
+                            UserID: Unsigned INT,
+                            Username: String
+                        },
+                        Body: String
+                    }
+                }
+        }
+    -POST, add a thread
+        {
+            Title: String,
+            Body: String
+        }
+    -PUT :attendedFlag, attend a weekly class
+    -DELETE :ThreadId, delete a thread
+
+/api/classes/:WeeklyClassId/:ThreadId
+    -POST, add a comment
+        String
+    -DELETE commentId, Remove a Comment
+    -GET, Get all comments for a thread
+
+
+//TIMETABLE PAGE
+
+/api/timetable/
+    -GET, get array of weekly classes in timetable for current week
+        WeeklyClass[]: WeeklyClass
+    -POST classId, add a class time to timetable
+    -DELETE classId, delete a class time from timetable
+    -PUT originalClass newClass, Change from one classTime to another
+
+//SUBJECTS PAGE
+
+/api/subject
+    -GET, return list of subjects
+        SubjectCode[]:
+            {
+                SubjectCode:
+                Names:
+            }
+
+/api/subject/:ID
+    -GET, return all classes for a subject
+        {
+            Class[]:
+                ClassTimes[]:
+                    {
+
+                    }
+        }
+
+
+
+

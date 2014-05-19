@@ -1,10 +1,10 @@
-node_modules
+server/node_modules
 dist
 .tmp
 .sass-cache
-app/bower_components
-app/node_modules
-app/assets/bower_components
+server/app/bower_components
+server/app/node_modules
+server/app/assets/bower_components
 client/app/bower_components
 client/node_modules
 Studly.sublime-project

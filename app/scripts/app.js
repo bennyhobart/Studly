@@ -28,6 +28,10 @@ angular.module('studlyApp', [
         templateUrl: 'partials/subjects.html',
         controller: 'SubjectsCtrl'
       })
+      .when('/subject', {
+        templateUrl: 'partials/subject',
+        controller: 'SubjectCtrl'
+      })
       .otherwise({
         redirectTo: '/login'
       });

@@ -1,97 +1,105 @@
 <navbar></navbar>
-<div id="calendar">
-    <div class="contents" id="today">
-    	<div class="contentLabel">Mon</div>
-    	<div class="contentNumber">13</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Tue</div>
-    	<div class="contentNumber">14</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Wed</div>
-    	<div class="contentNumber">15</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Thu</div>
-    	<div class="contentNumber">16</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Fri</div>
-    	<div class="contentNumber">17</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Sat</div>
-    	<div class="contentNumber">18</div>
-    </div>
-    <div class="contents" id="weekend">
-    	<div class="contentLabel">Sun</div>
-    	<div class="contentNumber">19</div>
-    </div>
-       <div class="contents" id="day">
-    	<div class="contentLabel">Mon</div>
-    	<div class="contentNumber">13</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Tue</div>
-    	<div class="contentNumber">14</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Wed</div>
-    	<div class="contentNumber">15</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Thu</div>
-    	<div class="contentNumber">16</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Fri</div>
-    	<div class="contentNumber">17</div>
-    </div>
-    <div class="contents" id="day">
-    	<div class="contentLabel">Sat</div>
-    	<div class="contentNumber">18</div>
-    </div>
-    <div class="contents" id="weekend">
-    	<div class="contentLabel">Sun</div>
-    	<div class="contentNumber">19</div>
-    </div>
-</div>
+<div id="timetable-page">
 
-<div id="timeBar">
-    <span>10:00 AM</span>
-</div>
+	<div id="extra-info" class="col-sm-4 col-xs-12">
+		<div class="heading blue-dark row">To Do</div>
 
-<div class="list-group">
-  <a class="list-group-item active" onclick="$('.option').toggle();">
-    COMP30050 Artificial Inteligence<br/>
-    <font size="1">Doug McDonell Building - Steve Howard Theatre</font>
-  </a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-ok"></span><span style="padding-left:15px;">Mark as attended</span></a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-pushpin"></span><span style="padding-left:15px;">Get Directions</span></a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-pencil"></span><span style="padding-left:15px;">Notes</span></a>
-  <a href="#" class="option list-group-item"><span class="glyphicon glyphicon-facetime-video"></span><span style="padding-left:15px;">Lecture Recordings</span></a>
-</div>
+		<!-- Start subjects list -->
+		<div ng-repeat="subject in subjects | orderBy:'subject.name'">
+			<div class="subjectHeading {{subject.color}} row">{{subject.name}}</div>
 
-<div id="timeBar">
-    <span>11:00 AM</span>
-</div>
+			<div ng-repeat="class in subject.classes">
+				<div class="subjectSubHeading white row">
+					<div class="col-md-10">
+						<i class="fa fa-circle {{subject.color}}Dot"></i> <span class="timeLabel">{{formatDay(class.day)}}</span> {{class.type}}
+					</div>
+					<div class="col-md-2">
+						<span class="timeLabel">{{formatTime(class.time)}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End subjects list -->
+	</div>
 
-</br><p><center><h5>3 hours of free time.</h5></center></p></br>
+	<div class="col-sm-8 col-xs-12">
+		<div class="heading blue-dark row">
+			<i class="fa fa-angle-left"></i>
+			 Week 8 <span class="weekLabel">(8 Mar - 15 Mar)</span> 
+			<i class="fa fa-angle-right"></i>
+		</div>
+		<div class="subjectHeading blue-lighter row">
+			<div class="arrow col-md-1">
+				<i class="fa fa-chevron-left span1"></i>
+			</div>
+			<div class="day col-md-2 blue-dark">
+				Monday
+			</div>
+			<div class="day col-md-2">
+				Tuesday
+			</div>
+			<div class="day col-md-2">
+				Wednesday
+			</div>
+			<div class="day col-md-2">
+				Thursday
+			</div>
+			<div class="day col-md-2">
+				Friday
+			</div>
+			<div class="arrow col-md-1">
+				<i class="fa fa-chevron-right span1"></i>
+			</div>
+		</div>
 
-<div id="timeBar">
-    <span>02:00 PM</span>
-</div>
+		<div class="timetable row">
+			<div class="col-md-1">
+				<span class="time">8:00</span>
+			</div>
+			<div class="class orangeLabel col-md-2">
+				Web Info Technologies
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-1">
+				
+			</div>
+		</div>
 
-<div class="list-group">
-  <a class="list-group-item active" onclick="$('.option2').toggle();">
-    COMP40004 Usability Engineering<br/>
-    <font size="1">Doug McDonell Building - Denis Discroll Theatre</font>
-  </a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-ok"></span><span style="padding-left:15px;">Mark as attended</span></a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-pushpin"></span><span style="padding-left:15px;">Get Directions</span></a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-pencil"></span><span style="padding-left:15px;">Notes</span></a>
-  <a href="#" class="option2 list-group-item"><span class="glyphicon glyphicon-facetime-video"></span><span style="padding-left:15px;">Lecture Recordings</span></a>
-</div>
+		<div class="timetable row">
+			<div class="col-md-1">
+				<span class="time">9:00</span>
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="class blueLabel col-md-2">
+				Advanced Signal Processing
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-2">
+				
+			</div>
+			<div class="col-md-1">
+				
+			</div>
+		</div>
 
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	</div>
 </div>

@@ -32,6 +32,18 @@ angular.module('studlyApp', [
         templateUrl: 'partials/subject',
         controller: 'SubjectCtrl'
       })
+      .when('/about', {
+        templateUrl: 'partials/about',
+        controller: 'AboutCtrl'
+      })
+      .when('/contact', {
+        templateUrl: 'partials/contact',
+        controller: 'ContactCtrl'
+      })
+      .when('/profile', {
+        templateUrl: 'partials/profile',
+        controller: 'ProfileCtrl'
+      })
       .otherwise({
         redirectTo: '/login'
       });

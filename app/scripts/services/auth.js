@@ -17,7 +17,6 @@ angular.module('studlyApp')
             $rootScope.currentUser = null;
           }).$promise;
       },
-      // Don't see a point why I should handle a callback here.
       logout: function () {
         return Session.logout(function() {
           $rootScope.currentUser = null;
@@ -39,17 +38,11 @@ angular.module('studlyApp')
       currentUser: function () {
         return User.get();
       },
-
-      changePassword: function (oldPassword, newPassword, callback) {
-        var cb = callback || angular.noop;
-
+      
+      changePassword: function (oldPassword, newPassword) {
         return User.update({
           oldPassword: oldPassword,
           newPassword: newPassword
-        }, function(user) {
-          return cb(user);
-        }, function(err) {
-          return cb(err);
         }).$promise;
 
       },

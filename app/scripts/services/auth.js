@@ -9,22 +9,15 @@ angular.module('studlyApp')
 
     // Public API here
     return {
-      login: function (user, callback) {
-        var cb = callback || angular.noop;
-
+      login: function (user) {
         return Session.save({
           email: user.email,
           password: user.password
         }, function(user) {
           $rootScope.currentUser = user;
-          return cb();
-        }, function(err) {
-          return cb(err);
         }).$promise;
       },
-      logout: function (callback) {
-        var cb = callback || angular.noop;
-
+      logout: function () {
         return Session.delete(function() {
             $rootScope.currentUser = null;
           }).$promise;
@@ -38,16 +31,10 @@ angular.module('studlyApp')
       currentUser: function () {
         return User.get();
       },
-      changePassword: function (oldPassword, newPassword, callback) {
-        var cb = callback || angular.noop;
-
+      changePassword: function (oldPassword, newPassword) {
         return User.update({
           oldPassword: oldPassword,
           newPassword: newPassword
-        }, function(user) {
-          return cb(user);
-        }, function(err) {
-          return cb(err);
         }).$promise;
 
       },

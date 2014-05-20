@@ -1,42 +1,38 @@
 'use strict';
 
 angular.module('studlyApp')
-  .factory('Auth', function ($rootScope, Session, User, $cookieStore) {
-    // Get currentUser from cookie
-    $rootScope.currentUser = $cookieStore.get('user') || null;
-    $cookieStore.remove('user');
-
+  .factory('Auth', function ($rootScope, $http, $location, User) {
+    $rootScope.currentUser = null;
 
     // Public API here
     return {
-      login: function (user, callback) {
-        var cb = callback || angular.noop;
-
-        return Session.save({
-          email: user.email,
-          password: user.password
-        }, function(user) {
-          $rootScope.currentUser = user;
-          return cb();
-        }, function(err) {
-          return cb(err);
-        }).$promise;
-      },
-      logout: function (callback) {
-        var cb = callback || angular.noop;
-
-        return Session.delete(function() {
+      // Don't see a point why I should handle a callback here.
+      login: function (loginInfo) {
+        return $http.post("/api/session", loginInfo)
+          .success(function(res) {
+            console.log(res)
+            $rootScope.currentUser = res;
+            $location.path('/main');
+          })
+          .error(function(res) {
             $rootScope.currentUser = null;
-            return cb();
-          },
-          function(err) {
-            return cb(err);
-          }).$promise;
+          })
       },
-      createUser: function (user, callback) {
+      // Don't see a point why I should handle a callback here.
+      logout: function () {
+        return $http.delete("/api/session") 
+          .success(function(res) {
+            $rootScope.currentUser = null;
+            $location.path('/login');
+          })
+          .error(function(res) {
+            // do nothing
+          })
+      },
+      createUser: function (passportInfo, callback) {
         var cb = callback || angular.noop;
 
-        return User.save(user,
+        return User.save(passportInfo,
           function(user) {
             $rootScope.currentUser = user;
             return cb(user);
@@ -49,6 +45,7 @@ angular.module('studlyApp')
       currentUser: function () {
         return User.get();
       },
+
       changePassword: function (oldPassword, newPassword, callback) {
         var cb = callback || angular.noop;
 

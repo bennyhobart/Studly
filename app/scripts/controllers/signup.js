@@ -3,19 +3,13 @@
 angular.module('studlyApp')
   .controller('SignupCtrl', function ($scope, $location, $http, Auth) {
     $scope.submitForm = function () {
-        if ($scope.password!=$scope.passwordConfirm) {
-            return;
-        }
+        console.log('send');
         Auth.createUser({
             email: $scope.email,
             password: $scope.password,
             passwordRepeated: $scope.passwordRepeated
-        }, function (err) {
-            if(err) {
-                console.log(err);
-                return;
-            }
-            $location.url('/timetable');
+        }, function (a) {
+            console.log(a)
         });
     };
   });

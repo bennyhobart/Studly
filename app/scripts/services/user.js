@@ -1,6 +1,9 @@
 'use strict';
 
 angular.module('studlyApp')
-  .factory('user', ['$resource' , function ($resource) {
-    return $resource('/api/user');
+  .factory('User', ['$resource' , function ($resource) {
+    return $resource('/api/user', null, {
+        update: { method: 'PUT'}
+    });
+
   }]);

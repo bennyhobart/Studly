@@ -49,6 +49,10 @@ angular.module('studlyApp', [
         controller: 'ProfileCtrl',
         authenticate: true
       })
+      .when('/signup', {
+        templateUrl: 'partials/signup',
+        controller: 'SignupCtrl'
+      })
       .otherwise({
         redirectTo: '/login'
       });
@@ -74,7 +78,7 @@ angular.module('studlyApp', [
       // Redirect to login if route requires auth and you're not logged in
       $rootScope.$on('$routeChangeStart', function (event, next) {
 
-        if (next.authenticate && !auth.isLoggedIn()) {
+        if (next.authenticate && !Auth.isLoggedIn()) {
           $location.path('/login');
         }
     });

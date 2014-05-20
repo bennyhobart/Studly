@@ -2,7 +2,7 @@
 
 angular.module('studlyApp')
   .controller('ProfileCtrl', function ($scope, $http, Classes, Session, Subject, Timetable, User) {
-
+    function init() {
         Classes.get(
             function (data) {
                 console.log('Classes.get');
@@ -188,4 +188,5 @@ angular.module('studlyApp')
                 console.log(data);
             }
         );
+    };
   });

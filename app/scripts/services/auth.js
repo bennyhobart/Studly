@@ -1,14 +1,17 @@
 'use strict';
 
 angular.module('studlyApp')
-  .factory('Auth', function ($rootScope, $location, User, Session) {
-    $rootScope.currentUser = null;
+  .factory('Auth', function ($rootScope, $location, $cookieStore, User, Session) {
+
+    // Get currentUser from cookie
+    $rootScope.currentUser = $cookieStore.get('user') || null;
+    $cookieStore.remove('user');
 
     // Public API here
     return {
       // Don't see a point why I should handle a callback here.
       login: function (loginInfo) {
-        return Session.login(loginInfo, 
+        return Session.login(loginInfo,
           function(res) {
             console.log("login success")
             $rootScope.currentUser = res;

@@ -8,19 +8,20 @@ angular.module('studlyApp')
     return {
       // Don't see a point why I should handle a callback here.
       login: function (loginInfo) {
-        console.log(loginInfo);
         return Session.login(loginInfo, 
           function(res) {
+            console.log("login success")
             $rootScope.currentUser = res;
-            $location.path('/main');
-          }, function() {
+            $location.url('/main');
+          }, function(res) {
             $rootScope.currentUser = null;
+            console.log(res);
           }).$promise;
       },
       logout: function () {
         return Session.logout(function() {
           $rootScope.currentUser = null;
-          $location.path('/login');
+          $location.url('/login');
         }, function(res) {
           console.log(res);
         }).$promise;
@@ -38,7 +39,7 @@ angular.module('studlyApp')
       currentUser: function () {
         return User.get();
       },
-      
+
       changePassword: function (oldPassword, newPassword) {
         return User.update({
           oldPassword: oldPassword,

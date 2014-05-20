@@ -35,13 +35,9 @@ angular.module('studlyApp')
         return User.save(passportInfo,
           function(user) {
             $rootScope.currentUser = user;
-            return cb(user);
-          },
-          function(err) {
-            return cb(err);
           }).$promise;
-
       },
+      
       currentUser: function () {
         return User.get();
       },

@@ -5,11 +5,15 @@ angular.module('studlyApp')
     $scope.submitForm = function () {
         console.log('send');
         Auth.createUser({
+            username: $scope.username,
             email: $scope.email,
             password: $scope.password,
             passwordRepeated: $scope.passwordRepeated
-        }, function (a) {
-            console.log(a)
+        }).then(function (data) {
+                console.log(data);
+                $location.url('/timetable');
+            }, function (data) {
+                console.log(data)
         });
     };
   });

@@ -9,16 +9,13 @@ angular.module('studlyApp')
 
     // Public API here
     return {
-      // Don't see a point why I should handle a callback here.
+
       login: function (loginInfo) {
         return Session.login(loginInfo,
           function(res) {
-            console.log("login success")
             $rootScope.currentUser = res;
-            $location.url('/main');
           }, function(res) {
             $rootScope.currentUser = null;
-            console.log(res);
           }).$promise;
       },
       logout: function () {
@@ -30,9 +27,7 @@ angular.module('studlyApp')
         }).$promise;
       },
 
-      createUser: function (passportInfo, callback) {
-        var cb = callback || angular.noop;
-
+      createUser: function (passportInfo) {
         return User.save(passportInfo,
           function(user) {
             $rootScope.currentUser = user;

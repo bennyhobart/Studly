@@ -1,34 +1,32 @@
 'use strict';
 
 angular.module('studlyApp')
-  .factory('Auth', function ($rootScope, $http, $location, User) {
+  .factory('Auth', function ($rootScope, $location, User, Session) {
     $rootScope.currentUser = null;
 
     // Public API here
     return {
       // Don't see a point why I should handle a callback here.
       login: function (loginInfo) {
-        return $http.post("/api/session", loginInfo)
-          .success(function(res) {
-            console.log(res)
+        console.log(loginInfo);
+        return Session.login(loginInfo, 
+          function(res) {
             $rootScope.currentUser = res;
             $location.path('/main');
-          })
-          .error(function(res) {
+          }, function() {
             $rootScope.currentUser = null;
-          })
+          }).$promise;
       },
       // Don't see a point why I should handle a callback here.
       logout: function () {
-        return $http.delete("/api/session") 
-          .success(function(res) {
-            $rootScope.currentUser = null;
-            $location.path('/login');
-          })
-          .error(function(res) {
-            // do nothing
-          })
+        return Session.logout(function() {
+          $rootScope.currentUser = null;
+          $location.path('/login');
+        }, function(res) {
+          console.log(res);
+        }).$promise;
       },
+
       createUser: function (passportInfo, callback) {
         var cb = callback || angular.noop;
 
@@ -37,7 +35,7 @@ angular.module('studlyApp')
             $rootScope.currentUser = user;
           }).$promise;
       },
-      
+
       currentUser: function () {
         return User.get();
       },
@@ -55,6 +53,7 @@ angular.module('studlyApp')
         }).$promise;
 
       },
+
       isLoggedIn: function () {
         var user = $rootScope.currentUser;
         return !!user;

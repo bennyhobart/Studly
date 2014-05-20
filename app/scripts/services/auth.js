@@ -1,11 +1,8 @@
 'use strict';
 
 angular.module('studlyApp')
-  .factory('Auth', function ($rootScope, Session, User, $cookieStore) {
-    // Get currentUser from cookie
-    $rootScope.currentUser = $cookieStore.get('user') || null;
-    $cookieStore.remove('user');
-
+  .factory('Auth', function ($rootScope, $http, $location, User) {
+    $rootScope.currentUser = null;
 
     // Public API here
     return {
@@ -28,6 +25,7 @@ angular.module('studlyApp')
             $rootScope.currentUser = user;
           }).$promise;
       },
+
       currentUser: function () {
         return User.get();
       },

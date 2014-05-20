@@ -27,24 +27,13 @@ angular.module('studlyApp')
 
         return Session.delete(function() {
             $rootScope.currentUser = null;
-            return cb();
-          },
-          function(err) {
-            return cb(err);
           }).$promise;
       },
-      createUser: function (user, callback) {
-        var cb = callback || angular.noop;
-
+      createUser: function (user) {
         return User.save(user,
-          function(user) {
+          function (user) {
             $rootScope.currentUser = user;
-            return cb(user);
-          },
-          function(err) {
-            return cb(err);
           }).$promise;
-
       },
       currentUser: function () {
         return User.get();

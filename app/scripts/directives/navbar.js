@@ -7,7 +7,15 @@ angular.module('studlyApp')
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
         // element.text('this is the navbar directive');
-        scope.loggediIn = Auth.isLoggedIn();
+        scope.loggedIn = Auth.isLoggedIn();
+        scope.logout = function () {
+          Auth.logout(function (data) {
+            console.log(data);
+            $location.url('/login');
+          }, function (data) {
+            console.log(data);
+          });
+        };
         scope.isActive = function(route) {
             return route === $location.path();
         };

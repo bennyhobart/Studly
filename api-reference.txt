@@ -362,7 +362,7 @@
     -DELETE :ThreadId, delete a thread
         ADD A DELETED FLAG?
 
-/api/classes/:SpecificClassId/:ThreadId
+/api/classes/:weeklyClassID/:topicID
     -POST, add a comment
         String
     -DELETE commentId, Remove a Comment

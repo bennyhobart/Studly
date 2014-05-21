@@ -6,3 +6,10 @@ angular.module('studlyApp')
       update: { method: 'PUT' }
     });
   }]);
+
+  var currentDate = new Date();
+  var weekNumber = today.getWeek();
+
+  timetable.get({date: "DATE"}, function(data) {
+  	console.log(data);
+  });

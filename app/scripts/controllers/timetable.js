@@ -79,6 +79,12 @@ angular.module('studlyApp')
     }
   }
 
+  $scopeWeekDays = ["Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday"];
+
   var class2 = {
     time: 1400,
     end: 1600,
@@ -128,5 +134,6 @@ angular.module('studlyApp')
  	};
 
   $scope.subjects = [AI, COMPLEX, WEB];
+
 
   });

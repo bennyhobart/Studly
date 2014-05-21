@@ -4,14 +4,14 @@
     <div id="login-header">
       <div class="col-xs-12">Login</div>
     </div>
-    <span class="bold">New User? <a ng-href="registration">Sign Up</a></span>
+    <span class="bold">New User? <a ng-href="/signup">Sign Up</a></span>
     <form ng-submit="submitForm()">
       <fieldset>
         <div class="col-xs-12">
-          <input type="text" class="form-control" ng-model="email" placeholder="Email">
+          <input type="text" class="form-control" ng-model="username" placeholder="Username" required>
         </div>
         <div class="col-xs-12">
-          <input type="password" class="form-control" ng-model="password" placeholder="Password">
+          <input type="password" class="form-control" ng-model="password" placeholder="Password" required>
         </div>
         <div class="col-xs-4 col-xs-offset-8">
           <button type="submit" class="btn btn-primary btn-block">Sign In</button>

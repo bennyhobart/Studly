@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS User (
     password CHAR(32) NOT NULL,
     email VARCHAR(50) NOT NULL,
     PRIMARY KEY(userID),
-    UNIQUE(username)
+    UNIQUE(username),
+    UNIQUE(email)
 );
 
 CREATE TABLE IF NOT EXISTS Semester (

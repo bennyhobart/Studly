@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('studlyApp')
-  .factory('session',['$resource', function ($resource) {
-    return $resource('/api/session', paramDefaults,{
-       update: { method: 'PUT' }
+  .factory('Session',['$resource', function ($resource) {
+    return $resource('/api/session', null, {
+        login: { method: 'POST' },
+        logout: { method: 'DELETE' },
+        update: { method: 'PUT' }
     });
 
-  }]);
+}]);

@@ -372,10 +372,15 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 /api/subject/
-    -GET, ?query return list of like subjects
-        SubjectCode[]:
+    +GET, ?query return list of like subjects
+        subjects[]:
             {
-                SubjectCode:
+                subjectID,
+                semesterID,
+                subjectName,
+                subjectCode,
+                echoLink
+            }
 =======
 =======
 >>>>>>> 2f6d239c820131a4191dcbff8e9fb27fa52f7034

@@ -353,7 +353,7 @@
                     title: String,
                 }
         }
-    -POST, add a thread
+    +POST, add a thread
         args: {
             title: String,
             body: String
@@ -364,7 +364,9 @@
 
 /api/classes/:weeklyClassID/:topicID
     +POST, add a comment
-        String
+        args: {
+            content: String
+        }
     -DELETE commentId, Remove a Comment
         ADD A DELETED FLAG?
     +GET, Get all comments for a thread

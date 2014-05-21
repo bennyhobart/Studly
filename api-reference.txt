@@ -332,8 +332,8 @@
 
 //CLASS PAGE!
 
-/api/class/:SpecifClassId
-    -GET, Get a weekly class
+/api/class/:weeklyClassID
+    -+GET, Get a weekly class
         return: {
             video : {
                 slides[]:  String

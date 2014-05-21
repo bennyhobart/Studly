@@ -355,19 +355,19 @@
         }
     -POST, add a thread
         args: {
-            Title: String,
-            Body: String
+            title: String,
+            body: String
         }
     -PUT ?attendedFlag, attend a weekly class
     -DELETE :ThreadId, delete a thread
         ADD A DELETED FLAG?
 
 /api/classes/:weeklyClassID/:topicID
-    -POST, add a comment
+    +POST, add a comment
         String
     -DELETE commentId, Remove a Comment
         ADD A DELETED FLAG?
-    -GET, Get all comments for a thread
+    +GET, Get all comments for a thread
 
 <<<<<<< HEAD
 <<<<<<< HEAD

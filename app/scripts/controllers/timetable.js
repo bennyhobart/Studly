@@ -2,39 +2,47 @@
 
 
 angular.module('studlyApp')
-  .controller('TimetableCtrl', function ($scope) {
+  .controller('TimetableCtrl', function ($scope, $location, $timetable) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
- 		$scope.toggleCustom = function() {
+    $timetable.get().$promise.then(
+    //success
+    function (data) {
+      consoe.log(data);
+    },
+    //failure
+    function (data) {
+      console.log(data);
+    })
+
+    $scope.goToClass = function (classId) {
+      $location.url('/class/' + classId);
+    }
+
+ 		/*$scope.toggleCustom = function() {
             $scope.custom = $scope.custom === false ? true: false;
         };
+    */
+
+    /*http://javascript.about.com/library/blweekyear.htm*/
+    Date.prototype.getWeek = function() {
+      var onejan = new Date(this.getFullYear(),0,1);
+      return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+    }
 
 
-    var focusDay  = new Date();
-    var numberOfDays = 60;
+    $scope.getWeekNumberStart = new Date().getWeek() - 10;
 
-    $scope.dates = [];
+    $scope.previousWeek = function() {
+      getWeekNumberStart--;
+      console.log(getWeekNumberStart);
+    }
 
- 	for (var i = 0; i < numberOfDays; i++) {
-
- 		$scope.dates.push(new Date(focusDay));
- 		focusDay.setDate(focusDay.getDate()+1);
- 	}
-
-
-    $scope.checkDayType = function(date) {
- 		if ((date.getDate() == (new Date()).getDate()) && (date.getDay() == (new Date()).getDay())) {
- 			return "today";
- 		} else if (date.getDay() == 0) {
- 			return "weekend";
- 		}
- 		
- 		return "day";
-    };
+    $scope.weekDay = new Date().getDay();
 
     $scope.formatTime = function(time) {
 
@@ -56,15 +64,6 @@ angular.module('studlyApp')
  		return hour + ":" + time.toString().slice(-2);
     };
 
-    var class1 = {
-    time: 915,
-    end: 1100,
-    day: 1,
-    type: "Lecture",
-    building: "Doug McDonell",
-    theatre: "Steve Howard"
-  };
-
   $scope.formatDay = function(day) {
     if (day == 1) {
       return "Mon";
@@ -79,13 +78,70 @@ angular.module('studlyApp')
     }
   }
 
-  $scopeWeekDays = ["Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday"];
+  var weekList = [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday"
+                  ];
+
+  $scope.weekDays = weekList;
+
+
+  $scope.getDayName = function() {
+    var today = new Date().getDay();
+    if ((today >= 1) && (today <= 5)) {
+      return weekList[today-1];
+    } else {
+      return "Weekend";
+    }
+  }
+
+  $scope.getDayNumber = function() {
+    return new Date().getDay();
+  }
+
+
+
+  var curr = new Date; // get current date
+  var first = curr.getDate() - curr.getDay() + 1; // First day is the day of the month - the day of the week
+  var last = first + 4; // last day is the first day + 6
+
+  var firstDay = new Date(curr.setDate(first));
+  var lastDay = new Date(curr.setDate(last));
+
+  var monthList = [
+                   "Jan",
+                   "Feb",
+                   "Mar",
+                   "Apr",
+                   "May",
+                   "Jun",
+                   "Jul",
+                   "Aug",
+                   "Sep",
+                   "Oct",
+                   "Nov",
+                   "Dec"
+                  ];
+
+  $scope.firstDayOfWeek = firstDay.getDate() + " " + monthList[firstDay.getMonth()];
+  $scope.lastDayOfWeek = lastDay.getDate() + " " + monthList[lastDay.getMonth()];
+
+
+  var class1 = {
+    id: 1,
+    time: 915,
+    end: 1100,
+    day: 1,
+    type: "Lecture",
+    building: "Doug McDonell",
+    theatre: "Steve Howard"
+  };
 
   var class2 = {
+    id: 1,
     time: 1400,
     end: 1600,
     day: 2,
@@ -95,6 +151,7 @@ angular.module('studlyApp')
   };
 
   var class3 = {
+    id: 1,
     time: 1800,
     end: 1900,
     day: 1,
@@ -104,9 +161,20 @@ angular.module('studlyApp')
   };
 
   var class4 = {
+    id: 1,
     time: 1800,
     end: 1900,
     day: 3,
+    type: "Tutorial",
+    building: "Alice Roy",
+    theatre: "Room 227"
+  };
+
+  var class5 = {
+    id: 1,
+    time: 1800,
+    end: 1900,
+    day: 5,
     type: "Tutorial",
     building: "Alice Roy",
     theatre: "Room 227"
@@ -130,10 +198,9 @@ angular.module('studlyApp')
  		name: "Web Information Technologies",
  		code: "INFO30005",
     color: "blue-light",
-    classes: [class3]
+    classes: [class3, class5]
  	};
 
   $scope.subjects = [AI, COMPLEX, WEB];
-
 
   });

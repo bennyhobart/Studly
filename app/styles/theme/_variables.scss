@@ -5,15 +5,25 @@
 
 // Global values
 // --------------------------------------------------
-$blue:                   darken(#428bca, 13.5%);
 $orange:                 #f0ad4e;
+
 $heading-height:         42px;
 $subheading-height:      28px;
 
+$red:                    #ff1919;
+
+$green:                  #008B00;
+
+
 // Blues
+$blue:                   darken(#428bca, 13.5%);
 $blue-light:			 #5E9CD3;
 $blue-lighter:			 #7DC1E7;
 $blue-dark:				 #0F6EA5;
+
+$blue:                   darken(#428bca, 13.5%);
+$light-blue:             darken(#a1c5e5, 8.5%);
+$lightest-blue:          darken(#ddeaf6, 5%);
 
 // Grays
 // -------------------------

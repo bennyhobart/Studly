@@ -1,440 +1,162 @@
-There is a plus (+) next to stuff that is implemented
-There is a negative (-) next to stuff that isn't implemented yet
+//LOGIN AND PROFILE
 
-/*
-    User Related
-*/
-
-/api/user/session
-    Get currently logged in user's Info
-    +GET (
-        success: {
-            username: String,
-            email: String
-        },
-        error: {
-            error: String
+/api/session
+    +GET, Get User Information for currently logged in user!
+        return: {
+            username: STRING,
+            email: STRING,
+            success: true
         }
+    +POST, Login with a user
 
-    )
-
-/api/user/get/:userID
-    Get username by userID
-    +GET (
-        success: {
-            username: String
-        },
-        error: {
-            error: String
-        }
-    )
-
-
-/api/user/login
-    Log a user in
-    +POST (
         args: {
             username: String,
             password: String
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
         }
-    )
+    +DELETE logout
+        -Logout
+        -Error, 404 Session Not Found
+        -Success, 200 Logged Out
 
-/api/user/logout
-    Log out
-    +GET (
-        requiresAuth: true,
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
 
-/api/user/register
-    Register a new user
-    +POST (
+/api/user
+    +POST, Register
         args: {
             username: String,
             email: String,
             password: String,
             passwordRepeated: String
         },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
+        return: {
+            username: STRING,
+            email: STRING,
+            success: true
         }
-    )
+    -DELETE, deregisters logged in user
+        args: {
+            password: 'String'
+        }
 
-/api/user/updatePassword
-    Update a user's password
-    +POST (
+    +PUT, Update User Password (Updates User Object)
         args: {
             oldPassword: String,
             newPassword: String,
             newPasswordRepeated, String
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
+
         }
-    )
-
-/*
-    Semesters
-*/
-
-/api/semester/find/:year
-    Get a list of all the semesters
-    +GET (
-        success: {
-            semesters[]: {
-                semesterID: Number,
-                startDate: String
-            }
-        },
-        error: {
-            error: String
+/api/user/:userId
+    +GET, Gets public profile of userId
+        return: {
+            username: String,
         }
-    )
+        //threads[]: {},
+        //posts[]: {}
 
-/api/semester/weeks/find/:semesterID
-    Get a list of weeks for the given semester
-    +GET (
-        success: {
-            weeks[]: {
-                weekID: Number,
-                startDate: String
-            }
-        },
-        error: {
-            error: String
-        }
-    )
+//CLASS PAGE!
 
-/*
-    Subjects and Classes
-*/
-
-/api/classes/times/:classID
-    Get all the class times for a given classID
-    +GET (
-        success: {
-            times[]: {
-                classTimeID: Number,
-                day: Unsigned Number,
-                time: String,
-                buildingNumber: Number,
-                roomNumber: number
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/classes/weekly/:classID
-    Get all the weekly classes for a given classID
-    +GET (
-        success: {
-            classes[]: {
-                weeklyClassID: Number,
-                weekNumber: Number
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/subject/findClasses/:subjectID
-    Return all classes for a subject
-    +GET (
-        success: {
-            classes[] : {
-                classID: Number,
-                sort: Number,
-                duration Number
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/user/classTime/register
-    Register into the given class time
-    +POST (
-        requiresAuth: true,
-        args: {
-            classTimeID: Number
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/user/classTime/remove
-    Removes a user from a given class time
-    +POST (
-        requiresAuth: true,
-        args: {
-            classTimeID: Number
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
-
-
-
-/api/user/class/markAttended
-    Marks the given class as attended (or not)
-    +POST (
-        requiresAuth: true,
-        args: {
-            weeklyClassID: Number,
-            state: Number
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/user/subject/register
-    Registers into a given subject
-    +POST (
-        requiresAuth: true,
-        args: {
-            subjectID: Number
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/user/subject/remove
-    Removes a subject from the given user
-    +POST (
-        requiresAuth: true,
-        args: {
-            subjectID: Number
-        },
-        success: {
-            success: 1
-        },
-        error {
-            error: String
-        }
-    )
-
-/api/user/timetable/get/:semesterID
-    Gets the timetable for the currently logged in user
-    +GET (
-        requiresAuth: true,
-        success: {
-            times[]: {
-                classTimeID: Number,
-                classID: Number,
-                day: Number,
-                time: String,
-                buildingNumber: Number,
-                roomNumber: Number,
-                sort: Number,
-                subjectID: Number,
-                duration: Number
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/user/attended/get/:semesterID/:weekNumber
-    Gets all the attended states for the given semesterID and weekNumber
-    +GET (
-        requiresAuth: true,
-        success: {
-            states[]: {
-                classID: Number,
-                state: Number
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/*
-    Forum Related
-*/
-
-/api/topics/find/:weeklyClassID
-    Finds all the topics for a given weekly class
-    +GET (
-        success: {
-            topics[]: {
-                topicID: Number,
-                userID: Number,
-                title: String,
-                upVotes: Number,
-                downVotes: Number,
-                postTime: String
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/topics/create
-    Create a new topic
-    +POST (
-        requiresAuth: true,
-        args: {
-            weeklyClassID: Number,
-            title: String
-        },
-        success: {
-            topicID: Number
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/posts/find/:topicID
-    Finds all the posts for a given topic
-    +GET (
-        success: {
-            posts[]: {
-                postID: Number,
-                userID: Number,
-                content: String,
-                postTime: String,
-                editTime: String
-            }
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/posts/create
-    Creates a new post in the given topic
-    +POST (
-        requiresAuth: true,
-        args: {
-            topicID: Number,
-            content: String
-        },
-        success: {
-            postID: Number
-        },
-        error: {
-            error: String
-        }
-    )
-
-/api/topic/vote
-    Vote on a given topic
-    -POST (
-        requiresAuth: true,
-        args: {
-            topicID: Number,
-            vote: Number (1 = up, -1 = down)
-        },
-        success: {
-            success: 1
-        },
-        error: {
-            error: String
-        }
-    )
-
-
-/*
-    REMOVED SHIT / NOT IMPLEMENTED / NOT PLANNED
-*/
-
-/api/class/:WeeklyClassID
-    -GET :weeklyClassId, Get a weekly class
-        {
+/api/class/:weeklyClassID
+    -+GET, Get a weekly class
+        return: {
             video : {
                 slides[]:  String
                 url: String
                 },
-            Threads[] :
+            threads[] :
                 {
-                    creator: {
-                        UserID: Unsigned INT
-                        Username: String
-                        },
-                    count: {
-                        up: Unsigned INT,
-                        down: Unsigned INT
-                    },
-                    threadId: Unsigned INT,
-                    title: String,
-                    body: String,
-                    comments[]:
-                    {
-                        User {
-                            UserID: Unsigned INT,
-                            Username: String
-                        },
-                        Body: String
-                    }
+                    topicID,
+                    userID,
+                    username,
+                    title,
+                    upVotes,
+                    downVotes,
+                    postTime
                 }
         }
-    -POST, add a thread
-        {
-            Title: String,
-            Body: String
+    +POST, add a thread
+        args: {
+            title: String,
+            body: String
         }
     -PUT ?attendedFlag, attend a weekly class
     -DELETE :ThreadId, delete a thread
+        ADD A DELETED FLAG?
 
-/api/classes/:WeeklyClassId/:ThreadId
-    -POST, add a comment
-        String
+/api/classes/:weeklyClassID/:topicID
+    +POST, add a comment
+        args: {
+            content,
+            topicID
+        },
+        return: {
+            postID
+        }
     -DELETE commentId, Remove a Comment
-    -GET, Get all comments for a thread
+        ADD A DELETED FLAG?
+    +GET, Get all comments for a thread
+        return: []: {
+            postID,
+            userID,
+            username,
+            content,
+            postTime
+        }
 
-/api/subject/
-    -GET, ?query return list of like subjects
-        SubjectCode[]:
-            {
-                SubjectCode:
-                Names:
-            }
+
+//TIMETABLE PAGE
 
 /api/timetable/
+
     -GET, get array of weekly classes in timetable for current week
-        WeeklyClass[]: WeeklyClass
-    -POST classId, add a class time to timetable
-    -DELETE classId, delete a class time from timetable
-    -PUT originalClass newClass, Change from one classTime to another
+        return : WeeklyClass[]: WeeklyClass
+
+    -POST, add a class time to timetable
+        args: classId
+
+    -DELETE classId,
+        return : delete a class time from timetable
+
+    -PUT, Change from one classTime to another
+        args: newClass: classId
+
+        //// CONFUSING -- two different API calls to register into a time slot YES!
+
+/api/timetable?date="String"
+    -GET, get array of weekly classes for correspond week containing date
+
+//SUBJECTS PAGE
+
+/api/subject?query="String"
+    +GET,  return array of like subjects
+        return: {
+            subjects[]: {
+                subjectID,
+                subjectName,
+                semesterID,
+                semesterName
+            }
+        }
+
+/api/subject/:SubjectId
+    -GET, return all classes for a subject
+        return: {
+            Class[]: {
+                ClassTimes[]: {
+                    Id:
+                    Time:
+                    Location:
+                }
+                Sort
+                Duration
+                SubjectId
+                ClassId
+        }
+/api/subject/
+    -POST, adds subject and time to timetable
+        args: {
+            SubjectID,
+            ClassTimes[]
+        }
+
+
+
 

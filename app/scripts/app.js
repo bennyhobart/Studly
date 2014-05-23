@@ -4,7 +4,8 @@ angular.module('studlyApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
@@ -31,7 +32,7 @@ angular.module('studlyApp', [
         controller: 'SubjectsCtrl',
         authenticate: true
       })
-      .when('/subject', {
+      .when('/subject/:id', {
         templateUrl: 'partials/subject',
         controller: 'SubjectCtrl',
         authenticate: true

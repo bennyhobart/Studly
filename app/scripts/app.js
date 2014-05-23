@@ -18,7 +18,7 @@ angular.module('studlyApp', [
         controller: 'TimetableCtrl',
         authenticate: true
       })
-      .when('/class', {
+      .when('/class/:id', {
         templateUrl: 'partials/class.html',
         controller: 'ClassCtrl',
         authenticate: true

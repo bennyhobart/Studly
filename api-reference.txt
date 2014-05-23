@@ -78,6 +78,10 @@
             body: String
         }
     -PUT ?attendedFlag, attend a weekly class
+
+        args : {
+            attendedFlag: true,
+        }
     -DELETE :ThreadId, delete a thread
         ADD A DELETED FLAG?
 
@@ -122,6 +126,21 @@
 
 /api/timetable?date="String"
     -GET, get array of weekly classes for correspond week containing date
+    return: {
+        //Returns a list of subjects that the user is following
+        Subject[
+            subjectCode
+            subjectName
+                Classes [ //Return the classes that the user is registered on this subject
+                    type of the class (lecture, workshop...)
+                    building
+                    theatre
+                    time
+                    duration
+                    attended?
+                ]
+            ]
+    }
 
 //SUBJECTS PAGE
 

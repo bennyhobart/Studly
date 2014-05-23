@@ -2,14 +2,30 @@
 
 
 angular.module('studlyApp')
-  .controller('TimetableCtrl', function ($scope, $location, $timetable) {
+  .controller('TimetableCtrl', function ($scope, $location, Timetable, Class) {
+
+
+    /*Class.update({
+      classId: '302030230203',
+      attendedFlag: true 
+    }).$promise.then(
+    //success
+    function (data) {
+
+    },
+    //failure
+    function (data) {
+
+    }
+    );*/
+
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    $timetable.get().$promise.then(
+    Timetable.get().$promise.then(
     //success
     function (data) {
       consoe.log(data);
@@ -17,7 +33,18 @@ angular.module('studlyApp')
     //failure
     function (data) {
       console.log(data);
-    })
+    });
+    Timetable.get({
+      date: 'Date Object'
+    }).$promise.then(
+    //success
+    function (data) {
+      console.log(data);
+    },
+    //failure
+    function (data) {
+      console.log(data);
+    });
 
     $scope.goToClass = function (classId) {
       $location.url('/class/' + classId);

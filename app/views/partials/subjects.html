@@ -1,70 +1,61 @@
 <navbar></navbar>
-<div id="subjects.page">
-	<div>
-		&nbsp;
-	</div>
+<div id="subjects-page">
+    <div style="background-color: gray-lighter;">
+        <div id="main-header">
+        <div class="col-xs-12">My Subjects</div>
+    </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="sub-header">
+            <div class="col-xs-12">Add a Subject</div>
+        </div>
+            <form>
+            <div class="row">
+            <div id="search-box" class="col-xs-offset-1 col-xs-10">
+              <input class="form-control" type="search" placeholder="Name/Code (e.g. 'ELEN30006' or 'Signal Processing')" autocomplete="on" ng-model="query">
+            </div>
+          </div>
+        </form>
+        <div class="search-results">
+            <div class="row col-xs-12" ng-repeat="subject in subjects | filter: query">
+                    <a href=""><button class="subject-enrol btn-block" type="button">
+                        <div class="subject-instance col-xs-7" style="text-align: left;">
+                            {{subject.name}}
+                        </div>
+                        <div class="subject-instance col-xs-5" style="text-align: right;">
+                            {{subject.code}}
+                        </div>
+                    </button></a>
+                </div>
+            </div>
+            <br>
+        </div>
 
-	<div class="col-xs-12">
-		<h4><em><b>Search for a subject</b></em></h4>
-	</div>
-
-	<div class="row col-xs-12 col-xs-offset-0 col-sm-3">
- 		<form class="form-horizontal">
-    		<fieldset>
-    			<div class="row">
-      			<div class="form-group">
-        			<div class="col-xs-10">
-          			<input type="text" class="form-control" ng-model="asyncSelected" placeholder="Subject Code" typeahead="subject for subject in querySubject($viewValue)" typeahead-loading="loadingSubjects">
-        			</div>
-        			<div class="button-wrapper(10)">
-        				<div class="col-xs-2">
-          				<a href=""><button type="submit" class="btn btn-primary" ng-click="userAlert()">
-          					<span class="glyphicon glyphicon-search"></span>
-          				</button></a>
-          			</div>
-        			</div>
-      			</div>
-      		</div>
-    		</fieldset>
-  		</form>
-	</div>
-	<div class="col-xs-12 col-sm-7 col-sm-offset-2">
-<!-- 		<div class="subjects">
-			<div ng-repeat="item in subjects track by $index">
-				{{item.name}}
-				{{item.code}}
-				{{$index}}
-			</div>
-		</div> -->
-		<table class="table">
-			<caption style="font-weight:bold;text-align:left">Currently enrolled subjects</caption>
-			<tr>
-				<td>COMP30050</td>
-				<td>Artificial Intelligence</td>
-				<td>
-					<a href=""><button type="submit" class="btn btn-primary">
-						Edit this subject.
-                    </button></a>
-                </td>
-			</tr>
-			<tr>
-				<td>COMP30026</td>
-				<td>Software Systems</td>
-				<td>
-					<a href=""><button type="submit" class="btn btn-primary">
-						Edit this subject.
-                    </button></a>
-                </td>
-			</tr>
-			<tr>
-				<td>UNIB20007</td>
-				<td>Logic and Philosophy</td>
-				<td>
-					<a href=""><button type="submit" class="btn btn-primary">
-						Edit this subject.
-                    </button></a>
-                </td>
-			</tr>
-		</table>
-	</div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="sub-header">
+            <div class="col-xs-12">Current Subjects</div>
+        </div>
+            <div ng-repeat="subject in enrolled track by $index">
+                <div class="subject-edit" ng-style="{'border-left-color': colours[$index].name}">
+                    <div style="text-align: left; font-size: 1.4em; margin-top: 10px">
+                        {{subject.name}}
+                    </div>
+                    <div ng-style="{'color': colours[$index].name}" style="text-align: left; font-weight: bold">
+                        {{subject.code}}
+                    </div>
+                    <div class="row" style="position: relative">
+                        <div class="col-xs-5">
+                            <div style="text-align: left;">
+                                Semester {{subject.semester}}
+                            </div>
+                        </div>
+                        <div class="row col-xs-offset-2 col-xs-5 pull-right pull-down">
+                            <a href=""><span class="glyphicon glyphicon-play-circle" style="font-size: 1.4em" ng-style="{'color': colours[$index].name}"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-trash" style="font-size: 1.4em; color: black"></span></a>
+                            <a href=""><span class="glyphicon glyphicon-search" style="font-size: 1.4em; color: black"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

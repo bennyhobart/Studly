@@ -2,7 +2,8 @@
 
 var app = angular.module('studlyApp');
 
-app.controller('SubjectsCtrl', function ($scope, Subject) {
+app.controller('SubjectsCtrl', function ($scope, $http, Subject) {
+  /*
   Subject.query({
     query: 'COMP',
   }).$promise.then(
@@ -15,7 +16,7 @@ app.controller('SubjectsCtrl', function ($scope, Subject) {
       console.log(data);
     }
   );
-
+  */
   var AI = {
     name: "Artificial Intelligence",
     code: "COMP30050",
@@ -67,6 +68,17 @@ app.controller('SubjectsCtrl', function ($scope, Subject) {
   $scope.enrolled = [CS, AI, Phil, CHEM1];
 
   $scope.subjects = [CS, AI, Phil, UNIB, CHEM1, CHEM2, Poet, Span];
+
+  $scope.querySubject = function(query) {
+    return $http.get("/api/subject", { params : {query : query} })
+      .then(function(res) {
+        var subjects = []
+        angular.forEach(res.data.subjects, function(item) {
+          subjects.push([item.subjectName, item.semesterName]);
+        });
+        return subjects;
+      })
+  }
 
   $scope.subjects.sort(function(a, b) {
     return a.code - b.code;

@@ -2,7 +2,7 @@
 
 
 angular.module('studlyApp')
-  .controller('TimetableCtrl', function ($scope, $location, Timetable, Class) {
+  .controller('TimetableCtrl', function ($scope, $location, Timetable) {
 
 
     /*Class.update({

@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('studlyApp')
-.controller('ClassCtrl', ['$scope','$sce', function ($scope, $sce) {
+.controller('ClassCtrl', ['$scope','$sce', '$rootScope', function ($scope, $sce, $rootScope) {
+    var classID = $rootScope.classID;
+    console.log(classID);
     //Class Information
     $scope.classInfo = {
         name: 'Web Information Technologies',

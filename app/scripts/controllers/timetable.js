@@ -2,12 +2,12 @@
 
 
 angular.module('studlyApp')
-  .controller('TimetableCtrl', function ($scope, $location, Timetable) {
+  .controller('TimetableCtrl', function ($scope, $location, Timetable, $rootScope) {
 
 
     /*Class.update({
       classId: '302030230203',
-      attendedFlag: true 
+      attendedFlag: true
     }).$promise.then(
     //success
     function (data) {
@@ -46,8 +46,9 @@ angular.module('studlyApp')
       console.log(data);
     });
 
-    $scope.goToClass = function (classId) {
-      $location.url('/class/' + classId);
+    $scope.goToClass = function (classID) {
+      $rootScope.classID = classID;
+      $location.url('/class');
     }
 
  		/*$scope.toggleCustom = function() {
@@ -87,7 +88,7 @@ angular.module('studlyApp')
  		} else {
  			amPM = " AM";
  		}
- 		
+
  		return hour + ":" + time.toString().slice(-2);
     };
 

@@ -46,8 +46,8 @@ angular.module('studlyApp')
       console.log(data);
     });
 
-    $scope.goToClass = function (classID) {
-      $rootScope.classID = classID;
+    $scope.goToClass = function (weeklyClassId) {
+      $rootScope.weeklyClassId = weeklyClassId;
       $location.url('/class');
     }
 

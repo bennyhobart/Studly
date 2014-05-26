@@ -57,7 +57,7 @@
 						{{thread.title}}
 					</div>
 					<div class="bottom">
-						<span><a href="">{{thread.username}}</a> <span class="timestamp">{{moment(thread.postTime).isValid()}}</span></span>
+						<span><a href="">{{thread.username}}</a> <span class="timestamp">{{displayTime(thread.postTime)}}</span></span>
 					</div>
 				</div>
 			</div>
@@ -68,29 +68,24 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">{{thread.title}}</h4>
-					<span>{{thread.user}} <span class="timestamp">{{thread.timestamp}}</span></span>
+					<h4>{{thread.title}}</h4>
+					<span>{{thread.username}} <span class="timestamp">{{displayTime(thread.postTime)}}</span></span>
 				</div>
-				<div class="modal-body col-xs-12" ng-repeat="comment in thread.comments">
-					<div class="username">
-						{{comment.username}}
-						<span class="timestamp">{{comment.timestamp}}</span>
-					</div>
+
+				<div class="modal-body" ng-repeat="comment in thread.comments">
 					<div class="body">
 						{{comment.content}}
 					</div>
+					<span>{{comment.username}} <span class="timestamp">{{displayTime(comment.postTime)}}</span></span>
 				</div>
-				<div class="modal-footer">
-					<form ng-submit="addComment()">
-						<div>
-							<textarea placeholder="body" type="textarea" rows="4" class="form-control" ng-model="comment"></textarea>
-						</div>
-						<div class="col-xs-4">
-							<button class="form-control row" type="submit">Post</button>
-						</div>
-					</form>
-
-				</div>
+				<form class="modal-footer" ng-submit="addComment()">
+					<div>
+						<textarea placeholder="body" type="textarea" rows="4" class="form-control" ng-model="comment"></textarea>
+					</div>
+					<div class="col-xs-4">
+						<button class="form-control row" type="submit">Post</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

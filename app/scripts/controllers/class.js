@@ -9,10 +9,8 @@ angular.module('studlyApp')
             $location.path('/timetable');
         }
         Class.get({weeklyClassId: weeklyClassId}).$promise.then(function (data) {
-            console.log(data);
             $scope.threads = data.threads;
         }, function (data) {
-            console.log(data);
         });
         // //Class Information
         $scope.classInfo = {
@@ -37,7 +35,9 @@ angular.module('studlyApp')
 
 
 
-
+    $scope.displayTime = function (time) {
+        return moment(time).fromNow();
+    }
 
     var currentSlide = 0;
     var updateSlides = function() {
@@ -71,10 +71,8 @@ angular.module('studlyApp')
             title: $scope.title,
             body: $scope.body
         }).$promise.then(function (data) {
-            console.log(data);
             $scope.init();
         }, function (data) {
-            console.log(data);
         });
     };
     $scope.openComments = function(thread) {
@@ -84,9 +82,7 @@ angular.module('studlyApp')
             topicId: thread.topicID
         }).$promise.then(function (data) {
             $scope.thread.comments = data;
-            console.log(data);
         }, function (data) {
-            console.log(data);
         });
         $('#modal').modal('show');
 
@@ -97,10 +93,8 @@ angular.module('studlyApp')
             topicId: $scope.thread.topicID,
             content: $scope.comment
         }).$promise.then(function (data) {
-            console.log(data);
             $scope.openComments($scope.thread);
         }, function (data) {
-            console.log(data);
         });
     }
 

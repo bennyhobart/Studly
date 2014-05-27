@@ -190,8 +190,3 @@
             ClassTimes[]
         }
 
-
-
-SELECT * FROM Subject NATURAL JOIN ClassTime NATURAL JOIN Class WHERE subjectID=1;
-SELECT * FROM ClassTime WHERE classID IN (SELECT classID FROM Subject NATURAL JOIN Class WHERE subjectID=1);
-

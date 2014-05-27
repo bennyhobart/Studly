@@ -15,7 +15,7 @@
     background-color: $light-blue;
     font-size: 1.3em;
     height: 40px;
-    padding: 10px 0px;
+    padding: 10px 10px;
   }
 
   .subject-instance {
@@ -52,6 +52,11 @@
     position: relative;
   }
 
+  .subject-manage {
+    float: right;
+    margin-right: 0px;
+  }
+
   .subject-enrol {
     background-color: $gray-lighter;
     text-indent: 0px;
@@ -68,21 +73,5 @@
 
   .subject-enrol:hover {
     background-color: $lightest-blue;
-  }
-
-  .red {
-    background-color: $red;
-  }
-
-  .blue{
-    background-color: $blue;
-  }
-
-  .orange {
-    background-color: $orange;
-  }
-
-  .green {
-    background-color: $green;
   }
 }

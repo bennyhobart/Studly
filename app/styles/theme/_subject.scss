@@ -1,0 +1,33 @@
+#subject-page {
+  min-width: 300px;
+
+  #main-header {
+    color: white;
+    text-align: center;
+    background-color: $blue;
+    font-size: 1.8em;
+    height: 50px;
+    padding: 10px 0px;
+  }
+
+  .sub-header {
+    color: white;
+    background-color: $light-blue;
+    font-size: 1.3em;
+    height: 40px;
+    padding: 10px 10px;
+  }
+
+  ul {
+    list-style: none;
+    font-style: italic;
+    padding-left: 20px;
+  }
+
+  hr {
+    border: 1px solid black;
+    width: 100%;
+    float: left;
+    margin: 1px 0px;
+  }
+}

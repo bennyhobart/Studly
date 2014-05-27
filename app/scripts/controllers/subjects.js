@@ -83,8 +83,4 @@ app.controller('SubjectsCtrl', function ($scope, $http, Subject) {
   $scope.subjects.sort(function(a, b) {
     return a.code - b.code;
   });
-
-  $('.pull-down').each(function() {
-    $(this).css('margin-top', $(this).parent().height()-$(this).height())
-  });
 });

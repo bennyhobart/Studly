@@ -2,21 +2,8 @@
 
 var app = angular.module('studlyApp');
 
-app.controller('SubjectsCtrl', function ($scope, $http, Subject) {
-  /*
-  Subject.query({
-    query: 'COMP',
-  }).$promise.then(
-    //success
-    function (data) {
-      console.log(data);
-    },
-    //failure
-    function (data) {
-      console.log(data);
-    }
-  );
-  */
+app.controller('SubjectsCtrl', function ($scope, Subject) {
+
   var AI = {
     name: "Artificial Intelligence",
     code: "COMP30050",
@@ -67,17 +54,27 @@ app.controller('SubjectsCtrl', function ($scope, $http, Subject) {
 
   $scope.enrolled = [CS, AI, Phil, CHEM1];
 
-  $scope.subjects = [CS, AI, Phil, UNIB, CHEM1, CHEM2, Poet, Span];
+  $scope.subjects = [];
 
-  $scope.querySubject = function(query) {
-    return $http.get("/api/subject", { params : {query : query} })
-      .then(function(res) {
-        var subjects = []
-        angular.forEach(res.data.subjects, function(item) {
-          subjects.push([item.subjectName, item.semesterName]);
-        });
-        return subjects;
-      })
+  $scope.querySubject = function() {
+    console.log($scope.queryField)
+    Subject.get({
+      query: $scope.queryField
+    }).$promise.then(
+      //success
+      function (data) {
+        console.log(data)
+        angular.forEach(data.subjects, function() {
+
+        })
+        $scope.subjects = data.subjects;
+        console.log($scope.subjects);
+      },
+      //failure
+      function (data) {
+        console.log(data);
+      }
+    );
   }
 
   $scope.subjects.sort(function(a, b) {

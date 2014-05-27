@@ -8,20 +8,23 @@
         <form>
             <div class="row">
                 <div id="search-box" class="col-xs-offset-1 col-xs-10">
-                    <input class="form-control" type="search" ng-model="query" placeholder="Name/Code (e.g. 'ELEN30006' or 'Signal Processing')" typeahead="subject for subject in querySubject($viewValue)" typeahead-loading="loadingSubjects">
+                    <input class="form-control" type="search" ng-model="queryField" ng-change="querySubject()">
                 </div>
             </div>
         </form>
     <div class="search-results">
-      <div class="row col-xs-12" ng-repeat="subject in subjects | filter: query">
+      <div class="row col-xs-12" ng-repeat="subject in subjects | filter: query" ng-hide="subjects.length == 0 || queryField == ''">
         <a href=""><button class="subject-enrol btn-block" type="button">
           <div class="subject-instance col-xs-7" style="text-align: left;">
-            {{subject.name}}
+            {{subject.subjectName}}
           </div>
           <div class="subject-instance col-xs-5" style="text-align: right;">
-            {{subject.code}}
+            {{subject.subjectCode}}
           </div>
         </button></a>
+      </div>
+      <div class="row col-xs-12" ng-show="subjects.length == 0 || queryField == ''">
+        No subject found...
       </div>
     </div>
     <br>

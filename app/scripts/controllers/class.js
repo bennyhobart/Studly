@@ -8,10 +8,12 @@ angular.module('studlyApp')
         if(!weeklyClassId) {
             $location.path('/timetable');
         }
-        Class.get({weeklyClassId: weeklyClassId}).$promise.then(function (data) {
-            $scope.threads = data.threads;
-        }, function (data) {
-        });
+        Class.get({weeklyClassId: weeklyClassId}).
+            $promise.then(function (data) {
+                $scope.threads = data.threads;
+            }, function (data) {
+                console.log(data);
+            });
         // //Class Information
         $scope.classInfo = {
             name: 'Web Information Technologies',

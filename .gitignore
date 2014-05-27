@@ -6,3 +6,5 @@ app/bower_components
 heroku
 /views
 dist
+dataFinders/timetable
+dataFinders/node_modules

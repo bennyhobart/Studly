@@ -5,15 +5,25 @@
 
 // Global values
 // --------------------------------------------------
-$blue:                   darken(#428bca, 13.5%);
 $orange:                 #f0ad4e;
+
 $heading-height:         42px;
 $subheading-height:      28px;
 
+$red:                    #ff1919;
+
+$green:                  #008B00;
+
+
 // Blues
+$blue:                   darken(#428bca, 13.5%);
 $blue-light:			 #5E9CD3;
 $blue-lighter:			 #7DC1E7;
 $blue-dark:				 #0F6EA5;
+
+$blue:                   darken(#428bca, 13.5%);
+$light-blue:             darken(#a1c5e5, 8.5%);
+$lightest-blue:          darken(#ddeaf6, 5%);
 
 // Grays
 // -------------------------
@@ -57,6 +67,7 @@ $font-family-base:        $font-family-sans-serif !default;
 $font-size-base:          14px !default;
 $font-size-large:         ceil($font-size-base * 1.25) !default; // ~18px
 $font-size-small:         ceil($font-size-base * 0.85) !default; // ~12px
+$font-size-micro:         ceil($font-size-base * 0.75) !default;
 
 $font-size-h1:            floor($font-size-base * 2.6) !default; // ~36px
 $font-size-h2:            floor($font-size-base * 2.15) !default; // ~30px

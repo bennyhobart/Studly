@@ -1,20 +1,19 @@
 <navbar></navbar>
+
 <div id="timetable-page">
 
 	<div id="extra-info" class="col-sm-4 col-xs-12">
-		<div class="heading blue-dark row">To Do</div>
+		<div class="heading blue-dark row">Subjects</div>
 
 		<!-- Start subjects list -->
 		<div ng-repeat="subject in subjects | orderBy:'subject.name'">
 			<div class="subjectHeading {{subject.color}} row">{{subject.name}}</div>
 
 			<div ng-repeat="class in subject.classes">
-				<div class="subjectSubHeading white row">
-					<div class="col-md-10">
+				<div class="subjectSubHeading white row" onclick="window.location='class.html';">
+					<div class="col-md-12">
 						<i class="fa fa-circle {{subject.color}}Dot"></i> <span class="timeLabel">{{formatDay(class.day)}}</span> {{class.type}}
-					</div>
-					<div class="col-md-2">
-						<span class="timeLabel">{{formatTime(class.time)}}</span>
+						<span class="timeRightLabel">{{formatTime(class.time)}}</span>
 					</div>
 				</div>
 			</div>
@@ -22,84 +21,67 @@
 		<!-- End subjects list -->
 	</div>
 
-	<div class="col-sm-8 col-xs-12">
+	<!-- Start timetable -->
+	<div class="col-sm-8 hidden-xs">
+		<!-- Start header showing current week -->
 		<div class="heading blue-dark row">
 			<i class="fa fa-angle-left"></i>
-			 Week 8 <span class="weekLabel">(8 Mar - 15 Mar)</span> 
+			 Week {{getWeekNumberStart}} <span class="weekLabel">({{firstDayOfWeek}} - {{lastDayOfWeek}})</span> 
 			<i class="fa fa-angle-right"></i>
 		</div>
+		<!-- End header showing current week -->
+
+		<!-- Start topbar showing days of the week -->
 		<div class="subjectHeading blue-lighter row">
-			<div class="arrow col-md-1">
-				<i class="fa fa-chevron-left span1"></i>
+			<div class="arrow col-sm-1">
+				<i class="fa fa-chevron-left span1" onclick="previousWeek()"></i>
 			</div>
-			<div class="day col-md-2 blue-dark">
-				Monday
+
+			<div ng-repeat="day in weekDays">
+				<div class="day col-sm-2 col-xs-1" ng-class="{'blue-dark' : day==getDayName()}">
+				{{day}}
+				</div>
 			</div>
-			<div class="day col-md-2">
-				Tuesday
-			</div>
-			<div class="day col-md-2">
-				Wednesday
-			</div>
-			<div class="day col-md-2">
-				Thursday
-			</div>
-			<div class="day col-md-2">
-				Friday
-			</div>
-			<div class="arrow col-md-1">
+
+			<div class="arrow col-sm-1">
 				<i class="fa fa-chevron-right span1"></i>
 			</div>
 		</div>
+		<!-- End topbar showing days of the week -->
 
-		<div class="timetable row">
-			<div class="col-md-1">
-				<span class="time">8:00</span>
-			</div>
-			<div class="class orangeLabel col-md-2">
-				Web Info Technologies
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="col-md-1">
-				
+		<!-- Start timetable row for for each hour -->
+		<div ng-repeat="t in [800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100]">
+			<div class="timetable row">
+				<div class="col-sm-1">
+					<span class="time">{{formatTime(t)}}</span>
+				</div>
+
+				<!-- Start column for each day of the week -->
+				<div ng-repeat="d in [1,2,3,4,5]">
+					<div class="class col-sm-2 col-xs-1" ng-class="{'blue-lighter' : getDayNumber()==d}">
+						<div ng-repeat="subject in subjects">
+							<div ng-repeat="class in subject.classes | filter: { day: d, time: t }">
+								<a ng-click="goToClass(class.id)"> 
+								<b><i>{{class.type.substr(0,3)}}</i></b> {{subject.name}}<br/>
+								<span class="locationFont">{{class.building}}</span>
+								<img src="http://png-2.findicons.com/files/icons/1588/farm_fresh_web/32/tick.png" width="16px" height="16px">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End column for each day of the week -->
+
+				<!-- Start next week arrow placeholder -->
+				<div class="col-sm-1">
+				</div>
+				<!-- End placeholder -->
+					
+				</div>
 			</div>
 		</div>
-
-		<div class="timetable row">
-			<div class="col-md-1">
-				<span class="time">9:00</span>
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="class blueLabel col-md-2">
-				Advanced Signal Processing
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="col-md-2">
-				
-			</div>
-			<div class="col-md-1">
-				
-			</div>
-		</div>
-
-		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<!-- End timetable row for for each hour -->
+		<br/><br/>
 	</div>
+	<!-- End timetable -->
 </div>

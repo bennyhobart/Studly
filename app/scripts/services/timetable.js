@@ -6,3 +6,4 @@ angular.module('studlyApp')
       update: { method: 'PUT' }
     });
   }]);
+

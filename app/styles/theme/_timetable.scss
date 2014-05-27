@@ -23,6 +23,13 @@
 	    font-weight: bold;
 	    padding-left: 10px;
 	    border-bottom: thin solid $gray-lighter;
+	    position: relative;
+	}
+
+	.timeRightLabel {
+		position: absolute;
+    	top: 0px;
+    	right: 5px;
 	}
 
 	.timetable {
@@ -41,6 +48,13 @@
 
 	.class {
 		font-size: $font-size-small;
+		position: relative;
+	}
+
+	.class img {
+		position: absolute;
+    	top: 0px;
+    	right: 5px;
 	}
 
 	.blueLabel {
@@ -48,6 +62,7 @@
 	}
 
 	.blueLabel:hover {
+		color: #FFFFFF;
 		background-color: $blue-lighter;
 	}
 
@@ -63,8 +78,18 @@
 		text-align: center;
 	}
 
-	.day:hover {
-		background-color: $blue-dark;
+	@media screen and (max-width: $screen-md-min) {
+	    .day {
+	        font-size: $font-size-small;
+	    }
+	    .class {
+			font-size: $font-size-micro;
+		}
+	}
+
+	.locationFont {
+		font-size: $font-size-small;
+		color: $gray-light;
 	}
 
 	.arrow {
@@ -82,12 +107,22 @@
 		padding-right: 10px;
 	}
 
+	.todayTimetable {
+		color: #FFFFFF;
+		font-weight: bold;
+    	background-color: $blue-lighter;
+	}
+
 	.weekLabel {
 		font-size: $font-size-base;
 	}
 
 	.white {
 		background-color: #FFFFFF;
+	}
+
+	.white:hover { 
+		background-color: #FAFEC0;
 	}
 
 	.orangeDot {

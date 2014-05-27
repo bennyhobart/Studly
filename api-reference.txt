@@ -57,6 +57,17 @@
 /api/class/:weeklyClassID
     -+GET, Get a weekly class
         return: {
+            classInfo: {
+                name: "Web Information Technologies",
+                subjectCode: "INFO30005",
+                weeklyClasses: [
+                    Sort,
+                    Time,
+                    etc..
+                ],
+                Directions:,
+                Prerequisites:,
+                },
             video : {
                 slides[]:  String
                 url: String
@@ -78,14 +89,17 @@
             body: String
         }
     -PUT ?attendedFlag, attend a weekly class
+
+        args : {
+            attendedFlag: true,
+        }
     -DELETE :ThreadId, delete a thread
         ADD A DELETED FLAG?
 
-/api/classes/:weeklyClassID/:topicID
+/api/class/:weeklyClassID/:topicID
     +POST, add a comment
         args: {
-            content,
-            topicID
+            content
         },
         return: {
             postID
@@ -99,6 +113,10 @@
             username,
             content,
             postTime
+        }
+    -PUT upvote or downvote, 1 for upvote 0 for delete vote -1 for down vote
+        args: {
+            vote: 1, 0 -1,
         }
 
 
@@ -122,6 +140,21 @@
 
 /api/timetable?date="String"
     -GET, get array of weekly classes for correspond week containing date
+    return: {
+        //Returns a list of subjects that the user is following
+        Subject[
+            subjectCode
+            subjectName
+                Classes [ //Return the classes that the user is registered on this subject
+                    type of the class (lecture, workshop...)
+                    building
+                    theatre
+                    time
+                    duration
+                    attended?
+                ]
+            ]
+    }
 
 //SUBJECTS PAGE
 
@@ -139,12 +172,24 @@
 /api/subject/:SubjectId
     -GET, return all classes for a subject
         return: {
-            Class[]:
-                ClassTimes[]:
-                    {
-
-                    }
+            Class[]: {
+                ClassTimes[]: {
+                    Id:
+                    Time:
+                    Location:
+                }
+                Sort
+                Duration
+                SubjectId
+                ClassId
         }
+/api/subject/
+    -POST, adds subject and time to timetable
+        args: {
+            SubjectID,
+            ClassTimes[]
+        }
+
 
 
 SELECT * FROM Subject NATURAL JOIN ClassTime NATURAL JOIN Class WHERE subjectID=1;

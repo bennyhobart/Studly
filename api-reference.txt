@@ -58,19 +58,15 @@
     -+GET, Get a weekly class
         return: {
             classInfo: {
-                name: "Web Information Technologies",
+                subjectName: "Web Information Technologies",
                 subjectCode: "INFO30005",
-                weeklyClasses: [
-                    Sort,
-                    Time,
-                    etc..
-                ],
-                Directions:,
-                Prerequisites:,
+
+                - Directions:,      // Not Added Yet
                 },
-            video : {
+            video : {   // If no video exists, this element wont be returned
                 slides[]:  String
                 url: String
+                baseSlides: String // This is the URL all slides start with
                 },
             threads[] :
                 {
@@ -117,9 +113,13 @@
             content,
             postTime
         }
-    -PUT upvote or downvote, 1 for upvote 0 for delete vote -1 for down vote
+    +PUT upvote or downvote, 1 for upvote 0 for delete vote -1 for down vote
         args: {
             vote: 1, 0 -1,
+        }
+        return: {
+            upVotes,
+            downVotes
         }
 
 
@@ -148,14 +148,14 @@
             ]
         }
 
-    -POST, add a class time to timetable
-        args: classId
+    +POST, add a class time to timetable
+        args: classTimeID
 
-    -DELETE classId,
+    +DELETE classTimeID,
         return : delete a class time from timetable
 
-    -PUT, Change from one classTime to another
-        args: newClass: classId
+    +PUT, Change from one classTime to another
+        args: classTimeID
 
         //// CONFUSING -- two different API calls to register into a time slot YES!
 
@@ -201,21 +201,36 @@
             class[]: {
                 classTimes[]: {
                     classTimeID:
-                    Time:
-                    Location:
+                    time
+                    day
+                    sisBuildingName
+                    buildingNumber
+                    roomNumber
                 }
-                sort
-                duration
-                subjectID
+                sort        // Name of thing, ie: Lecture, Prac, etc
+                duration    // The length in hours
                 classID
+            },
+            subjectName,
+            subjectCode,
+            semesterID,
+            echoLink
         }
 /api/subject
     +POST, adds subject and time to timetable
         args: {
             subjectID,
-            classTimes[]
+            classTimes[]    // Optional, it will register you into the class ONLY if you leave this out
         }
         return: {
             success: 1
         }
+    +DELETE, removes a subject from a user's timetable
+        args: {
+            subjectID
+        }
+        return: {
+            success: 1
+        }
+
 

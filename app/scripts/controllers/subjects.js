@@ -1,8 +1,7 @@
 'use strict';
 
-var app = angular.module('studlyApp');
-
-app.controller('SubjectsCtrl', function ($scope, Subject) {
+angular.module('studlyApp')
+  .controller('SubjectsCtrl', function ($scope, $location, Subject, $rootScope) {
 
   var AI = {
     name: 'Artificial Intelligence',
@@ -89,8 +88,8 @@ app.controller('SubjectsCtrl', function ($scope, Subject) {
     return a.code - b.code;
   });
 
-  // $scope.goToSubject = function(subjectID) {
-  //   $rootParams.subjectID = subjectID;
-  //   $location.url('/subject');
-  // };
+  $scope.goToSubject = function(subID) {
+    $rootScope.manageID = subID;
+    $location.url('/subject');
+  };
 });

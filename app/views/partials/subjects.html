@@ -1,6 +1,6 @@
 <navbar></navbar>
 <div id="subjects-page">
-  <div id="main-header">
+  <div class="heading blue">
     <div class="col-xs-12">My Subjects</div>
   </div>
   <div class="col-xs-12 col-sm-6">
@@ -8,32 +8,29 @@
         <form>
             <div class="row">
                 <div id="search-box" class="col-xs-offset-1 col-xs-10">
-                    <input class="form-control" type="search" ng-model="queryField" ng-change="querySubject()">
+                    <input class="form-control" type="search" ng-model="queryField" ng-change="querySubject()" placeholder="Name/Code (e.g. 'ELEN30006' or 'Signal Processing')">
                 </div>
             </div>
         </form>
     <div class="search-results">
-      <div class="row col-xs-12" ng-repeat="subject in subjects | filter: query" ng-hide="subjects.length == 0 || queryField == ''">
-        <a href=""><button class="subject-enrol btn-block" type="button">
-          <div class="subject-instance col-xs-7" style="text-align: left;">
-            {{subject.subjectName}}
+      <div class="row col-xs-12" ng-repeat="subject in subjects" ng-hide="subjects.length == 0 || queryField == ''">
+        <a ng-click="goToSubject(subject.subjectID)"><button class="subject-enrol btn-block" type="button">
+          <div class="subject-instance col-xs-5 left">
+            <b>{{subject.subjectName}}</b>
           </div>
-          <div class="subject-instance col-xs-5" style="text-align: right;">
+          <div class="subject-instance col-xs-3 right">
+            <i>Sem {{subject.semesterID}}</i>
+          </div>
+          <div class="subject-instance col-xs-4 right">
             {{subject.subjectCode}}
           </div>
         </button></a>
-        <div class="row col-xs-12" ng-show="subjects.length == 0 || queryField == ''">
+        <div class="row col-xs-12" ng-show="subjects.length == 0">
             No subject found...
         </div>
       </div>
-      <div class="row col-xs-12" ng-show="subjects.length == 0 || queryField == ''">
-        No subject found...
-      </div>
-      <div class="row col-xs-12" ng-show="subjects.length == 0 || queryField == ''">
-        No subject found...
-      </div>
-      <div class="row col-xs-12" ng-show="subjects.length == 0 || queryField == ''">
-        No subject found...
+      <div class="row col-xs-12" ng-show="queryField == ''">
+        Please enter a subject query.
       </div>
     </div>
     <br>
@@ -56,7 +53,7 @@
              </div>
           </div>
           <div class="row col-xs-7">
-            <a ng-glick="goToSubject(subject.subjectID)"><button type="button" class="btn btn-primary subject-manage" ng-style="{'background-color': colours[$index].name}">
+            <a ng-click="goToSubject(subject.subjectID)"><button type="button" class="btn btn-primary subject-manage" ng-style="{'background-color': colours[$index].name}">
                 Manage
             </button></a>
           </div>

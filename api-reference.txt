@@ -125,7 +125,25 @@
 /api/timetable/
 
     -GET, get array of weekly classes in timetable for current week
-        return : WeeklyClass[]: WeeklyClass
+        return : {
+            //Returns a list of subjects that the user is following
+            subject [
+                subjectCode
+                subjectName
+                    classes [ //Return the classes that the user is registered on this subject
+                        sort, // type of the class (lecture, workshop...)
+                        classTimeID,
+                        time,
+                        day,
+                        sisBuildingName,
+                        buildingNumber,
+                        roomNumber,
+                        attended,
+                        duration
+                    ]
+                ]
+            ]
+        }
 
     -POST, add a class time to timetable
         args: classId
@@ -142,7 +160,7 @@
     +GET, get array of weekly classes for correspond week containing date
     return: {
         //Returns a list of subjects that the user is following
-        subject[
+        subject [
             subjectCode
             subjectName
                 classes [ //Return the classes that the user is registered on this subject
@@ -157,6 +175,7 @@
                     duration
                 ]
             ]
+        ]
     }
 
 //SUBJECTS PAGE

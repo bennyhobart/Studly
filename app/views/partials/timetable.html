@@ -3,17 +3,17 @@
 <div id="timetable-page">
 
 	<div id="extra-info" class="col-sm-4 col-xs-12">
-		<div class="heading blue-dark row">Subjects</div>
+		<div class="heading blue-dark row">To do</div>
 
 		<!-- Start subjects list -->
 		<div ng-repeat="subject in subjects | orderBy:'subject.name'">
 			<div class="subjectHeading {{subject.color}} row">{{subject.name}}</div>
 
 			<div ng-repeat="class in subject.classes">
-				<div class="subjectSubHeading white row" onclick="window.location='class.html';">
+				<div class="subjectSubHeading white row" ng-click="toggleMark(class.id)">
 					<div class="col-md-12">
 						<i class="fa fa-circle {{subject.color}}Dot"></i> <span class="timeLabel">{{formatDay(class.day)}}</span> {{class.type}}
-						<span class="timeRightLabel">{{formatTime(class.time)}}</span>
+						<span class="timeRightLabel">{{formatTime(class.time)}} <img ng-show="class.marked" src="images/tick.png" width="16px" height="16px"></span>
 					</div>
 				</div>
 			</div>
@@ -25,16 +25,16 @@
 	<div class="col-sm-8 hidden-xs">
 		<!-- Start header showing current week -->
 		<div class="heading blue-dark row">
-			<i class="fa fa-angle-left"></i>
-			 Week {{getWeekNumberStart}} <span class="weekLabel">({{firstDayOfWeek}} - {{lastDayOfWeek}})</span> 
-			<i class="fa fa-angle-right"></i>
+			<!-- <i class="fa fa-angle-left"></i> -->
+			Week {{atualWeekDay}} <span class="weekLabel">({{firstDayOfWeek(atualWeekDay)}} - {{lastDayOfWeek(atualWeekDay)}})</span> 
+			<!-- <i class="fa fa-angle-right"></i> -->
 		</div>
 		<!-- End header showing current week -->
 
 		<!-- Start topbar showing days of the week -->
 		<div class="subjectHeading blue-lighter row">
-			<div class="arrow col-sm-1">
-				<i class="fa fa-chevron-left span1" onclick="previousWeek()"></i>
+			<div class="arrow col-sm-1" ng-click="goPrev()">
+				<i class="fa fa-chevron-left span1"></i>
 			</div>
 
 			<div ng-repeat="day in weekDays">
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 
-			<div class="arrow col-sm-1">
+			<div class="arrow col-sm-1" ng-click="goNext()">
 				<i class="fa fa-chevron-right span1"></i>
 			</div>
 		</div>
@@ -60,12 +60,16 @@
 				<div ng-repeat="d in [1,2,3,4,5]">
 					<div class="class col-sm-2 col-xs-1" ng-class="{'blue-lighter' : getDayNumber()==d}">
 						<div ng-repeat="subject in subjects">
-							<div ng-repeat="class in subject.classes | filter: { day: d, time: t }">
-								<a ng-click="goToClass(class.id)"> 
-								<b><i>{{class.type.substr(0,3)}}</i></b> {{subject.name}}<br/>
-								<span class="locationFont">{{class.building}}</span>
-								<img src="http://png-2.findicons.com/files/icons/1588/farm_fresh_web/32/tick.png" width="16px" height="16px">
-								</a>
+							<div ng-repeat="class in subject.classes | filter: { day: d }">
+								<div ng-if="(class.time >= t && class.time < t+100)">
+									<a ng-click="goToClass(class.id)"> 
+									<b><i>{{class.type.substr(0,3)}}</i></b> {{subject.name}}<br/>
+									<span class="locationFont">{{class.building}}</span>
+									<div ng-show="class.marked">
+										<img src="images/tick.png" width="16px" height="16px">
+									</div>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>

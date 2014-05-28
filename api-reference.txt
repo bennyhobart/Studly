@@ -88,10 +88,13 @@
             title: String,
             body: String
         }
-    -PUT ?attendedFlag, attend a weekly class
+    +PUT ?attendedFlag, attend a weekly class
 
         args : {
-            attendedFlag: true,
+            attendedFlag: 1
+        },
+        return: {
+            success: 1
         }
     -DELETE :ThreadId, delete a thread
         ADD A DELETED FLAG?
@@ -123,14 +126,13 @@
 //TIMETABLE PAGE
 
 /api/timetable/
-
-    -GET, get array of weekly classes in timetable for current week
+    +GET, get array of weekly classes in timetable for current week
         return : {
             //Returns a list of subjects that the user is following
             subject [
                 subjectCode
                 subjectName
-                    classes [ //Return the classes that the user is registered on this subject
+                    classes[] { //Return the classes that the user is registered on this subject
                         sort, // type of the class (lecture, workshop...)
                         classTimeID,
                         time,
@@ -139,8 +141,9 @@
                         buildingNumber,
                         roomNumber,
                         attended,
-                        duration
-                    ]
+                        duration,
+                        weeklyClassID
+                    }
                 ]
             ]
         }
@@ -163,7 +166,7 @@
         subject [
             subjectCode
             subjectName
-                classes [ //Return the classes that the user is registered on this subject
+                classes[] { //Return the classes that the user is registered on this subject
                     sort, // type of the class (lecture, workshop...)
                     classTimeID,
                     time,
@@ -172,8 +175,9 @@
                     buildingNumber,
                     roomNumber,
                     attended,
-                    duration
-                ]
+                    duration,
+                    weeklyClassID
+                }
             ]
         ]
     }

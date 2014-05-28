@@ -197,12 +197,14 @@
             class[]: {
                 classTimes[]: {
                     classTimeID:
-                    Time:
-                    Location:
+                    time
+                    day
+                    sisBuildingName
+                    buildingNumber
+                    roomNumber
                 }
-                sort
-                duration
-                subjectID
+                sort        // Name of thing, ie: Lecture, Prac, etc
+                duration    // The length in hours
                 classID
         }
 /api/subject

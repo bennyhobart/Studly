@@ -113,9 +113,13 @@
             content,
             postTime
         }
-    -PUT upvote or downvote, 1 for upvote 0 for delete vote -1 for down vote
+    +PUT upvote or downvote, 1 for upvote 0 for delete vote -1 for down vote
         args: {
             vote: 1, 0 -1,
+        }
+        return: {
+            upVotes,
+            downVotes
         }
 
 

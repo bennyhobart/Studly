@@ -7,6 +7,7 @@ USE studly;
 #SET foreign_key_checks = 0;
 
 # Drop old tables
+DROP TABLE IF EXISTS ClassSort;
 DROP TABLE IF EXISTS BuildingInfo;
 DROP TABLE IF EXISTS RoomInfo;
 DROP TABLE IF EXISTS PostHistory;
@@ -33,6 +34,12 @@ CREATE TABLE IF NOT EXISTS User (
     PRIMARY KEY(userID),
     UNIQUE(username),
     UNIQUE(email)
+);
+
+CREATE TABLE IF NOT EXISTS ClassSort (
+	sort TINYINT UNSIGNED NOT NULL,
+	sortName VARCHAR(32) NOT NULL,
+	PRIMARY KEY(sort)
 );
 
 CREATE TABLE IF NOT EXISTS RoomInfo (
@@ -111,9 +118,11 @@ CREATE TABLE IF NOT EXISTS ClassTime (
 CREATE TABLE IF NOT EXISTS WeeklyClass (
 	weeklyClassID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	classID INT UNSIGNED NOT NULL,
-	weekNumber TINYINT UNSIGNED NOT NULL,
+	semesterID INT UNSIGNED NOT NULL,
+	weekID TINYINT UNSIGNED NOT NULL,
 	PRIMARY KEY(weeklyClassID),
-	FOREIGN KEY(classID) REFERENCES Class(classID) ON DELETE CASCADE
+	FOREIGN KEY(classID) REFERENCES Class(classID) ON DELETE CASCADE,
+	FOREIGN KEY(semesterID, weekID) REFERENCES SemesterWeek(semesterID, weekID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS UserClassTime (
@@ -175,6 +184,30 @@ CREATE TABLE IF NOT EXISTS PostHistory (
 	PRIMARY KEY(postHistoryID),
 	FOREIGN KEY(postID) REFERENCES Post(postID) ON DELETE CASCADE
 );
+
+# Create sorts
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(0, 'Lecture');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(1, 'Practical');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(2, 'Seminar');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(3, 'Tutorial');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(4, 'Workshop');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(5, 'Problem-based');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(6, 'Field Work');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(7, 'Bump-in');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(8, 'Bump-out');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(9, 'Clinical Laboratory');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(10, 'Clinical Placement');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(11, 'Clinical Practice');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(12, 'Concert Class');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(13, 'Filmmaking');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(14, 'Instrument Class');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(15, 'Independent Practice');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(16, 'Large Ensemble');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(17, 'Performance');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(18, 'Performance Class');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(19, 'Rehearsal');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(20, 'Screening');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(21, 'Studio');
 
 # Enable foreign key checking again
 #SET foreign_key_checks = 1;

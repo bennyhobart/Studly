@@ -6,10 +6,10 @@ app/bower_components
 heroku
 /views
 dist
-<<<<<<< HEAD
-dataFinders/timetable
-dataFinders/node_modules
-=======
+
 *.sublime-project
 *.sublime-workspace
->>>>>>> 7afcb7c88de4a5806f79ebc4102ac7fbbdbc04f4
+
+dataFinders/timetable
+dataFinders/node_modules
+dataFinders/build.sql

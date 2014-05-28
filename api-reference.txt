@@ -170,18 +170,18 @@
         }
 
 /api/subject/:SubjectId
-    -GET, return all classes for a subject
+    +GET, return all classes for a subject
         return: {
-            Class[]: {
-                ClassTimes[]: {
-                    Id:
+            class[]: {
+                classTimes[]: {
+                    classTimeID:
                     Time:
                     Location:
                 }
-                Sort
-                Duration
-                SubjectId
-                ClassId
+                sort
+                duration
+                subjectID
+                classID
         }
 /api/subject/
     -POST, adds subject and time to timetable

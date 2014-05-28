@@ -9,6 +9,38 @@ function getNewName() {
     return '@'+(++upto);
 }
 
+var weeks = {
+    'Semester 1': {
+        1: "2014-03-03",
+        2: "2014-03-10",
+        3: "2014-03-17",
+        4: "2014-03-24",
+        5: "2014-03-31",
+        6: "2014-04-07",
+        7: "2014-04-14",
+        8: "2014-04-28",
+        9: "2014-05-05",
+        10: "2014-05-12",
+        11: "2014-05-19",
+        12: "2014-05-26"
+    },
+
+    'Semester 2': {
+        1: "2014-07-28",
+        2: "2014-08-04",
+        3: "2014-08-11",
+        4: "2014-08-18",
+        5: "2014-08-25",
+        6: "2014-09-01",
+        7: "2014-09-08",
+        8: "2014-09-15",
+        9: "2014-09-22",
+        10: "2014-10-06",
+        11: "2014-10-13",
+        12: "2014-10-20"
+    }
+}
+
 // The year to run this for
 var year = 2014;
 
@@ -103,6 +135,13 @@ for(var semesterKey in semesters) {
         var semID = getNewName();
         sql += 'INSERT INTO `Semester` (`startDate`, `semesterName`) VALUES("2013-01-01", "'+semester+'");\n';
         sql += 'SET '+semID+':=LAST_INSERT_ID();\n';
+
+        // Create the weeks for this semester
+        var weekList = {};
+        for(var key in weeks[semester]) {
+            weekList[key] = key;
+            sql += 'INSERT INTO `SemesterWeek` (`semesterID`, `weekID`, `startDate`) VALUES('+semID+', '+key+', "'+weeks[semester][key]+'");\n';
+        }
 
         // Loop over all subjects
         for(var n in semesters[semesterKey]) {
@@ -263,6 +302,11 @@ for(var semesterKey in semesters) {
 
                                 // Create the SQL
                                 sql += 'INSERT INTO `ClassTime` (`classID`, `day`, `time`, `buildingNumber`, `roomNumber`, `sisBuildingName`) VALUES('+classID+', '+c.day+', TIME("'+c.time+'"), '+c.buildingNumber+', "'+c.roomNumber+'", "'+c.sisBuildingName+'");\n';
+                            }
+
+                            // Insert the weekly classes
+                            for(var key in weekList) {
+                                sql += 'INSERT INTO `WeeklyClass` (`classID`, `semesterID`, `weekID`) VALUES('+classID+', '+semID+', '+weekList[key]+');\n';
                             }
                         }
                     } else {

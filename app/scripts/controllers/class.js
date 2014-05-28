@@ -10,6 +10,7 @@ angular.module('studlyApp')
         }
         Class.get({weeklyClassId: weeklyClassId}).
             $promise.then(function (data) {
+                console.log(data);
                 $scope.threads = data.threads;
             }, function (data) {
                 console.log(data);

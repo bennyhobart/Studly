@@ -58,19 +58,15 @@
     -+GET, Get a weekly class
         return: {
             classInfo: {
-                name: "Web Information Technologies",
+                subjectName: "Web Information Technologies",
                 subjectCode: "INFO30005",
-                weeklyClasses: [
-                    Sort,
-                    Time,
-                    etc..
-                ],
-                Directions:,
-                Prerequisites:,
+
+                - Directions:,      // Not Added Yet
                 },
-            video : {
+            video : {   // If no video exists, this element wont be returned
                 slides[]:  String
                 url: String
+                baseSlides: String // This is the URL all slides start with
                 },
             threads[] :
                 {

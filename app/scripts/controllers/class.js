@@ -62,11 +62,38 @@ angular.module('studlyApp')
         return;
     };
 
-    $scope.upvote = function(obj) {
-        obj.count.up+=1;
+    $scope.upvote = function(thread) {
+        class.update({
+            vote: 1,
+            weeklyClassId: weeklyClassId,
+            topicId: thread.topicID
+        }).$promise.then(function (data) {
+            console.log(data);
+        }, function (data) {
+            console.log(data);
+        });
     };
-    $scope.downvote = function(obj) {
-        obj.count.down+=1;
+    $scope.deleteVote = function (thread) {
+        class.update({
+            vote: 1,
+            weeklyClassId: weeklyClassId,
+            topicId: thread.topicID
+        }).$promise.then(function (data) {
+            console.log(data);
+        }, function (data) {
+            console.log(data);
+        });
+    }
+    $scope.downvote = function(thread) {
+        class.update({
+            vote: 1,
+            weeklyClassId: weeklyClassId,
+            topicId: thread.topicID
+        }).$promise.then(function (data) {
+            console.log(data);
+        }, function (data) {
+            console.log(data);
+        });
     };
     $scope.addThread = function (data) {
         Class.save({

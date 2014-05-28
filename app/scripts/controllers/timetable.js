@@ -2,12 +2,12 @@
 
 
 angular.module('studlyApp')
-  .controller('TimetableCtrl', function ($scope, $location, Timetable, Class, $rootScope) {
+  .controller('TimetableCtrl', function ($scope, $location, Timetable, Class) {
 
 
   /*Class.update({
     classId: '302030230203',
-    attendedFlag: true
+    attendedFlag: true 
   }).$promise.then(
   //success
   function (data) {
@@ -140,7 +140,7 @@ angular.module('studlyApp')
 
   $scope.updateSql();
 
-    Timetable.get({
+    /*Timetable.get({
       date: $scope.sqlQueryDate($scope.thisWeekObject)
     }).$promise.then(
     //success
@@ -153,10 +153,9 @@ angular.module('studlyApp')
       console.log('Error getting data 2.');
     });
 
-    $scope.goToClass = function (weeklyClassId) {
-      $location.url('/class');
-      $rootScope.weeklyClassId = weeklyClassId;
-    };
+    $scope.goToClass = function (classId) {
+      $location.url('/class/' + classId);
+    };*/
 
 
   $scope.formatTime = function(time) {
@@ -174,7 +173,7 @@ angular.module('studlyApp')
 		 } else {
 		   	amPM = " AM";
 		 }
-
+		
 		 return hour + ":" + time.toString().slice(-2);
   };
 

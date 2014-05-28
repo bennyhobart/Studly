@@ -13,7 +13,7 @@ angular.module('studlyApp')
                 console.log(data);
                 $location.url('/timetable');
             }, function (data) {
-                console.log(data)
+                alert(data.data.error);
         });
     };
   });

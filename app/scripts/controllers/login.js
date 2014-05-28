@@ -13,6 +13,8 @@ angular.module('studlyApp')
       Auth.login(passportInfo).then(function (data) {
         $location.url('/timetable');
       }, function (data) {
+        console.log(data);
+        alert(data.data.error);
         console.log('error')
       });
     }

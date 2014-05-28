@@ -13,3 +13,4 @@ dist
 dataFinders/timetable
 dataFinders/node_modules
 dataFinders/build.sql
+dataFinders/static/*

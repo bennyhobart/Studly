@@ -2,44 +2,150 @@
 
 
 angular.module('studlyApp')
-  .controller('TimetableCtrl', function ($scope, $location, Timetable, $rootScope) {
+  .controller('TimetableCtrl', function ($scope, $location, Timetable, Class) {
 
 
-    /*Class.update({
-      classId: '302030230203',
-      attendedFlag: true
+  /*Class.update({
+    classId: '302030230203',
+    attendedFlag: true 
+  }).$promise.then(
+  //success
+  function (data) {
+    consoe.log(data);
+  },
+  //failure
+  function (data) {
+    consoe.log(data);
+  }
+  );*/
+
+  $scope.awesomeThings = [
+    'HTML5 Boilerplate',
+    'AngularJS',
+    'Karma'
+  ];
+
+  /*Timetable.get().$promise.then(
+  //success
+  function (data) {
+    //$scope.subjs = data.subject;
+    //console.log(data.subject);
+  },
+  //failure
+  function (data) {
+    console.log('Error getting data 1.');
+  });*/
+
+		/*
+    $scope.toggleCustom = function() {
+          $scope.custom = $scope.custom === false ? true: false;
+    };
+  */
+
+  /*http://javascript.about.com/library/blweekyear.htm*/
+  Date.prototype.getWeek = function() {
+    var onejan = new Date(this.getFullYear(),0,1);
+    return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+  };
+
+  $scope.todayWeekDay = new Date().getWeek() - 10;
+  $scope.atualWeekDay = new Date().getWeek() - 10;
+
+  $scope.getDayNumber = function() {
+    return new Date().getDay();
+  }
+
+  var monthList = [
+                   "Jan",
+                   "Feb",
+                   "Mar",
+                   "Apr",
+                   "May",
+                   "Jun",
+                   "Jul",
+                   "Aug",
+                   "Sep",
+                   "Oct",
+                   "Nov",
+                   "Dec"
+                  ];
+
+  $scope.thisWeekObject = new Date();
+
+  $scope.firstDayOfWeek = function() {
+    var first = new Date().getDate() - new Date().getDay() + 1 + (($scope.atualWeekDay - $scope.todayWeekDay)*7); // First day is the day of the month - the day of the week
+    var firstDay = new Date(new Date().setDate(first));
+    return firstDay.getDate() + " " + monthList[firstDay.getMonth()];
+  }
+
+  $scope.lastDayOfWeek = function() {
+    var first = new Date().getDate() - new Date().getDay() + 5 + (($scope.atualWeekDay - $scope.todayWeekDay)*7); // First day is the day of the month - the day of the week
+    var firstDay = new Date(new Date().setDate(first));
+    return firstDay.getDate() + " " + monthList[firstDay.getMonth()];
+  }
+
+  $scope.loading = true;
+  $scope.errorState = false;
+
+  $scope.goPrev = function(){
+      if ($scope.atualWeekDay > 1) {
+        $scope.atualWeekDay -= 1;
+        $scope.thisWeekObject = new Date($scope.thisWeekObject.setDate($scope.thisWeekObject.getDate()-7));
+        $scope.updateSql();
+      }
+  }
+
+  $scope.goNext = function(){
+      if ($scope.atualWeekDay < 12) {
+        $scope.atualWeekDay += 1;
+        $scope.thisWeekObject = new Date($scope.thisWeekObject.setDate($scope.thisWeekObject.getDate()+7));
+        $scope.updateSql();
+      }
+  }
+
+
+  $scope.toggleMark = function(classId){
+    Class.put({weeklyClassID: classId}, {
+      attendedFlag: 1
     }).$promise.then(
-    //success
     function (data) {
-      consoe.log(data);
-    },
-    //failure
-    function (data) {
-      consoe.log(data);
-    }
-    );*/
-
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
-    Timetable.get().$promise.then(
-    //success
-    function (data) {
+      console.log("success");
       console.log(data);
     },
-    //failure
     function (data) {
-      console.log('Error getting data 1.');
+      console.log("errors");
     });
+  }
 
+  $scope.updateSql = function(){
+    $scope.loading = true;
     Timetable.get({
-      date: '2014-08-28'
+      date: $scope.sqlQueryDate($scope.thisWeekObject)
     }).$promise.then(
     //success
     function (data) {
+      $scope.subjs = data.subject;
+      $scope.loading = false;
+    },
+    //failure
+    function (data) {
+      $scope.errorState = true;
+    });
+  }
+
+  $scope.sqlQueryDate = function(date){
+      return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+  }
+
+
+  $scope.updateSql();
+
+    /*Timetable.get({
+      date: $scope.sqlQueryDate($scope.thisWeekObject)
+    }).$promise.then(
+    //success
+    function (data) {
+      $scope.subjs = data.subject;
       console.log(data);
     },
     //failure
@@ -48,87 +154,32 @@ angular.module('studlyApp')
     });
 
     $scope.goToClass = function (classId) {
-      $rootScope.weeklyClassId = classId;
-      $location.url('/class/');
+      $location.url('/class/' + classId);
+    };*/
 
-    };
 
- 		/*
-      $scope.toggleCustom = function() {
-            $scope.custom = $scope.custom === false ? true: false;
-      };
-    */
+  $scope.formatTime = function(time) {
+  	var hour;
+  	if (time.toString().length > 3) {
+		 hour = time.toString().substr(0,2);
+	  } else {
+		 hour = time.toString().substr(0,1);
+	  }
 
-    /*http://javascript.about.com/library/blweekyear.htm*/
-    Date.prototype.getWeek = function() {
-      var onejan = new Date(this.getFullYear(),0,1);
-      return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
-    };
+	  var amPM;
+		 if ((time - 1200 > 0)) {
+		   	time = time - 1200;
+		   	amPM = " PM";
+		 } else {
+		   	amPM = " AM";
+		 }
+		
+		 return hour + ":" + time.toString().slice(-2);
+  };
 
-    $scope.todayWeekDay = new Date().getWeek() - 10;
-    $scope.atualWeekDay = new Date().getWeek() - 10;
-
-    $scope.getDayNumber = function() {
-      return new Date().getDay();
-    }
-
-    var monthList = [
-                     "Jan",
-                     "Feb",
-                     "Mar",
-                     "Apr",
-                     "May",
-                     "Jun",
-                     "Jul",
-                     "Aug",
-                     "Sep",
-                     "Oct",
-                     "Nov",
-                     "Dec"
-                    ];
-
-    $scope.firstDayOfWeek = function(week) {
-      var first = new Date().getDate() - new Date().getDay() + 1 + (($scope.atualWeekDay - $scope.todayWeekDay)*7); // First day is the day of the month - the day of the week
-      var firstDay = new Date(new Date().setDate(first));
-      return firstDay.getDate() + " " + monthList[firstDay.getMonth()];
-    }
-
-    $scope.lastDayOfWeek = function(week) {
-      var first = new Date().getDate() - new Date().getDay() + 5 + (($scope.atualWeekDay - $scope.todayWeekDay)*7); // First day is the day of the month - the day of the week
-      var firstDay = new Date(new Date().setDate(first));
-      return firstDay.getDate() + " " + monthList[firstDay.getMonth()];
-    }
-
-    $scope.goPrev = function(){
-        if ($scope.atualWeekDay > 1) {
-          $scope.atualWeekDay -= 1;
-        }
-    }
-
-    $scope.goNext = function(){
-        if ($scope.atualWeekDay < 12) {
-          $scope.atualWeekDay += 1;
-        }
-    }
-
-    $scope.formatTime = function(time) {
-    	var hour;
-    	if (time.toString().length > 3) {
-			 hour = time.toString().substr(0,2);
-		  } else {
-			 hour = time.toString().substr(0,1);
-		  }
-
-		  var amPM;
- 		 if ((time - 1200 > 0)) {
- 		   	time = time - 1200;
- 		   	amPM = " PM";
- 		 } else {
- 		   	amPM = " AM";
- 		 }
-
- 		 return hour + ":" + time.toString().slice(-2);
-    };
+  $scope.getPlainTime = function(time) {
+    return time.replace(/:/g, '').substr(0,4);
+  };
 
   $scope.formatDay = function(day) {
     if (day == 1) {
@@ -154,7 +205,6 @@ angular.module('studlyApp')
 
   $scope.weekDays = weekList;
 
-
   $scope.getDayName = function() {
     var today = new Date().getDay();
     if ((today >= 1) && (today <= 5)) {
@@ -164,7 +214,7 @@ angular.module('studlyApp')
     }
   }
 
-  var class1 = {
+  /*var class1 = {
     id: 1,
     time: 915,
     end: 1100,
@@ -243,8 +293,9 @@ angular.module('studlyApp')
   $scope.subjects = [AI, COMPLEX, WEB];
 
   $scope.allclasses = [class1, class2, class3, class4, class5];
+  */
 
-  $scope.toggleMark = function(classId) {
+  /*$scope.toggleMark = function(classId) {
     for (var i = 0; i < $scope.allclasses.length; i++) {
       if ($scope.allclasses[i].id == classId) {
         if ($scope.allclasses[i].marked) {
@@ -254,6 +305,7 @@ angular.module('studlyApp')
         }
       }
     }
-  }
+  }*/
+
 
   });

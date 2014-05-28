@@ -4,8 +4,6 @@ To Ash: RECODE THIS -- It's written really badly!
 
 */
 
-
-
 // Include dependencies:
 var express = require('express');
 var fs = require('fs');
@@ -13,7 +11,10 @@ var querystring = require('querystring');
 var curl = require('curlrequest');
 var cheerio = require('cheerio');
 
-var year = 2013;
+var data = String(fs.readFileSync('subjectList.txt', 'ascii'));
+var subjects = data.split('\n');
+
+var year = 2014;
 
 var loc = 'static/handbook/'+year+'/'
 
@@ -32,17 +33,25 @@ if(!fs.existsSync('static/handbook/'+year)) {
 function BuildSubject(code) {
 	var code = code.toLowerCase();
 
+	console.log('Building '+code+' '+subjects.length+' left!');
+
 	curl.request('https://handbook.unimelb.edu.au/view/'+year+'/'+code, function (err, data) {
 		if(err) {
 			console.log(err);
 		} else {
 			processHandbook(code, data);
 		}
+
+		// Move on
+		BuildSubject(subjects.shift());
 	});
 }
 
 // Processes a handbook page
 function processHandbook(code, body) {
+	try {
+		code = code.replace('\r', '');
+
 	// Jquery stuff:
 	var $ = cheerio.load(body);
 
@@ -54,14 +63,14 @@ function processHandbook(code, body) {
 	}
 
 	var infoHeaders = new Array();
-	var info;
+	var info = {};
 
 	// Load her in:
-	if(fs.existsSync(loc+code+'.json')) {
-		info = JSON.parse(fs.readFileSync(loc+code+'.json'));
-	} else {
-		info = {};
-	}
+	//if(fs.existsSync(loc+code+'.json')) {
+	//	info = JSON.parse(fs.readFileSync(loc+code+'.json'));
+	//} else {
+		//info = {};
+	//}
 
 	var content = $("#content");
 
@@ -119,7 +128,7 @@ function processHandbook(code, body) {
 	});
 
 	// Add leads to all these subjects:
-	for(var i=0; i<info.pre.length; i++) {
+	/*for(var i=0; i<info.pre.length; i++) {
 		var c = info.pre[i].toLowerCase();
 
 		var lead;
@@ -158,24 +167,22 @@ function processHandbook(code, body) {
 				console.log(err);
 			}
 		});
-	}
+	}*/
 
 	// Store it:
+	console.log('Writing '+loc+code+'.json');
 	fs.writeFile(loc+code+'.json', JSON.stringify(info), function(err) {
 		if(err) {
 			console.log(err);
 		}
 	});
+	} catch(e) {
+		console.log('Well, that failed!');
+		console.log(e);
+	}
 }
 
-var data = String(fs.readFileSync('subjects.txt'));
-var subjects = data.split('\n');
-
-for(var i=0;i<subjects.length;i++) {
-	//BuildSubject(subjects[i]);
-}
-
-BuildSubject('mast10007');
+BuildSubject(subjects.shift());
 
 return;
 

@@ -2,7 +2,7 @@
 
 angular.module('studlyApp')
   .controller('SubjectCtrl', function ($scope, $routeParams) {
-    var subjectId = $routeParams.id;
+    var subjectID = $routeParams.id;
 
 
   });

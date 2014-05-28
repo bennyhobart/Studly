@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('studlyApp')
-  .controller('ProfileCtrl', function ($scope, $http, Class, Session, Subject, Timetable, User) {
+  .controller('ProfileCtrl', function ($scope, $http, Class, Session, Timetable, User) {
     function init() {
 
     };

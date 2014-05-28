@@ -183,10 +183,13 @@
                 subjectID
                 classID
         }
-/api/subject/
-    -POST, adds subject and time to timetable
+/api/subject
+    +POST, adds subject and time to timetable
         args: {
-            SubjectID,
-            ClassTimes[]
+            subjectID,
+            classTimes[]
+        }
+        return: {
+            success: 1
         }
 

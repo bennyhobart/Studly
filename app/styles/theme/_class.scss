@@ -88,12 +88,10 @@
 	.timestamp {
 		color: $gray-light;
 		font-size: $font-size-small;
+		text-align: right;
 	}
 
 	#modal {
-		.username {
-			font-size: $font-size-large;
-		}
 		.body {
 			text-align: justify;
 		}

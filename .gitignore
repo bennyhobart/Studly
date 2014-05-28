@@ -6,5 +6,10 @@ app/bower_components
 heroku
 /views
 dist
+
 *.sublime-project
 *.sublime-workspace
+
+dataFinders/timetable
+dataFinders/node_modules
+dataFinders/build.sql

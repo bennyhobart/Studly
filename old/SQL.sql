@@ -7,6 +7,9 @@ USE studly;
 #SET foreign_key_checks = 0;
 
 # Drop old tables
+DROP TABLE IF EXISTS ClassSort;
+DROP TABLE IF EXISTS BuildingInfo;
+DROP TABLE IF EXISTS RoomInfo;
 DROP TABLE IF EXISTS PostHistory;
 DROP TABLE IF EXISTS Post;
 DROP TABLE IF EXISTS TopicVotes;
@@ -33,6 +36,27 @@ CREATE TABLE IF NOT EXISTS User (
     UNIQUE(email)
 );
 
+CREATE TABLE IF NOT EXISTS ClassSort (
+	sort TINYINT UNSIGNED NOT NULL,
+	sortName VARCHAR(32) NOT NULL,
+	PRIMARY KEY(sort)
+);
+
+CREATE TABLE IF NOT EXISTS RoomInfo (
+	buildingNumber SMALLINT UNSIGNED NOT NULL,
+	roomNumber VARCHAR(32) NOT NULL,
+	directions VARCHAR(1000),
+	PRIMARY KEY(buildingNumber, roomNumber)
+);
+
+CREATE TABLE IF NOT EXISTS BuildingInfo (
+	buildingNumber SMALLINT UNSIGNED NOT NULL,
+	buildingName VARCHAR(200) NOT NULL,
+	alternateName VARCHAR(200),
+	mapReference VARCHAR(4),
+	PRIMARY KEY(buildingNumber)
+);
+
 CREATE TABLE IF NOT EXISTS Semester (
 	semesterID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	startDate DATE NOT NULL,
@@ -45,7 +69,7 @@ CREATE TABLE IF NOT EXISTS SemesterWeek (
 	weekID TINYINT UNSIGNED NOT NULL,
 	startDate DATE NOT NULL,
 	PRIMARY KEY(semesterID, weekID),
-	FOREIGN KEY(semesterID) REFERENCES Semester(semesterID)
+	FOREIGN KEY(semesterID) REFERENCES Semester(semesterID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Subject (
@@ -53,17 +77,21 @@ CREATE TABLE IF NOT EXISTS Subject (
 	semesterID INT UNSIGNED NOT NULL,
 	subjectName VARCHAR(255) NOT NULL,
 	subjectCode CHAR(9) NOT NULL,
-	echoLink CHAR(36),
+	echoLink CHAR(200),
 	PRIMARY KEY(subjectID),
-	FOREIGN KEY(semesterID) REFERENCES Semester(semesterID)
+	FOREIGN KEY(semesterID) REFERENCES Semester(semesterID) ON DELETE CASCADE
 );
+
+# Index subject codes and names
+CREATE INDEX subjectName ON Subject(subjectName);
+CREATE INDEX subjectCode ON Subject(subjectCode);
 
 CREATE TABLE IF NOT EXISTS UserSubject (
 	userID INT UNSIGNED NOT NULL,
 	subjectID INT UNSIGNED NOT NULL,
 	PRIMARY KEY(userID, subjectID),
-	FOREIGN KEY(userID) REFERENCES User(userID),
-	FOREIGN KEY(subjectID) REFERENCES Subject(subjectID)
+	FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE,
+	FOREIGN KEY(subjectID) REFERENCES Subject(subjectID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Class (
@@ -72,7 +100,7 @@ CREATE TABLE IF NOT EXISTS Class (
 	sort TINYINT UNSIGNED NOT NULL,
 	duration TINYINT UNSIGNED NOT NULL,
 	PRIMARY KEY(classID),
-	FOREIGN KEY(subjectID) REFERENCES Subject(subjectID)
+	FOREIGN KEY(subjectID) REFERENCES Subject(subjectID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS ClassTime (
@@ -80,26 +108,29 @@ CREATE TABLE IF NOT EXISTS ClassTime (
 	classID INT UNSIGNED NOT NULL,
 	day TINYINT UNSIGNED NOT NULL,
 	time TIME NOT NULL,
-	buildingNumber TINYINT UNSIGNED NOT NULL,
-	roomNumber SMALLINT UNSIGNED NOT NULL,
+	sisBuildingName VARCHAR(128) NOT NULL,
+	buildingNumber SMALLINT UNSIGNED NOT NULL,
+	roomNumber VARCHAR(32) NOT NULL,
 	PRIMARY KEY(ClassTimeID),
-	FOREIGN KEY(ClassID) REFERENCES Class(ClassID)
+	FOREIGN KEY(ClassID) REFERENCES Class(ClassID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS WeeklyClass (
 	weeklyClassID INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	classID INT UNSIGNED NOT NULL,
-	weekNumber TINYINT UNSIGNED NOT NULL,
+	semesterID INT UNSIGNED NOT NULL,
+	weekID TINYINT UNSIGNED NOT NULL,
 	PRIMARY KEY(weeklyClassID),
-	FOREIGN KEY(classID) REFERENCES Class(classID)
+	FOREIGN KEY(classID) REFERENCES Class(classID) ON DELETE CASCADE,
+	FOREIGN KEY(semesterID, weekID) REFERENCES SemesterWeek(semesterID, weekID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS UserClassTime (
 	userID INT UNSIGNED NOT NULL,
 	classTimeID INT UNSIGNED NOT NULL,
 	PRIMARY KEY(userID, classTimeID),
-	FOREIGN KEY(userID) REFERENCES User(userID),
-	FOREIGN KEY(classTimeID) REFERENCES ClassTime(classTimeID)
+	FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE,
+	FOREIGN KEY(classTimeID) REFERENCES ClassTime(classTimeID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Attended (
@@ -107,8 +138,8 @@ CREATE TABLE IF NOT EXISTS Attended (
 	weeklyClassID INT UNSIGNED NOT NULL,
 	state TINYINT UNSIGNED NOT NULL,
 	PRIMARY KEY(userID, weeklyClassID),
-	FOREIGN KEY(userID) REFERENCES User(userID),
-	FOREIGN KEY(weeklyClassID) REFERENCES WeeklyClass(weeklyClassID)
+	FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE,
+	FOREIGN KEY(weeklyClassID) REFERENCES WeeklyClass(weeklyClassID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Topic (
@@ -120,8 +151,8 @@ CREATE TABLE IF NOT EXISTS Topic (
 	downVotes SMALLINT UNSIGNED DEFAULT 0,
 	postTime DATETIME NOT NULL,
 	PRIMARY KEY(topicID),
-	FOREIGN KEY(userID) REFERENCES User(userID),
-	FOREIGN KEY(weeklyClassID) REFERENCES WeeklyClass(weeklyClassID)
+	FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE,
+	FOREIGN KEY(weeklyClassID) REFERENCES WeeklyClass(weeklyClassID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS TopicVotes (
@@ -129,8 +160,8 @@ CREATE TABLE IF NOT EXISTS TopicVotes (
 	userID INT UNSIGNED NOT NULL,
 	vote TINYINT UNSIGNED NOT NULL,
 	PRIMARY KEY(topicID, userID),
-	FOREIGN KEY(topicID) REFERENCES Topic(topicID),
-	FOREIGN KEY(userID) REFERENCES User(userID)
+	FOREIGN KEY(topicID) REFERENCES Topic(topicID) ON DELETE CASCADE,
+	FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Post (
@@ -141,8 +172,8 @@ CREATE TABLE IF NOT EXISTS Post (
 	postTime DATETIME NOT NULL,
 	editTime DATETIME,
 	PRIMARY KEY(postID),
-	FOREIGN KEY(topicID) REFERENCES Topic(topicID),
-	FOREIGN KEY(userID) REFERENCES User(userID)
+	FOREIGN KEY(topicID) REFERENCES Topic(topicID) ON DELETE CASCADE,
+	FOREIGN KEY(userID) REFERENCES User(userID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS PostHistory (
@@ -151,8 +182,32 @@ CREATE TABLE IF NOT EXISTS PostHistory (
 	content TEXT NOT NULL,
 	editTime DATETIME,
 	PRIMARY KEY(postHistoryID),
-	FOREIGN KEY(postID) REFERENCES Post(postID)
+	FOREIGN KEY(postID) REFERENCES Post(postID) ON DELETE CASCADE
 );
+
+# Create sorts
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(0, 'Lecture');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(1, 'Practical');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(2, 'Seminar');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(3, 'Tutorial');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(4, 'Workshop');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(5, 'Problem-based');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(6, 'Field Work');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(7, 'Bump-in');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(8, 'Bump-out');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(9, 'Clinical Laboratory');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(10, 'Clinical Placement');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(11, 'Clinical Practice');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(12, 'Concert Class');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(13, 'Filmmaking');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(14, 'Instrument Class');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(15, 'Independent Practice');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(16, 'Large Ensemble');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(17, 'Performance');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(18, 'Performance Class');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(19, 'Rehearsal');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(20, 'Screening');
+INSERT INTO `ClassSort` (`sort`, `sortName`) VALUES(21, 'Studio');
 
 # Enable foreign key checking again
 #SET foreign_key_checks = 1;

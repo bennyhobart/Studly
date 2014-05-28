@@ -1,0 +1,2 @@
+node subjects.js
+pause

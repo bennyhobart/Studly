@@ -18,7 +18,7 @@ angular.module('studlyApp', [
         controller: 'TimetableCtrl',
         authenticate: true
       })
-      .when('/class/:id', {
+      .when('/class', {
         templateUrl: 'partials/class.html',
         controller: 'ClassCtrl',
         authenticate: true
@@ -32,7 +32,7 @@ angular.module('studlyApp', [
         controller: 'SubjectsCtrl',
         authenticate: true
       })
-      .when('/subject/:id', {
+      .when('/subject', {
         templateUrl: 'partials/subject',
         controller: 'SubjectCtrl',
         authenticate: true
@@ -53,6 +53,10 @@ angular.module('studlyApp', [
       .when('/signup', {
         templateUrl: 'partials/signup',
         controller: 'SignupCtrl'
+      })
+      .otherwise({
+        templateUrl: 'partials/login.html',
+        controller: 'LoginCtrl'
       });
 
       $locationProvider.html5Mode(true);
@@ -72,11 +76,6 @@ angular.module('studlyApp', [
       }]);
     })
     .run(function ($rootScope, $location, Auth) {
-      if(Auth.isLoggedIn) {
-        $location.url('/timetable');
-      } else {
-        $location.url('/login');
-      }
       // Redirect to login if route requires auth and you're not logged in
       $rootScope.$on('$routeChangeStart', function (event, next) {
 

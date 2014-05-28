@@ -144,13 +144,13 @@
             ]
         }
 
-    -POST, add a class time to timetable
+    +POST, add a class time to timetable
         args: classTimeID
 
-    -DELETE classTimeID,
+    +DELETE classTimeID,
         return : delete a class time from timetable
 
-    -PUT, Change from one classTime to another
+    +PUT, Change from one classTime to another
         args: classTimeID
 
         //// CONFUSING -- two different API calls to register into a time slot YES!

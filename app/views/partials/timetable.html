@@ -6,14 +6,29 @@
 		<div class="heading blue-dark row">To do</div>
 
 		<!-- Start subjects list -->
-		<div ng-repeat="subject in subjects | orderBy:'subject.name'">
-			<div class="subjectHeading {{subject.color}} row">{{subject.name}}</div>
+		<div ng-show="errorStatus">
+			<div class="subjectSubHeading white row" ng-click="updateSql()"><i>Error fetching data. Click to retry.</i></div>
+		</div>
+		<div ng-hide="errorStatus">
+			<div ng-show="loading">
+				<div class="subjectSubHeading white row"><i>Loading...</i></div>
+			</div>
 
-			<div ng-repeat="class in subject.classes">
-				<div class="subjectSubHeading white row" ng-click="toggleMark(class.id)">
-					<div class="col-md-12">
-						<i class="fa fa-circle {{subject.color}}Dot"></i> <span class="timeLabel">{{formatDay(class.day)}}</span> {{class.type}}
-						<span class="timeRightLabel">{{formatTime(class.time)}} <img ng-show="class.marked" src="images/tick.png" width="16px" height="16px"></span>
+			<div ng-hide="loading">
+				<div ng-if="(subjs.length == 0)">
+					<div class="subjectSubHeading white row"><a href="/subjects">Click here</a> to add subjects.</div>
+				</div>
+
+				<div ng-repeat="subject in subjs | orderBy:'subject.subjectName'">
+					<div class="subjectHeading blue-light row">{{subject.subjectName}}</div>
+
+					<div ng-repeat="class in subject.classes">
+						<div class="subjectSubHeading white row" ng-click="toggleMark(class.weeklyClassID)">
+							<div class="col-md-12">
+								<i class="fa fa-circle blue-lightDot"></i> <span class="timeLabel">{{formatDay(class.day)}}</span> {{class.sort}}
+								<span class="timeRightLabel">{{formatTime(class.time)}} <img ng-show="class.attended" src="images/tick.png" width="16px" height="16px"></span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -26,7 +41,7 @@
 		<!-- Start header showing current week -->
 		<div class="heading blue-dark row">
 			<!-- <i class="fa fa-angle-left"></i> -->
-			Week {{atualWeekDay}} <span class="weekLabel">({{firstDayOfWeek(atualWeekDay)}} - {{lastDayOfWeek(atualWeekDay)}})</span> 
+			Week {{atualWeekDay}} <span class="weekLabel">({{firstDayOfWeek()}} - {{lastDayOfWeek()}})</span> 
 			<!-- <i class="fa fa-angle-right"></i> -->
 		</div>
 		<!-- End header showing current week -->
@@ -50,37 +65,47 @@
 		<!-- End topbar showing days of the week -->
 
 		<!-- Start timetable row for for each hour -->
-		<div ng-repeat="t in [800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100]">
-			<div class="timetable row">
-				<div class="col-sm-1">
-					<span class="time">{{formatTime(t)}}</span>
-				</div>
+		<div ng-show="errorStatus" ng-click="updateSql()">
+			<br/><center><i><i>Error fetching data. Click to retry.</i></center>
+		</div>
+		<div ng-hide="errorStatus">
+			<div ng-show="loading">
+			<br/><center><i>Loading...</i></center>
+			</div>
+			<div ng-hide="loading">
+				<div ng-repeat="t in [800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800,1900,2000,2100]">
+					<div class="timetable row">
+						<div class="col-sm-1">
+							<span class="time">{{formatTime(t)}}</span>
+						</div>
 
-				<!-- Start column for each day of the week -->
-				<div ng-repeat="d in [1,2,3,4,5]">
-					<div class="class col-sm-2 col-xs-1" ng-class="{'blue-lighter' : getDayNumber()==d}">
-						<div ng-repeat="subject in subjects">
-							<div ng-repeat="class in subject.classes | filter: { day: d }">
-								<div ng-if="(class.time >= t && class.time < t+100)">
-									<a ng-click="goToClass(class.id)"> 
-									<b><i>{{class.type.substr(0,3)}}</i></b> {{subject.name}}<br/>
-									<span class="locationFont">{{class.building}}</span>
-									<div ng-show="class.marked">
-										<img src="images/tick.png" width="16px" height="16px">
+						<!-- Start column for each day of the week -->
+						<div ng-repeat="d in [1,2,3,4,5]">
+							<div class="class col-sm-2 col-xs-1" ng-class="{'blue-lighter' : getDayNumber()==d}">
+								<div ng-repeat="subject in subjs">
+									<div ng-repeat="class in subject.classes | filter: { day: d }">
+										<div ng-if="(getPlainTime(class.time) >= t && getPlainTime(class.time) < t+100)">
+											<a ng-click="goToClass(class.weeklyClassID)"> 
+											<b><i>{{class.sort.substr(0,3)}}</i></b> {{subject.subjectName}}<br/>
+											<span class="locationFont">{{class.sisBuildingName}} {{class.roomNumber}}</span>
+											<div ng-show="class.attended">
+												<img src="images/tick.png" width="16px" height="16px">
+											</div>
+											</a>
+										</div>
 									</div>
-									</a>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<!-- End column for each day of the week -->
+						<!-- End column for each day of the week -->
 
-				<!-- Start next week arrow placeholder -->
-				<div class="col-sm-1">
-				</div>
-				<!-- End placeholder -->
-					
+						<!-- Start next week arrow placeholder -->
+						<div class="col-sm-1">
+						</div>
+						<!-- End placeholder -->
+							
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

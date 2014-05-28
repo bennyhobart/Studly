@@ -1,6 +1,6 @@
 <navbar></navbar>
 <div ng-init="init()" id="class-page">
-	<div class="heading blue" >{{classInfo.name}}</div>
+	<div class="heading blue" >{{classInfo.subjectCode}}: {{classInfo.subjectName}}</div>
 
 	<div id="extra-info" class="col-sm-4 col-xs-12">
 		<div id="subject-information">
@@ -46,13 +46,13 @@
 			</form>
 		</div>
 		<div class="threads row">
-			<div class="col-xs-12 thread" ng-repeat="thread in threads track by $index">
-				<div class="col-xs-2 votes">
-					<a href="" ng-click="upvote(thread)"><span class="glyphicon glyphicon-arrow-up"></span></a>
+			<div class="col-xs-12 thread row" ng-repeat="thread in threads track by $index">
+				<div class="col-xs-1 votes">
+					<a href="" ng-click="upvote(thread)"><span class="fa fa-arrow-up"></span></a>
 					<div>{{thread.upVotes-thread.downVotes}}</div>
-					<a href="" ng-click="downvote(thread)"><span class="glyphicon glyphicon-arrow-down"></span></a>
+					<a href="" ng-click="downvote(thread)"><span class="fa fa-arrow-down"></span></a>
 				</div>
-				<div class="col-xs-10">
+				<div class="col-xs-11">
 					<div ng-click="openComments(thread)" class="title">
 						{{thread.title}}
 					</div>

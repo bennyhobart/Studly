@@ -12,19 +12,11 @@ angular.module('studlyApp')
             $promise.then(function (data) {
                 console.log(data);
                 $scope.threads = data.threads;
+                $scope.classInfo = data.classInfo;
             }, function (data) {
                 console.log(data);
             });
-        // //Class Information
-        $scope.classInfo = {
-            name: 'Web Information Technologies',
-            subjectCode: 'INFO30005',
-            weeklyClasses: [{
-                Lecture: [],
-                Tutorials: [],
 
-            }]
-        };
         // //Dummy Data
         $scope.video = {
             date: 'Friday, March 12',
@@ -63,7 +55,7 @@ angular.module('studlyApp')
     };
 
     $scope.upvote = function(thread) {
-        class.update({
+        Class.update({
             vote: 1,
             weeklyClassId: weeklyClassId,
             topicId: thread.topicID
@@ -74,7 +66,7 @@ angular.module('studlyApp')
         });
     };
     $scope.deleteVote = function (thread) {
-        class.update({
+        Class.update({
             vote: 1,
             weeklyClassId: weeklyClassId,
             topicId: thread.topicID
@@ -85,7 +77,7 @@ angular.module('studlyApp')
         });
     }
     $scope.downvote = function(thread) {
-        class.update({
+        Class.update({
             vote: 1,
             weeklyClassId: weeklyClassId,
             topicId: thread.topicID

@@ -138,7 +138,7 @@
 
         //// CONFUSING -- two different API calls to register into a time slot YES!
 
-/api/timetable?date="String"
+/api/timetable?date=2014-05-28
     +GET, get array of weekly classes for correspond week containing date
     return: {
         //Returns a list of subjects that the user is following

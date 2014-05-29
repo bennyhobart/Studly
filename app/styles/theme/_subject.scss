@@ -39,6 +39,9 @@
     margin-left: 12px;
     margin-top: 8px;
   }
+  .class-instance:visited {
+    background-color: lighten($green, 80%);
+  }
 
   .left {
     text-align: left;

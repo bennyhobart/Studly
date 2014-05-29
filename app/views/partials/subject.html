@@ -8,25 +8,22 @@
 			<b>Options</b>
 			<hr>
 			<ul>
-				<a ng-click="enrol()" onclick="alert('Successfully enrolled into this class. Please enrol into some classes to continue.')" class="option"><li><div class="glyphicon glyphicon-edit"></div>Enrol into this subject</li></a>
-				<a ng-click="" class="option"><li><div class="glyphicon glyphicon-plus"></div>Add the selected classes to your timetable</li></a>
-				<a ng-click="" class="option"><li><div class="glyphicon glyphicon-repeat"></div>Reset your class selections for this subject</li></a>
+				<a ng-click="enrol()" onclick="alert('Successfully enrolled into these classes.')" class="option"><li><div class="glyphicon glyphicon-edit"></div>Add the selected classes to your timetable</li></a>
+				<a ng-click="clearClasses()" class="option"><li><div class="glyphicon glyphicon-repeat"></div>Reset your class selections for this subject</li></a>
 				<a ng-click="withdraw()" onclick="alert('Successfully withdrawn from this subject.')" ng-href="/subjects" class="option"><li><div class="glyphicon glyphicon-trash"></div>Withdraw from this subject</li></a>
 			</ul>
 		</div>
-	</div>
-	<div class="col-xs-12 col-sm-8">
-		<div class="col-xs-12" ng-repeat="_class in classList track by $index">
-			<div ng-repeat="classInstance in classTimes[$index]">
-		        <a ng-click=""><button class="class-instance left"type="button">
+		<div class="col-xs-12 col-sm-8" ng-repeat="_class in classList">
+			<div ng-repeat="classInstance in _class.classTimes">
+		        <a ng-click="addClass(classInstance)"><button class="class-instance left" type="button">
 		        	<div>
 		        		<b>Type:</b> {{_class.sort}}
 		        	</div>
 		        	<div>
-		        		<b>Length:</b> {{_class.duration}} hours
+		        		<b>Length:</b> {{_class.duration}} hour(s)
 		        	</div>
 					<div>
-						<b>Day:</b> {{classInstance.day}}
+						<b>Day:</b> {{days[classInstance.day]}}
 					</div>
 					<div>
 						<b>Start Time:</b> <i>{{classInstance.time}}</i>
@@ -35,7 +32,7 @@
 						<b>Building:</b> {{classInstance.sisBuildingName}}
 					</div>
 					<div>
-						<b>Room Number:</b> {{classInstance.roomNumber}}
+						<b>Room Name/Number:</b> {{classInstance.roomNumber}}
 					</div>
 		        </button></a>
 		    </div>

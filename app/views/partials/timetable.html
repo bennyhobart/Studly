@@ -39,7 +39,7 @@
 		<!-- Start header showing current week -->
 		<div class="heading blue-dark row">
 			<!-- <i class="fa fa-angle-left"></i> -->
-			Week {{atualWeekDay}} <span class="weekLabel">({{firstDayOfWeek()}} - {{lastDayOfWeek()}})</span>
+			Week {{atualWeekDay}} <span class="weekLabel">({{firstDayOfWeek()}} - {{lastDayOfWeek()}})</span> 
 			<!-- <i class="fa fa-angle-right"></i> -->
 		</div>
 		<!-- End header showing current week -->
@@ -82,8 +82,8 @@
 							<div class="class col-sm-2 col-xs-1" ng-class="{'blue-lighter' : getDayNumber()==d}">
 								<div ng-repeat="subject in subjs">
 									<div ng-repeat="class in subject.classes | filter: { day: d }">
-										<div ng-if="(getPlainTime(class.time) >= t && getPlainTime(class.time) < t+100)">
-											<a ng-click="goToClass(class.weeklyClassID)">
+										<div ng-if="getPlainTime(class.time) >= t && getPlainTime(class.time) < t+class.duration*100">
+											<a ng-click="goToClass(class.weeklyClassID)"> 
 											<b><i>{{class.sort.substr(0,3)}}</i></b> {{subject.subjectName}}<br/>
 											<span class="locationFont">{{class.sisBuildingName}} {{class.roomNumber}}</span>
 											<div ng-show="class.attended">
@@ -101,14 +101,14 @@
 						<div class="col-sm-1">
 						</div>
 						<!-- End placeholder -->
-
+							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- End timetable row for for each hour -->
-		<br/><br/>
+		<br/><br/><br/>
 	</div>
 	<!-- End timetable -->
 </div>

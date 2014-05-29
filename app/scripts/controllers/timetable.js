@@ -25,24 +25,14 @@ angular.module('studlyApp')
     'Karma'
   ];
 
-  /*Timetable.get().$promise.then(
-  //success
-  function (data) {
-    //$scope.subjs = data.subject;
-    //console.log(data.subject);
-  },
-  //failure
-  function (data) {
-    console.log('Error getting data 1.');
-  });*/
+  $scope.goToClass = function (classId) {
+    $location.url('/class/' + classId);
+  };
 
-		/*
-    $scope.toggleCustom = function() {
-          $scope.custom = $scope.custom === false ? true: false;
-    };
+  /*
+  Function to get the day of week.
+  Source: http://javascript.about.com/library/blweekyear.htm
   */
-
-  /*http://javascript.about.com/library/blweekyear.htm*/
   Date.prototype.getWeek = function() {
     var onejan = new Date(this.getFullYear(),0,1);
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
@@ -73,15 +63,15 @@ angular.module('studlyApp')
   $scope.thisWeekObject = new Date();
 
   $scope.firstDayOfWeek = function() {
-    var first = new Date().getDate() - new Date().getDay() + 1 + (($scope.atualWeekDay - $scope.todayWeekDay)*7); // First day is the day of the month - the day of the week
+    var first = new Date().getDate() - new Date().getDay() + (($scope.atualWeekDay - $scope.todayWeekDay)*7) + 1;
     var firstDay = new Date(new Date().setDate(first));
     return firstDay.getDate() + " " + monthList[firstDay.getMonth()];
   }
 
   $scope.lastDayOfWeek = function() {
-    var first = new Date().getDate() - new Date().getDay() + 5 + (($scope.atualWeekDay - $scope.todayWeekDay)*7); // First day is the day of the month - the day of the week
-    var firstDay = new Date(new Date().setDate(first));
-    return firstDay.getDate() + " " + monthList[firstDay.getMonth()];
+    var last = new Date().getDate() - new Date().getDay() + (($scope.atualWeekDay - $scope.todayWeekDay)*7) + 5 ;
+    var lastDay = new Date(new Date().setDate(last));
+    return lastDay.getDate() + " " + monthList[lastDay.getMonth()];
   }
 
   $scope.loading = true;
@@ -102,7 +92,6 @@ angular.module('studlyApp')
         $scope.updateSql();
       }
   }
-
 
   $scope.toggleMark = function(classId){
     Class.put({weeklyClassID: classId}, {
@@ -137,26 +126,7 @@ angular.module('studlyApp')
       return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
   }
 
-
   $scope.updateSql();
-
-    /*Timetable.get({
-      date: $scope.sqlQueryDate($scope.thisWeekObject)
-    }).$promise.then(
-    //success
-    function (data) {
-      $scope.subjs = data.subject;
-      console.log(data);
-    },
-    //failure
-    function (data) {
-      console.log('Error getting data 2.');
-    });
-
-    $scope.goToClass = function (classId) {
-      $location.url('/class/' + classId);
-    };*/
-
 
   $scope.formatTime = function(time) {
   	var hour;
@@ -165,14 +135,6 @@ angular.module('studlyApp')
 	  } else {
 		 hour = time.toString().substr(0,1);
 	  }
-
-	  var amPM;
-		 if ((time - 1200 > 0)) {
-		   	time = time - 1200;
-		   	amPM = " PM";
-		 } else {
-		   	amPM = " AM";
-		 }
 		
 		 return hour + ":" + time.toString().slice(-2);
   };
@@ -213,99 +175,5 @@ angular.module('studlyApp')
       return "Weekend";
     }
   }
-
-  /*var class1 = {
-    id: 1,
-    time: 915,
-    end: 1100,
-    day: 1,
-    type: "Lecture",
-    building: "Doug McDonell",
-    theatre: "Steve Howard",
-    marked: false
-  };
-
-  var class2 = {
-    id: 2,
-    time: 1400,
-    end: 1600,
-    day: 2,
-    type: "Lecture",
-    building: "Doug McDonell",
-    theatre: "Denis Discroll",
-    marked: false
-  };
-
-  var class3 = {
-    id: 3,
-    time: 1800,
-    end: 1900,
-    day: 1,
-    type: "Lecture",
-    building: "Alice Roy",
-    theatre: "Room 227",
-    marked: false
-  };
-
-  var class4 = {
-    id: 4,
-    time: 1800,
-    end: 1900,
-    day: 3,
-    type: "Tutorial",
-    building: "Alice Roy",
-    theatre: "Room 227",
-    marked: true
-  };
-
-  var class5 = {
-    id: 5,
-    time: 1800,
-    end: 1900,
-    day: 5,
-    type: "Tutorial",
-    building: "Alice Roy",
-    theatre: "Room 227",
-    marked: false
-  };
-
- 	var AI = {
- 		name: "Artificial Inteligence",
- 		code: "COMP30050",
-    color: "blue-light",
-    classes: [class1, class4]
- 	};
-
- 	var COMPLEX = {
- 		name: "Modelling Complex Software Systems",
- 		code: "COMP40001",
-    color: "orange",
-    classes: [class2]
- 	};
-
- 	var WEB = {
- 		name: "Web Information Technologies",
- 		code: "INFO30005",
-    color: "blue-light",
-    classes: [class3, class5]
- 	};
-
-  $scope.subjects = [AI, COMPLEX, WEB];
-
-  $scope.allclasses = [class1, class2, class3, class4, class5];
-  */
-
-  /*$scope.toggleMark = function(classId) {
-    for (var i = 0; i < $scope.allclasses.length; i++) {
-      if ($scope.allclasses[i].id == classId) {
-        if ($scope.allclasses[i].marked) {
-          $scope.allclasses[i].marked = false;
-        } else {
-          $scope.allclasses[i].marked = true;
-        }
-      }
-    }
-  }*/
-
 
   });

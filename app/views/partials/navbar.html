@@ -11,13 +11,13 @@
     </div>
     <div class="nav-main col-xs-12 navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="loggedIn" ng-class="{active: isActive('/login')}"><a ng-href="/login">Login</a></li>
-        <li ng-show="loggedIn" ng-class="{active: isActive('/profile')}"><a ng-href="/profile">Profile</a></li>
-        <li ng-show="loggedIn" ng-class="{active: isActive('/subjects')}"><a ng-href="/subjects">Subjects</a></li>
-        <li ng-show="loggedIn" ng-class="{active: isActive('/timetable')}"><a ng-href="/timetable">Timetable</a></li>
+        <li ng-hide="loggedIn()" ng-class="{active: isActive('/login')}"><a ng-href="/login">Login</a></li>
+        <li ng-show="loggedIn()" ng-class="{active: isActive('/profile')}"><a ng-href="/profile">Profile</a></li>
+        <li ng-show="loggedIn()" ng-class="{active: isActive('/subjects')}"><a ng-href="/subjects">Subjects</a></li>
+        <li ng-show="loggedIn()" ng-class="{active: isActive('/timetable')}"><a ng-href="/timetable">Timetable</a></li>
         <li ng-class="{active: isActive('/about')}"><a ng-href="/about">About</a></li>
         <li ng-class="{active: isActive('/contact')}"><a ng-href="/contact">Contact</a></li>
-        <li ng-show="loggedIn"><a href="" ng-click="logout()">Logout</a></li>
+        <li ng-show="loggedIn()"><a href="" ng-click="logout()">Logout</a></li>
       </ul>
     </div>
   </div>

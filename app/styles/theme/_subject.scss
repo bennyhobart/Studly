@@ -1,21 +1,13 @@
 #subject-page {
-  min-width: 300px;
-
-  #main-header {
-    color: white;
-    text-align: center;
-    background-color: $blue;
-    font-size: 1.8em;
-    height: 50px;
-    padding: 10px 0px;
-  }
+  min-width: $screen-xs;
 
   .sub-header {
     color: white;
     background-color: $light-blue;
-    font-size: 1.3em;
-    height: 40px;
-    padding: 10px 10px;
+    font-size: $font-size-h4;
+    height: 30px;
+    padding-left: 20px;
+    padding-top: 2px;
   }
 
   ul {
@@ -33,5 +25,26 @@
 
   .option:hover {
     cursor: pointer;
+  }
+
+  .class-instance {
+    background-color: lighten(#000, 80%);
+    text-indent: 0px;
+    display: list-item;
+    color: black;
+    font-family: Arial;
+    border: 0px;
+    line-height: 33px;
+    width: 100%;
+    margin-left: 12px;
+    margin-top: 8px;
+  }
+
+  .left {
+    text-align: left;
+  }
+
+  .right {
+    text-align: right;
   }
 }

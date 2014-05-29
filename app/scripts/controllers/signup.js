@@ -2,6 +2,9 @@
 
 angular.module('studlyApp')
   .controller('SignupCtrl', function ($scope, $location, $http, Auth) {
+    if(Auth.isLoggedIn) {
+        $location.url('/timetable');
+    }
     $scope.submitForm = function () {
         console.log('send');
         Auth.createUser({

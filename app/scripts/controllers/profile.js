@@ -7,6 +7,7 @@ angular.module('studlyApp')
             function (data) {
                 $scope.data = data;
             }, function (data) {
+                alert(data.data.error);
             });
 
     };
@@ -16,6 +17,7 @@ angular.module('studlyApp')
             password: $scope.deleteAccountPassword
         }).$promise.then(function (data) {
         }, function (data) {
+            alert(data.data.error);
         });
     };
     $scope.changePassword = function () {
@@ -24,7 +26,9 @@ angular.module('studlyApp')
             newPassword: $scope.newPassword,
             newPasswordRepeated: $scope.newPasswordRepeated,
         }).$promise.then(function (data) {
+            alert('Password Change Successful!');
         }, function (data) {
+            alert(data.data.error);
         });
 
     };

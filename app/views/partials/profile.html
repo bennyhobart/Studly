@@ -1,31 +1,35 @@
 <navbar></navbar>
 <div ng-init="init()">
     <div class="heading blue">  Profile </div>
-    <div class="col-md-6 col-md-offset-3">
+    <div>
         <div>
-            <div class="subheading blue-light">Username</div>
-            <div>{{data.username}}</div>
-        </div>
-        <div>
-            <div class="subheading blue-light">Email</div>
-            <div>{{data.email}}</div>
-        </div>
-        <form ng-submit="changePassword()">
-            <div class="subheading orange">Change Password</div>
-            <div class="form-group">
-                <input class="form-control" ng-model="oldPassword" type="password" placeholder="old password">
-                <input class="form-control" ng-model="newPassword" type="password" placeholder="new password">
-                <input class="form-control" ng-model="newPasswordRepeated" type="password" placeholder="new password again">
-                <button type="submit" class="form-control btn btn-default">Change Password</button>
+            <div class="col-md-6">
+                <div class="subheading blue-light row">Username</div>
+                <div>{{data.username}}</div>
             </div>
-        </form>
-        <form ng-submit="deleteAccount()">
-            <div class="subheading orange">Delete Account</div>
+            <div class="col-md-6">
+                <div class="subheading blue-light row">Email</div>
+                <div>{{data.email}}</div>
+            </div>
+        </div>
+        <div>
+            <form ng-submit="changePassword()" class="col-md-6">
+                <div class="subheading orange row">Change Password</div>
+                <div class="form-group">
+                    <input class="form-control" ng-model="oldPassword" type="password" placeholder="old password">
+                    <input class="form-control" ng-model="newPassword" type="password" placeholder="new password">
+                    <input class="form-control" ng-model="newPasswordRepeated" type="password" placeholder="new password again">
+                    <button type="submit" class="form-control btn btn-default">Change Password</button>
+                </div>
+            </form>
+            <form ng-submit="deleteAccount()" class="col-md-6">
+                <div class="subheading orange row">Delete Account</div>
 
-            <input class="form-control" ng-model="deleteAccountPassword" type="password" placeholder="password">
-            <button type="submit" class="form-control btn btn-default">
-        </form>
-        Delete Account</button>
+                <input class="form-control" ng-model="deleteAccountPassword" type="password" placeholder="password">
+                <button type="submit" class="form-control btn btn-default">Delete Account</button>
+            </form>
+        </div>
+
 
     </div>
 

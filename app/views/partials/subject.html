@@ -1,19 +1,45 @@
 <navbar></navbar>
-<div id="subject-page">
-	<div id="main-header">
+<div ng-init="init()" id="subject-page">
+	<div class="heading blue">
 		<div class="col-xs-12">Manage your Enrolment</div>
 	</div>
 	<div class="col-xs-12">
-		<div class="sub-header">Subject Name: ____ Subject ID: {{manageID}}</div>
+		<div class="sub-header">{{subjectName}} --- Semester {{semesterID}}</div>
 		<div class="col-xs-12 col-sm-4">
 			<b>Options</b>
 			<hr>
 			<ul>
+				<a ng-click="enrol()" onclick="alert('Successfully enrolled into this class. Please enrol into some classes to continue.')" class="option"><li><div class="glyphicon glyphicon-edit"></div>Enrol into this subject</li></a>
 				<a ng-click="" class="option"><li><div class="glyphicon glyphicon-plus"></div>Add the selected classes to your timetable</li></a>
 				<a ng-click="" class="option"><li><div class="glyphicon glyphicon-repeat"></div>Reset your class selections for this subject</li></a>
-				<a ng-click="" class="option"><li><div class="glyphicon glyphicon-trash"></div>Stop tracking this subject</li></a>
+				<a ng-click="withdraw()" onclick="alert('Successfully withdrawn from this subject.')" ng-href="/subjects" class="option"><li><div class="glyphicon glyphicon-trash"></div>Withdraw from this subject</li></a>
 			</ul>
 		</div>
-		<p>A view of the timetable will go here.</p>
+	</div>
+	<div class="col-xs-12 col-sm-8">
+		<div class="col-xs-12" ng-repeat="class in classList track by $index">
+			<div ng-repeat="class-instance in classTimes[$index]">
+		        <a ng-click=""><button class="class-instance left"type="button">
+		        	<div>
+		        		<b>Type:</b> {{class.sort}}
+		        	</div>
+		        	<div>
+		        		<b>Length:</b> {{class.duration}} hours
+		        	</div>
+					<div>
+						<b>Day:</b> {{class-instance.day}}
+					</div>
+					<div>
+						<b>Start Time:</b> <i>{{class-instance.time}}</i>
+					</div>
+					<div>
+						<b>Building:</b> {{class-instance.sisBuildingName}}
+					</div>
+					<div>
+						<b>Room Number:</b> {{class-instance.roomNumber}}
+					</div>
+		        </button></a>
+		    </div>
+		</div>
 	</div>
 </div>

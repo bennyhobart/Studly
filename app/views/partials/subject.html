@@ -17,26 +17,26 @@
 		</div>
 	</div>
 	<div class="col-xs-12 col-sm-8">
-		<div class="col-xs-12" ng-repeat="class in classList track by $index">
-			<div ng-repeat="class-instance in classTimes[$index]">
+		<div class="col-xs-12" ng-repeat="_class in classList track by $index">
+			<div ng-repeat="classInstance in classTimes[$index]">
 		        <a ng-click=""><button class="class-instance left"type="button">
 		        	<div>
-		        		<b>Type:</b> {{class.sort}}
+		        		<b>Type:</b> {{_class.sort}}
 		        	</div>
 		        	<div>
-		        		<b>Length:</b> {{class.duration}} hours
+		        		<b>Length:</b> {{_class.duration}} hours
 		        	</div>
 					<div>
-						<b>Day:</b> {{class-instance.day}}
+						<b>Day:</b> {{classInstance.day}}
 					</div>
 					<div>
-						<b>Start Time:</b> <i>{{class-instance.time}}</i>
+						<b>Start Time:</b> <i>{{classInstance.time}}</i>
 					</div>
 					<div>
-						<b>Building:</b> {{class-instance.sisBuildingName}}
+						<b>Building:</b> {{classInstance.sisBuildingName}}
 					</div>
 					<div>
-						<b>Room Number:</b> {{class-instance.roomNumber}}
+						<b>Room Number:</b> {{classInstance.roomNumber}}
 					</div>
 		        </button></a>
 		    </div>

@@ -5,7 +5,7 @@ angular.module('studlyApp')
 	var subjectID;
 	$scope.subjectName = "Placeholder";
 
-	$scope.init = function () { 
+	$scope.init = function () {
 		subjectID = $rootScope.manageID;
 		Subject.getData({id: subjectID}).
 			$promise.then(function (data) {
@@ -16,7 +16,7 @@ angular.module('studlyApp')
 	                $scope.semesterID = data.semesterID;
 				    $scope.classList = data.class;
 				    angular.forEach($scope.classList, function(index) {
-				    	this.push(index.classTimes);
+				    	return index.classTimes;
 				    }, $scope.classTimes);
 	            }, function (data) {
 	            // Failure
@@ -43,9 +43,9 @@ angular.module('studlyApp')
       }
     );
 
-	$scope.enrol = function () { 
+	$scope.enrol = function () {
 		Subject.enrol({
-			subjectID: subjectID 
+			subjectID: subjectID
 		}).$promise.then(function (data) {
             console.log(data);
         }, function (data) {
@@ -53,9 +53,9 @@ angular.module('studlyApp')
         });
 	}
 
-	$scope.withdraw = function () { 
+	$scope.withdraw = function () {
 		Subject.withdraw({
-			subjectID: subjectID 
+			subjectID: subjectID
 		}).$promise.then(function (data) {
             console.log(data);
         }, function (data) {

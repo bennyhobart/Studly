@@ -144,15 +144,15 @@ angular.module('studlyApp')
   };
 
   $scope.formatDay = function(day) {
-    if (day == 1) {
+    if (day == 0) {
       return "Mon";
-    } else if (day == 2) {
+    } else if (day == 1) {
       return "Tue";
-    } else if (day == 3) {
+    } else if (day == 2) {
       return "Wed";
-    } else if (day == 4) {
+    } else if (day == 3) {
       return "Thu";
-    } else if (day == 5) {
+    } else if (day == 4) {
       return "Fri";
     }
   }

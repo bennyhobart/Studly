@@ -78,7 +78,7 @@
 						</div>
 
 						<!-- Start column for each day of the week -->
-						<div ng-repeat="d in [1,2,3,4,5]">
+						<div ng-repeat="d in [0,1,2,3,4]">
 							<div class="class col-sm-2 col-xs-1" ng-class="{'blue-lighter' : getDayNumber()==d}">
 								<div ng-repeat="subject in subjs">
 									<div ng-repeat="class in subject.classes | filter: { day: d }">

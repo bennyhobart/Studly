@@ -5,7 +5,7 @@
 
 		<!-- Start subjects list -->
 		<div ng-show="errorStatus">
-			<div class="subjectSubHeading white row" ng-click="updateSql()"><i>Error fetching data. Click to retry.</i></div>
+			<div class="subjectSubHeading white row"><i>Error fetching data.</i></div>
 		</div>
 		<div ng-hide="errorStatus">
 			<div ng-show="loading">
@@ -63,8 +63,8 @@
 		<!-- End topbar showing days of the week -->
 
 		<!-- Start timetable row for for each hour -->
-		<div ng-show="errorStatus" ng-click="updateSql()">
-			<br/><center><i><i>Error fetching data. Click to retry.</i></center>
+		<div ng-show="errorStatus">
+			<br/><center><i><i>Error fetching data.</i></center>
 		</div>
 		<div ng-hide="errorStatus">
 			<div ng-show="loading">
